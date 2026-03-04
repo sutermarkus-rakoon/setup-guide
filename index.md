@@ -18,20 +18,75 @@ layout: default
 
 This guide covers two paths. Both use **Claude Code + GitHub** — they only differ in where your app is hosted:
 
-| | Path A: Railway | Path B: Azure |
-|---|---|---|
-| **What is it?** | Modern, simple cloud platform | Microsoft enterprise cloud |
-| **Best for** | Side projects, startups, MVPs | Business apps, compliance, enterprise |
-| **Complexity** | Easy — connect GitHub, done | More setup, more control |
-| **Deploy time** | ~10 minutes | ~45 minutes |
-| **Auto-deploy** | Yes (on git push) | Yes (via GitHub Actions) |
-| **EU data residency** | Limited (US servers) | Yes (`westeurope`, `switzerlandnorth`) |
-| **Compliance (GDPR, SOC2)** | Limited | Full |
-| | | |
-| **Claude Pro** (required) | $20/month | $20/month |
-| **GitHub** | Free | Free |
-| **Hosting + Database** | ~$5/month | ~$42/month |
-| **Total** | **~$25/month** | **~$62/month** |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left;"></th>
+      <th style="padding:10px 14px; text-align:left;">Path A: Railway</th>
+      <th style="padding:10px 14px; text-align:left;">Path B: Azure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>What is it?</strong></td>
+      <td style="padding:8px 14px;">Modern, simple cloud platform</td>
+      <td style="padding:8px 14px;">Microsoft enterprise cloud</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Best for</strong></td>
+      <td style="padding:8px 14px;">Side projects, startups, MVPs</td>
+      <td style="padding:8px 14px;">Business apps, compliance, enterprise</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Complexity</strong></td>
+      <td style="padding:8px 14px;">Easy — connect GitHub, done</td>
+      <td style="padding:8px 14px;">More setup, more control</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Deploy time</strong></td>
+      <td style="padding:8px 14px;">~10 minutes</td>
+      <td style="padding:8px 14px;">~45 minutes</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Auto-deploy</strong></td>
+      <td style="padding:8px 14px;">Yes (on git push)</td>
+      <td style="padding:8px 14px;">Yes (via GitHub Actions)</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>EU data residency</strong></td>
+      <td style="padding:8px 14px;">Limited (US servers)</td>
+      <td style="padding:8px 14px;">Yes (<code>westeurope</code>, <code>switzerlandnorth</code>)</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Compliance (GDPR, SOC2)</strong></td>
+      <td style="padding:8px 14px;">Limited</td>
+      <td style="padding:8px 14px;">Full</td>
+    </tr>
+    <tr style="background:#1e293b; color:white;">
+      <td style="padding:10px 14px;" colspan="3"><strong>Monthly Cost</strong></td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Claude Pro</strong> (required)</td>
+      <td style="padding:8px 14px;">$20/month</td>
+      <td style="padding:8px 14px;">$20/month</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>GitHub</strong></td>
+      <td style="padding:8px 14px;">Free</td>
+      <td style="padding:8px 14px;">Free</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Hosting + Database</strong></td>
+      <td style="padding:8px 14px;">~$5/month</td>
+      <td style="padding:8px 14px;">~$42/month</td>
+    </tr>
+    <tr style="background:#e2e8f0; font-weight:bold;">
+      <td style="padding:10px 14px;"><strong>Total</strong></td>
+      <td style="padding:10px 14px;"><strong>~$25/month</strong></td>
+      <td style="padding:10px 14px;"><strong>~$62/month</strong></td>
+    </tr>
+  </tbody>
+</table>
 
 > Claude Pro ($20/month) is required for Claude Code. For heavy usage, Claude Max ($100–200/month) gives higher limits. Free Claude accounts can only use Claude.ai in the browser — not Claude Code.
 
