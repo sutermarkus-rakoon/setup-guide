@@ -4,6 +4,8 @@ layout: default
 
 # Developer Setup Guide
 
+**v1.0** · Published March 4, 2026 · Author: M. Suter, Switzerland
+
 > **From zero to deployed** — everything you need to start building with Claude Code, GitHub, and Cloud Infrastructure. No prior experience required.
 
 <p align="center" style="margin: 1.5em 0;">
@@ -1006,4 +1008,4 @@ claude                    # Start Claude Code
 
 ---
 
-*Last updated: March 2026. Built with Claude Code.*
+*v1.0 · March 4, 2026 · M. Suter, Switzerland · Built with Claude Code.*
