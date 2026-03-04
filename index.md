@@ -925,6 +925,51 @@ Here's the full picture — everything you'll pay per month:
 **Q: Is my API key safe?**
 > Yes, as long as you store it in environment variables (Railway dashboard or Azure App Settings) and never commit it to your code. Add `.env` to your `.gitignore` file.
 
+### Lessons from the Field
+
+These are real lessons learned from deploying 4 production apps across Railway and Azure. They'll save you hours of debugging.
+
+#### Deployment Gotchas
+
+**Railway:**
+- `git push` is all you need — Railway auto-detects, builds, and deploys. No config files needed in most cases.
+- If your app uses **Prisma** (database ORM), keep `prisma` and `tsx` in `dependencies`, NOT `devDependencies`. Railway installs with `--omit=dev` and your build will fail silently.
+- After first deploy: go to **Settings → Networking → Generate Domain** — otherwise your app is deployed but not exposed to the internet ("Unexposed service").
+- If builds feel stale, set `NIXPACKS_NO_CACHE=1` temporarily to clear the build cache.
+
+**Azure:**
+- **Always use Service Principal for GitHub Actions**, not Publish Profile. Publish Profile is unreliable for new apps and will waste your time.
+- The admin username Azure assigns to your database might not be what you typed. Always verify: `az postgres flexible-server show --query administratorLogin`.
+- Database passwords with special characters (`!@#$`) can break connection strings. Use only letters and numbers.
+- Always append `?sslmode=require` to your PostgreSQL connection string — Azure requires SSL.
+- Azure resource names must be globally unique. Use a prefix like `yourname-projectname`.
+
+#### Database Lessons
+
+- **Never skip backups.** Railway and Azure both do automatic backups — use their managed databases, not random free PostgreSQL hosts.
+- **Run migrations at startup, not at build time.** On Railway (and Azure), your database isn't reachable during the build phase. Put `prisma migrate deploy` in your start script.
+- **Test your database connection locally first** before deploying. If you can't connect from your machine, your app won't be able to either.
+
+#### Code & Architecture
+
+- **Inline styles beat CSS classes for small teams.** Sounds wrong, but eliminates build tools, naming conflicts, and specificity battles. When you grow, you can switch to a design system.
+- **Start with `sessionStorage` auth for private/internal apps.** Don't spend days on OAuth before your app even works. Add real auth when you actually need it.
+- **Always use a `.gitignore` from day one.** Ask Claude Code: *"create a .gitignore for a Node.js project"* — it knows what to exclude.
+
+#### Working with Claude Code
+
+- **Write a good CLAUDE.md early.** The better your project instructions, the fewer mistakes Claude makes. Include: tech stack, commands to build/test, code style rules.
+- **Use Plan Mode (Shift+Tab) before big changes.** Let Claude analyze the codebase first, then switch to Normal mode to implement.
+- **Commit often.** Claude sometimes takes a wrong path. If you committed before the change, you can easily undo with `git checkout .` — if you didn't, you might lose work.
+- **Don't run complex one-liners on Windows.** Characters like `!` get escaped by bash. Write a `.js` or `.ts` file instead and run it with `node` or `tsx`.
+
+#### Data Privacy (GDPR / DSGVO)
+
+- **If your users are in Europe, you need GDPR compliance from day one** — not "later". This includes a privacy policy, data processing agreements with your hosting provider, and the ability for users to delete their data.
+- **Railway's servers are in the US by default.** This may be a problem for EU data residency requirements. Azure lets you choose `westeurope` (Netherlands) or `switzerlandnorth` for full compliance.
+- **Don't store more data than you need.** Every field you collect is a field you must protect, explain in your privacy policy, and delete on request.
+- **Passwords in your database should be hashed** (use bcrypt or argon2). Never store plain-text passwords. If you're using an auth library (Clerk, NextAuth), this is handled for you.
+
 ---
 
 ## Quick Reference Card
