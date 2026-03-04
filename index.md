@@ -4,7 +4,7 @@ layout: default
 
 # Developer Setup Guide
 
-**v1.0** · Published March 4, 2026 · Author: M. Suter, Switzerland
+**v1.1** · Published March 4, 2026 · Author: M. Suter, Switzerland
 
 > **From zero to deployed** — everything you need to start building with Claude Code, GitHub, and Cloud Infrastructure. No prior experience required.
 
@@ -13,6 +13,74 @@ layout: default
   <br>
   <em style="font-size: 14px; color: #64748b;">Save the file, then upload it to <a href="https://claude.ai">Claude.ai</a> — it will walk you through the entire setup step by step.</em>
 </p>
+
+<!-- Tab Navigation -->
+<style>
+.guide-tabs {
+  display: flex;
+  gap: 0;
+  margin: 2em 0 0 0;
+  border-bottom: 3px solid #1e293b;
+}
+.guide-tab {
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: #f1f5f9;
+  color: #64748b;
+  transition: all 0.2s ease;
+  position: relative;
+  bottom: -3px;
+}
+.guide-tab:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+.guide-tab.active {
+  background: white;
+  color: #1e293b;
+  border-color: #1e293b;
+  border-bottom: 3px solid white;
+}
+.guide-tab-badge {
+  display: inline-block;
+  background: #f97316;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+}
+</style>
+
+<div class="guide-tabs">
+  <button class="guide-tab active" onclick="switchGuideTab('basic', this)">Basic</button>
+  <button class="guide-tab" onclick="switchGuideTab('advanced', this)">Advanced <span class="guide-tab-badge">NEU</span></button>
+</div>
+
+<script>
+function switchGuideTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.guide-tab').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+<!-- ==================== BASIC TAB ==================== -->
+<div id="tab-basic" class="tab-panel active" markdown="1">
 
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
@@ -475,7 +543,7 @@ Toggle with `Shift+Tab` during a session.
 
 ### 4.7.1 YOLO Mode: `--dangerously-skip-permissions`
 
-> ⚠️ **USE WITH CAUTION** — This flag is extremely efficient but skips ALL safety checks. Claude will execute any action (edit files, run commands, delete things) without asking you first. Only use this if you know what you're doing and trust your instructions.
+> **USE WITH CAUTION** — This flag is extremely efficient but skips ALL safety checks. Claude will execute any action (edit files, run commands, delete things) without asking you first. Only use this if you know what you're doing and trust your instructions.
 
 ```bash
 claude --dangerously-skip-permissions
@@ -486,12 +554,12 @@ claude --dangerously-skip-permissions
 **Why it's dangerous**: Claude can and will run destructive commands if it thinks that's the right solution. There's no "are you sure?" — it just does it. One wrong instruction and files are gone, databases are wiped, or code is pushed.
 
 **Rules of thumb:**
-- ✅ Use it on throwaway branches or projects you can restore
-- ✅ Use it when your CLAUDE.md is well-defined and tested
-- ✅ Use it for read-heavy tasks (analysis, code review)
-- ❌ Never use it on production databases or critical infrastructure
-- ❌ Never use it if you're unsure what Claude might do
-- ❌ Never use it without version control (git) as a safety net
+- Use it on throwaway branches or projects you can restore
+- Use it when your CLAUDE.md is well-defined and tested
+- Use it for read-heavy tasks (analysis, code review)
+- Never use it on production databases or critical infrastructure
+- Never use it if you're unsure what Claude might do
+- Never use it without version control (git) as a safety net
 
 ### 4.8 CLAUDE.md — Project Instructions
 
@@ -1087,3 +1155,347 @@ claude                    # Start Claude Code
 ---
 
 *v1.0 · March 4, 2026 · M. Suter, Switzerland · Built with Claude Code.*
+
+</div>
+
+<!-- ==================== ADVANCED TAB ==================== -->
+<div id="tab-advanced" class="tab-panel" markdown="1">
+
+## Multi-Session Team-Modus
+
+> **Mehrere Claude Code Sessions gleichzeitig als Team nutzen** — ein Orchestrator koordiniert, mehrere Developer arbeiten parallel, ein QC prüft die Qualität. So erledigst du in einer Stunde, wofür du sonst einen ganzen Tag brauchst.
+
+---
+
+### Was ist der Team-Modus?
+
+Im Basic-Modus arbeitest du mit **einer** Claude Code Session. Das funktioniert gut für kleine Aufgaben. Aber was, wenn du ein grösseres Projekt hast — z.B. gleichzeitig i18n einbauen, Responsive Bugs fixen und Tests schreiben?
+
+Im **Team-Modus** öffnest du mehrere Terminals, startest in jedem eine eigene Claude Code Session, und gibst jeder Session eine **Rolle** und einen **Namen**. Die Sessions koordinieren sich über Dateien im Projekt — wie ein echtes Entwickler-Team.
+
+```
+Terminal 1: Anton (Orchestrator)  — koordiniert, committed, deployt
+Terminal 2: Benno (Developer)     — arbeitet an Feature A
+Terminal 3: Chasperli (Developer) — arbeitet an Feature B
+Terminal 4: Donald (Developer)    — arbeitet an Feature C
+Terminal 5: Egon (Quality Control) — prüft Code-Qualität, testet
+```
+
+**Voraussetzung:** Alle Sessions laufen im selben Projekt-Ordner und nutzen dasselbe Git-Repo.
+
+---
+
+### Rollen
+
+| Rolle | Aufgaben | Regeln |
+|-------|----------|--------|
+| **Orchestrator** | Verteilt Aufträge, koordiniert, committed, pusht, deployt | Nur er editiert die Auftragsliste. Nur er committed/pusht. |
+| **Developer** | Entwickelt Features, fixt Bugs, setzt Aufträge um | Arbeitet nur an zugewiesenen Aufgaben. Kein Commit/Push. |
+| **Quality Control** | Testet, reviewt Code, prüft Qualität | Meldet Probleme an den Orchestrator. |
+
+**Wichtig:** Die Rollen sind strikt getrennt. Ein Developer committed nie selbst — er meldet dem Orchestrator, dass seine Arbeit fertig ist. Der Orchestrator prüft und committed.
+
+---
+
+### Namensvergabe
+
+Die Team-Mitglieder bekommen feste Namen in alphabetischer Reihenfolge:
+
+| Reihenfolge | Name | Rolle |
+|-------------|------|-------|
+| 1. Session | **Anton** | Orchestrator |
+| 2. Session | **Benno** | Developer |
+| 3. Session | **Chasperli** | Developer |
+| 4. Session | **Donald** | Developer |
+| 5. Session | **Egon** | Quality Control |
+
+Wenn du eine neue Session öffnest, nimmst du den nächsten freien Namen. Die erste Session ist immer der Orchestrator.
+
+> **Tipp:** Beim Starten der Session sagst du Claude einfach: *"Du bist Benno, Developer im Team. Lies status/board.md und melde dich an."* — Claude versteht das und verhält sich entsprechend.
+
+---
+
+### Koordination: Der `status/` Ordner
+
+Das Herzstück des Team-Modus ist ein `status/`-Ordner im Projekt-Root. Er enthält drei Arten von Dateien:
+
+```
+project/
+├── status/
+│   ├── board.md           ← Aufträge (nur Orchestrator editiert)
+│   ├── nachrichten.md     ← Briefkasten (alle dürfen appenden)
+│   ├── anton.md           ← Antons Status-File
+│   ├── benno.md           ← Bennos Status-File
+│   ├── chasperli.md       ← Chasperlis Status-File
+│   └── ...
+```
+
+#### `board.md` — Die Auftragsliste
+
+Hier stehen alle Aufträge. **Nur der Orchestrator editiert dieses File.** Enthält:
+- Erledigte Aufträge (durchgestrichen)
+- Offene Aufträge mit Beschreibung, Scope und betroffenen Dateien
+- Team-Regeln
+
+**Beispiel:**
+
+```markdown
+## Erledigte Aufträge
+- ~~Login-Screen Rollen-Darstellung~~ ✅
+- ~~Toast-System, Loading-States, CSV-Export~~ ✅
+
+## Offene Aufträge
+
+### Feature: Zweisprachigkeit DE/EN
+**Beschreibung:** Alle UI-Texte sollen auf Deutsch und Englisch verfügbar sein.
+**Betroffene Dateien:** src/i18n.tsx, src/locales/, alle Pages
+**Zugewiesen an:** Chasperli + Benno
+```
+
+#### `nachrichten.md` — Der Briefkasten
+
+Hier kommunizieren die Team-Mitglieder untereinander. **Jeder darf appenden** (neue Zeilen hinzufügen), aber niemand löscht Nachrichten anderer.
+
+**Beispiel:**
+
+```markdown
+| Von | An | Nachricht | Erledigt |
+|-----|-----|-----------|----------|
+| Benno | Anton | Feature X ist fertig! Bitte committen. | ⬜ |
+| Anton | Benno | ✅ Committed + deployed. | ✅ |
+| Chasperli | Benno | Kannst du mir bei i18n helfen? | ⬜ |
+```
+
+**Wichtige Regel:** Jede Session pollt den Briefkasten regelmässig (alle ~15 Sekunden) und reagiert auf eigene Nachrichten.
+
+#### `<name>.md` — Persönliche Status-Files
+
+Jedes Team-Mitglied hat ein eigenes Status-File. **Nur der Agent selbst schreibt in sein File.** Enthält:
+- Online/Offline-Status
+- Aktuelle Aufgabe
+- Betroffene Dateien (für Konflikt-Vermeidung!)
+- Liste erledigter Aufgaben
+
+**Beispiel (`status/benno.md`):**
+
+```markdown
+# Benno — Developer
+
+| Feld | Wert |
+|------|------|
+| Status | online |
+| Angemeldet | 2026-03-04 14:30 |
+| Letzte Aktivität | 2026-03-04 15:12 |
+| Aktuelle Aufgabe | Responsive Bugfixes |
+| Betroffene Dateien | src/pages/SupplierDetail.tsx, src/index.css |
+
+## Erledigt
+- Login-Screen Rollen-Darstellung — committed by Anton
+```
+
+---
+
+### Warum separate Files?
+
+Warum nicht einfach ein einziges `STATUS.md`?
+
+**Problem mit einer Datei:** Wenn zwei Claude Code Sessions gleichzeitig dieselbe Datei editieren, überschreibt eine die Änderungen der anderen. Claude Code hat kein Locking — wer zuletzt schreibt, gewinnt.
+
+**Lösung mit separaten Files:**
+- Jeder schreibt nur in sein eigenes Status-File → **keine Write-Konflikte**
+- `board.md` wird nur vom Orchestrator editiert → **ein Schreiber**
+- `nachrichten.md` wird nur appended (Zeilen hinzugefügt) → **minimales Konfliktrisiko**
+
+> Das ist wie bei einem echten Team: Jeder hat seinen eigenen Schreibtisch (Status-File), es gibt ein Whiteboard (board.md) das nur der Chef beschriftet, und einen Briefkasten (nachrichten.md) wo alle Zettel reinwerfen können.
+
+---
+
+### Timeout-Regel
+
+**15 Minuten ohne Aktivität = offline.**
+
+Wenn ein Team-Mitglied sein Status-File 15 Minuten lang nicht aktualisiert hat (kein neuer Timestamp bei "Letzte Aktivität"), gilt es als offline. Seine Dateien sind dann frei für andere.
+
+**Warum?** Claude Code Sessions können abstürzen, der User kann das Terminal schliessen, oder die Session läuft in ein Context-Limit. Ohne Timeout-Regel wären Dateien endlos blockiert.
+
+**Praxis:** Der Orchestrator prüft regelmässig die Timestamps in den Status-Files und markiert inaktive Sessions als offline.
+
+---
+
+### Commit-Regel
+
+**Nur der Orchestrator committed und pusht.** Ausnahmen nur, wenn der Orchestrator es explizit delegiert.
+
+**Warum?**
+- Vermeidet Merge-Konflikte bei gleichzeitigen Commits
+- Der Orchestrator kann Änderungen prüfen bevor sie ins Repo gehen
+- Ein zentraler Commit-Log bleibt sauber und nachvollziehbar
+
+**Workflow:**
+1. Developer meldet: *"Feature X ist fertig"* (via `nachrichten.md`)
+2. Orchestrator prüft die Änderungen
+3. Orchestrator committed mit beschreibender Message
+4. Orchestrator deployt bei Bedarf
+
+---
+
+### MEMORY.md — Session-übergreifendes Wissen
+
+Claude Code hat eine **Auto-Memory**-Funktion: Wichtige Erkenntnisse werden in `MEMORY.md` (im `.claude/`-Ordner) gespeichert und bei jeder neuen Session automatisch geladen.
+
+**Was gehört in MEMORY.md:**
+- Tech-Stack und Architektur-Entscheide
+- Wichtige Dateipfade und Patterns
+- Bekannte Gotchas und deren Lösungen
+- User-Präferenzen (z.B. Sprache, Code-Style)
+
+**Was gehört NICHT rein:**
+- Session-spezifische Aufgaben (dafür ist `status/board.md`)
+- Temporärer State
+- Duplikate von CLAUDE.md-Inhalten
+
+> **Tipp:** Wenn das Team etwas Wichtiges herausfindet (z.B. "Prisma muss in dependencies statt devDependencies"), sollte der Orchestrator es in MEMORY.md festhalten — dann wissen es alle zukünftigen Sessions automatisch.
+
+---
+
+### Beispiel-Workflow
+
+So sieht ein typischer Ablauf mit drei Sessions aus:
+
+**1. Orchestrator (Anton) startet und plant**
+
+```
+Terminal 1:
+> claude --dangerously-skip-permissions
+> "Du bist Anton, Orchestrator. Lies status/board.md und verteile die offenen Aufträge."
+```
+
+Anton liest die Auftragsliste, prüft welche Developer online sind, und verteilt Aufgaben via `nachrichten.md`:
+
+```markdown
+| Anton | Benno | Bitte Responsive Bugfixes machen. Details in board.md. | ⬜ |
+| Anton | Chasperli | Bitte i18n Framework einrichten. Details in board.md. | ⬜ |
+```
+
+**2. Developer (Benno) meldet sich an und arbeitet**
+
+```
+Terminal 2:
+> claude --dangerously-skip-permissions
+> "Du bist Benno, Developer. Lies status/board.md und nachrichten.md."
+```
+
+Benno sieht seinen Auftrag, trägt seine Aufgabe in `status/benno.md` ein, und beginnt zu arbeiten. Er pollt regelmässig `nachrichten.md` für neue Anweisungen.
+
+**3. Developer (Chasperli) arbeitet parallel**
+
+```
+Terminal 3:
+> claude --dangerously-skip-permissions
+> "Du bist Chasperli, Developer. Lies status/board.md und nachrichten.md."
+```
+
+Chasperli arbeitet gleichzeitig an einem anderen Feature — kein Konflikt, weil beide an verschiedenen Dateien arbeiten (steht in den Status-Files).
+
+**4. Benno ist fertig**
+
+Benno schreibt in `nachrichten.md`:
+
+```markdown
+| Benno | Anton | Responsive Bugfixes fertig! Geänderte Dateien: src/index.css, SupplierDetail.tsx. Bitte committen. | ⬜ |
+```
+
+**5. Anton committed**
+
+Anton liest die Nachricht, prüft die Änderungen, und committed:
+
+```
+Terminal 1:
+> "Bennos Responsive Bugfixes committen und deployen."
+```
+
+Anton markiert die Nachricht als erledigt (✅) und den Auftrag in `board.md` als abgeschlossen.
+
+**6. Nächste Runde**
+
+Anton verteilt den nächsten Auftrag, oder Benno fragt: *"Was haben wir noch?"*
+
+---
+
+### Schnellstart-Checkliste
+
+So richtest du den Team-Modus in deinem Projekt ein:
+
+1. **Ordner erstellen:**
+   ```bash
+   mkdir status
+   ```
+
+2. **`status/board.md` anlegen** mit Auftrags-Template:
+   ```markdown
+   # Aufträge & Regeln
+
+   > **Nur der Orchestrator editiert dieses File.**
+
+   ## Team
+   | Name | Rolle |
+   |------|-------|
+   | Anton | Orchestrator |
+   | Benno | Developer |
+   | Chasperli | Developer |
+
+   ## Offene Aufträge
+   (hier Aufträge einfügen)
+
+   ## Regeln
+   - Anwesenheit: Jeder schreibt NUR in sein eigenes File
+   - Commits/Push: Nur über den Orchestrator
+   - Nachrichten: Briefkasten alle ~15 Sek pollen
+   - Timeout: 15 Min ohne Aktivität → offline
+   ```
+
+3. **`status/nachrichten.md` anlegen:**
+   ```markdown
+   # Nachrichten
+
+   > Jeder darf hier appenden. Neueste Nachricht zuunterst.
+
+   | Von | An | Nachricht | Erledigt |
+   |-----|-----|-----------|----------|
+   ```
+
+4. **Erste Session starten** (Orchestrator):
+   ```bash
+   claude --dangerously-skip-permissions
+   ```
+   ```
+   > Du bist Anton, Orchestrator. Erstelle dein Status-File unter status/anton.md
+   > und warte auf weitere Team-Mitglieder.
+   ```
+
+5. **Weitere Sessions starten** (Developer):
+   ```bash
+   claude --dangerously-skip-permissions
+   ```
+   ```
+   > Du bist Benno, Developer. Lies status/board.md und melde dich an.
+   ```
+
+6. **Aufträge verteilen** und loslegen!
+
+---
+
+### Tipps & Best Practices
+
+- **Dateien klar aufteilen:** Zwei Developer sollten nie gleichzeitig dieselbe Datei bearbeiten. Der Orchestrator achtet bei der Auftragsverteilung darauf.
+- **Betroffene Dateien immer eintragen:** Jeder Developer listet in seinem Status-File auf, welche Dateien er gerade bearbeitet. So können andere Konflikte vermeiden.
+- **Klein anfangen:** Starte mit 2 Sessions (Orchestrator + 1 Developer) und skaliere bei Bedarf.
+- **CLAUDE.md pflegen:** Je besser die Projekt-Instruktionen, desto weniger Fehler macht jede Session.
+- **`/compact` nutzen:** Lange Sessions verbrauchen Context. Regelmässig komprimieren.
+- **Kein Overengineering:** Die Sessions sollen nur tun, was im Auftrag steht — keine Eigeninitiative, keinen Scope erweitern.
+
+---
+
+*v1.1 · March 4, 2026 · M. Suter, Switzerland · Built with Claude Code + Team-Modus.*
+
+</div>
