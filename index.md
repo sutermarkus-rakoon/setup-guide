@@ -14,6 +14,19 @@ layout: default
 
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
+### What Does It Cost? (Complete Picture)
+
+| Component | | Path A: Railway | Path B: Azure |
+|-----------|---|----------------|---------------|
+| **Claude Pro** | AI assistant (Claude.ai + Claude Code) | $20/month | $20/month |
+| **GitHub** | Code storage & versioning | Free | Free |
+| **Hosting + Database** | Server + PostgreSQL | ~$5/month | ~$42/month |
+| **Domain** | yourapp.com (optional) | ~$1/month | ~$1/month |
+| | | | |
+| | **Total** | **~$25/month** | **~$62/month** |
+
+> Claude Pro ($20/month) is required for Claude Code. For heavy usage, Claude Max ($100–200/month) gives higher limits. Free Claude accounts can only use Claude.ai in the browser — not Claude Code.
+
 This guide covers two paths to get your project live:
 
 | | Path A: Railway | Path B: Azure |
@@ -21,7 +34,6 @@ This guide covers two paths to get your project live:
 | **Complexity** | Simple, fast | More setup, more control |
 | **Best for** | Side projects, startups, MVPs | Business apps, compliance, enterprise |
 | **Deploy time** | ~10 minutes | ~45 minutes |
-| **Cost (Dev)** | ~$5/month | ~$40–50/month |
 | **Auto-deploy** | Yes (on git push) | Yes (via GitHub Actions) |
 
 Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud at the end.
@@ -869,23 +881,6 @@ Before going live, check these off:
 
 ## 9. Comparison & FAQ
 
-### What Does It Actually Cost?
-
-Here's the full picture — everything you'll pay per month:
-
-| Component | What it is | Path A: Railway | Path B: Azure |
-|-----------|-----------|----------------|---------------|
-| **Claude Pro** | AI assistant (Claude.ai + Claude Code) | $20/month | $20/month |
-| **GitHub** | Code storage & versioning | Free | Free |
-| **Hosting** | Your app running on a server | ~$5/month | ~$12/month |
-| **Database** | PostgreSQL for your data | included | ~$30/month |
-| **Domain** | yourapp.com (optional) | ~$12/year | ~$12/year |
-| | | | |
-| **Total (Dev)** | | **~$25/month** | **~$62/month** |
-| **Total (Production)** | More resources for real users | **~$40–70/month** | **~$120–400/month** |
-
-> **Note**: Claude Pro ($20/month) is required for Claude Code. If you only want to use Claude.ai (browser) for brainstorming without Claude Code, a free Claude account works but has usage limits. For heavy Claude Code usage, consider Claude Max ($100/month) for higher limits.
-
 ### Side-by-Side Comparison
 
 | Feature | Railway | Azure |
@@ -896,10 +891,13 @@ Here's the full picture — everything you'll pay per month:
 | **PostgreSQL** | One click | CLI or Portal |
 | **SSL/HTTPS** | Automatic, free | Automatic, free |
 | **Custom domains** | Yes | Yes |
-| **Pricing (Dev)** | ~$5/month | ~$40–50/month |
-| **Pricing (Prod)** | ~$20–50/month | ~$100–400/month |
+| **Claude Pro (required)** | $20/month | $20/month |
+| **Hosting + DB** | ~$5/month | ~$42/month |
+| **Total (Dev)** | **~$25/month** | **~$62/month** |
+| **Total (Production)** | **~$40–70/month** | **~$120–400/month** |
 | **Free tier** | 30-day trial ($5) | 30-day trial ($200) |
 | **Compliance (HIPAA, SOC2)** | Limited | Full |
+| **EU data residency** | Limited (US servers) | Yes (`westeurope`, `switzerlandnorth`) |
 | **Multi-region** | Limited | 60+ regions |
 | **Private networking** | No | Yes (VNet) |
 | **Monitoring** | Basic | Advanced (App Insights) |
