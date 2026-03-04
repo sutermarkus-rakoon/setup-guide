@@ -18,6 +18,8 @@ This guide covers two paths to get your project live:
 
 Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud at the end.
 
+![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
+
 ---
 
 ## Table of Contents
