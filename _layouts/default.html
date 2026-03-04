@@ -59,6 +59,42 @@
       .tab-panel.active {
         display: block;
       }
+      .sub-tabs {
+        display: flex;
+        gap: 6px;
+        margin: 1.5rem 0 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e2e8f0;
+      }
+      .sub-tab {
+        padding: 8px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid #cbd5e1;
+        border-radius: 5px 5px 0 0;
+        background: #f8fafc;
+        color: #475569;
+        transition: all 0.2s ease;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        border-bottom: 2px solid transparent;
+      }
+      .sub-tab:hover {
+        background: #e2e8f0;
+        color: #1e293b;
+      }
+      .sub-tab.active {
+        background: #fff;
+        color: #155799;
+        border-color: #155799;
+        border-bottom: 2px solid #155799;
+      }
+      .sub-panel {
+        display: none;
+      }
+      .sub-panel.active {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -76,7 +112,7 @@
       {% endif %}
       <div class="header-tabs">
         <button class="header-tab active" onclick="switchGuideTab('basic', this)">Basic</button>
-        <button class="header-tab" onclick="switchGuideTab('advanced', this)">Advanced <span class="header-tab-badge">NEU</span></button>
+        <button class="header-tab" onclick="switchGuideTab('advanced', this)">Advanced</button>
       </div>
     </header>
 
@@ -98,6 +134,13 @@
         document.getElementById('tab-' + tabId).classList.add('active');
         btn.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      function switchSubTab(tabId, btn) {
+        var container = btn.closest('.tab-panel');
+        container.querySelectorAll('.sub-panel').forEach(function(p) { p.classList.remove('active'); });
+        container.querySelectorAll('.sub-tab').forEach(function(b) { b.classList.remove('active'); });
+        container.querySelector('#subtab-' + tabId).classList.add('active');
+        btn.classList.add('active');
       }
     </script>
   </body>

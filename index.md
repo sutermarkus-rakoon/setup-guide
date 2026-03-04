@@ -1096,341 +1096,702 @@ claude                    # Start Claude Code
 <!-- ==================== ADVANCED TAB ==================== -->
 <div id="tab-advanced" class="tab-panel" markdown="1">
 
-## Multi-Session Team-Modus
+## Multi-Session Team Mode
 
-> **Mehrere Claude Code Sessions gleichzeitig als Team nutzen** — ein Orchestrator koordiniert, mehrere Developer arbeiten parallel, ein QC prüft die Qualität. So erledigst du in einer Stunde, wofür du sonst einen ganzen Tag brauchst.
+> **Run multiple Claude Code sessions as a team** — an orchestrator coordinates, multiple developers work in parallel, and a QC agent checks quality. Get done in one hour what would normally take a full day.
 
----
+<div class="sub-tabs">
+  <button class="sub-tab active" onclick="switchSubTab('classic', this)">Classic</button>
+  <button class="sub-tab" onclick="switchSubTab('autonomous', this)">Autonomous</button>
+</div>
 
-### Was ist der Team-Modus?
+<!-- ========== SUB-TAB: CLASSIC ========== -->
+<div id="subtab-classic" class="sub-panel active" markdown="1">
 
-Im Basic-Modus arbeitest du mit **einer** Claude Code Session. Das funktioniert gut für kleine Aufgaben. Aber was, wenn du ein grösseres Projekt hast — z.B. gleichzeitig i18n einbauen, Responsive Bugs fixen und Tests schreiben?
+### What is Team Mode?
 
-Im **Team-Modus** öffnest du mehrere Terminals, startest in jedem eine eigene Claude Code Session, und gibst jeder Session eine **Rolle** und einen **Namen**. Die Sessions koordinieren sich über Dateien im Projekt — wie ein echtes Entwickler-Team.
+In Basic mode, you work with **one** Claude Code session. That works fine for small tasks. But what about larger projects — e.g., adding i18n, fixing responsive bugs, and writing tests all at the same time?
+
+In **Team Mode**, you open multiple terminals, start a separate Claude Code session in each one, and assign each session a **role** and a **name**. The sessions coordinate through files in the project — just like a real development team.
 
 ```
-Terminal 1: Anton (Orchestrator)  — koordiniert, committed, deployt
-Terminal 2: Benno (Developer)     — arbeitet an Feature A
-Terminal 3: Chasperli (Developer) — arbeitet an Feature B
-Terminal 4: Donald (Developer)    — arbeitet an Feature C
-Terminal 5: Egon (Quality Control) — prüft Code-Qualität, testet
+Terminal 1: Anton (Orchestrator)   — coordinates, commits, deploys
+Terminal 2: Benno (Developer)      — works on Feature A
+Terminal 3: Chasperli (Developer)  — works on Feature B
+Terminal 4: Donald (Developer)     — works on Feature C
+Terminal 5: Egon (Quality Control) — checks code quality, tests
 ```
 
-**Voraussetzung:** Alle Sessions laufen im selben Projekt-Ordner und nutzen dasselbe Git-Repo.
+**Prerequisite:** All sessions run in the same project folder and use the same Git repo.
 
 ---
 
-### Rollen
+### Roles
 
-| Rolle | Aufgaben | Regeln |
-|-------|----------|--------|
-| **Orchestrator** | Verteilt Aufträge, koordiniert, committed, pusht, deployt | Nur er editiert die Auftragsliste. Nur er committed/pusht. |
-| **Developer** | Entwickelt Features, fixt Bugs, setzt Aufträge um | Arbeitet nur an zugewiesenen Aufgaben. Kein Commit/Push. |
-| **Quality Control** | Testet, reviewt Code, prüft Qualität | Meldet Probleme an den Orchestrator. |
+| Role | Responsibilities | Rules |
+|------|-----------------|-------|
+| **Orchestrator** | Distributes tasks, coordinates, commits, pushes, deploys | Only he edits the task list. Only he commits/pushes. |
+| **Planner** | Analyzes requirements, designs implementation plans, defines API contracts | Does NOT change code — only reads, analyzes, and plans. |
+| **Developer** | Builds features, fixes bugs, implements tasks | Only works on assigned tasks. No scope creep. |
+| **Quality Control** | Tests, reviews code, checks quality | Reports issues to the orchestrator. Does NOT change code. |
+| **Security** | OWASP checks, dependency audits, secrets scanning | Reports findings with severity levels. Does NOT change code. |
 
-**Wichtig:** Die Rollen sind strikt getrennt. Ein Developer committed nie selbst — er meldet dem Orchestrator, dass seine Arbeit fertig ist. Der Orchestrator prüft und committed.
-
----
-
-### Namensvergabe
-
-Die Team-Mitglieder bekommen feste Namen in alphabetischer Reihenfolge:
-
-| Reihenfolge | Name | Rolle |
-|-------------|------|-------|
-| 1. Session | **Anton** | Orchestrator |
-| 2. Session | **Benno** | Developer |
-| 3. Session | **Chasperli** | Developer |
-| 4. Session | **Donald** | Developer |
-| 5. Session | **Egon** | Quality Control |
-
-Wenn du eine neue Session öffnest, nimmst du den nächsten freien Namen. Die erste Session ist immer der Orchestrator.
-
-> **Tipp:** Beim Starten der Session sagst du Claude einfach: *"Du bist Benno, Developer im Team. Lies status/board.md und melde dich an."* — Claude versteht das und verhält sich entsprechend.
+**Important:** Roles are strictly separated. A developer only implements what is assigned. The orchestrator reviews and commits.
 
 ---
 
-### Koordination: Der `status/` Ordner
+### Naming Convention
 
-Das Herzstück des Team-Modus ist ein `status/`-Ordner im Projekt-Root. Er enthält drei Arten von Dateien:
+Team members get fixed names in alphabetical order:
+
+| Order | Name | Default Role |
+|-------|------|-------------|
+| 1st session | **Anton** | Orchestrator |
+| 2nd session | **Benno** | Planner |
+| 3rd session | **Chasperli** | Developer 1 |
+| 4th session | **Donald** | Developer 2 |
+| 5th session | **Egon** | Developer 3 |
+| 6th session | **Fridolin** | Quality Control |
+| 7th session | **Guschti** | Security |
+
+When you open a new session, take the next available name. The first session is always the orchestrator.
+
+> **Tip:** When starting a session, just tell Claude: *"You are Benno, Developer on the team. Read status/board.md and check in."* — Claude understands this and behaves accordingly.
+
+---
+
+### Coordination: The `status/` Folder
+
+The heart of team mode is a `status/` folder in the project root. It contains three types of files:
 
 ```
 project/
 ├── status/
-│   ├── board.md           ← Aufträge (nur Orchestrator editiert)
-│   ├── nachrichten.md     ← Briefkasten (alle dürfen appenden)
-│   ├── anton.md           ← Antons Status-File
-│   ├── benno.md           ← Bennos Status-File
-│   ├── chasperli.md       ← Chasperlis Status-File
+│   ├── board.md           ← Tasks (only orchestrator edits)
+│   ├── nachrichten.md     ← Message board (everyone can append)
+│   ├── anton.md           ← Anton's status file
+│   ├── benno.md           ← Benno's status file
+│   ├── chasperli.md       ← Chasperli's status file
 │   └── ...
 ```
 
-#### `board.md` — Die Auftragsliste
+#### `board.md` — The Task List
 
-Hier stehen alle Aufträge. **Nur der Orchestrator editiert dieses File.** Enthält:
-- Erledigte Aufträge (durchgestrichen)
-- Offene Aufträge mit Beschreibung, Scope und betroffenen Dateien
-- Team-Regeln
+All tasks live here. **Only the orchestrator edits this file.** Contains:
+- Completed tasks (strikethrough)
+- Open tasks with description, scope, and affected files
+- Team rules
 
-**Beispiel:**
+**Example:**
 
 ```markdown
-## Erledigte Aufträge
-- ~~Login-Screen Rollen-Darstellung~~ ✅
-- ~~Toast-System, Loading-States, CSV-Export~~ ✅
+## Completed Tasks
+- ~~Login screen role display~~ ✅
+- ~~Toast system, loading states, CSV export~~ ✅
 
-## Offene Aufträge
+## Open Tasks
 
-### Feature: Zweisprachigkeit DE/EN
-**Beschreibung:** Alle UI-Texte sollen auf Deutsch und Englisch verfügbar sein.
-**Betroffene Dateien:** src/i18n.tsx, src/locales/, alle Pages
-**Zugewiesen an:** Chasperli + Benno
+### Feature: i18n (DE/EN)
+**Description:** All UI text should be available in German and English.
+**Affected files:** src/i18n.tsx, src/locales/, all pages
+**Assigned to:** Chasperli + Benno
 ```
 
-#### `nachrichten.md` — Der Briefkasten
+#### `nachrichten.md` — The Message Board
 
-Hier kommunizieren die Team-Mitglieder untereinander. **Jeder darf appenden** (neue Zeilen hinzufügen), aber niemand löscht Nachrichten anderer.
+Team members communicate here. **Everyone can append** (add new lines), but nobody deletes other people's messages.
 
-**Beispiel:**
+**Example:**
 
 ```markdown
-| Von | An | Nachricht | Erledigt |
-|-----|-----|-----------|----------|
-| Benno | Anton | Feature X ist fertig! Bitte committen. | ⬜ |
+| From | To | Message | Done |
+|------|-----|---------|------|
+| Benno | Anton | Feature X done! Please commit. | ⬜ |
 | Anton | Benno | ✅ Committed + deployed. | ✅ |
-| Chasperli | Benno | Kannst du mir bei i18n helfen? | ⬜ |
+| Chasperli | Benno | Can you help with i18n? | ⬜ |
 ```
 
-**Wichtige Regel:** Jede Session pollt den Briefkasten regelmässig (alle ~15 Sekunden) und reagiert auf eigene Nachrichten.
+**Important rule:** Each session polls the message board regularly (~15 seconds) and responds to messages addressed to it.
 
-#### `<name>.md` — Persönliche Status-Files
+#### `<name>.md` — Personal Status Files
 
-Jedes Team-Mitglied hat ein eigenes Status-File. **Nur der Agent selbst schreibt in sein File.** Enthält:
-- Online/Offline-Status
-- Aktuelle Aufgabe
-- Betroffene Dateien (für Konflikt-Vermeidung!)
-- Liste erledigter Aufgaben
+Each team member has their own status file. **Only the agent itself writes to its file.** Contains:
+- Online/offline status
+- Current task
+- Affected files (for conflict avoidance!)
+- List of completed tasks
 
-**Beispiel (`status/benno.md`):**
+**Example (`status/benno.md`):**
 
 ```markdown
 # Benno — Developer
 
-| Feld | Wert |
-|------|------|
+| Field | Value |
+|-------|-------|
 | Status | online |
-| Angemeldet | 2026-03-04 14:30 |
-| Letzte Aktivität | 2026-03-04 15:12 |
-| Aktuelle Aufgabe | Responsive Bugfixes |
-| Betroffene Dateien | src/pages/SupplierDetail.tsx, src/index.css |
+| Logged in | 2026-03-04 14:30 |
+| Last activity | 2026-03-04 15:12 |
+| Current task | Responsive bugfixes |
+| Affected files | src/pages/SupplierDetail.tsx, src/index.css |
 
-## Erledigt
-- Login-Screen Rollen-Darstellung — committed by Anton
+## Completed
+- Login screen role display — committed by Anton
 ```
 
 ---
 
-### Warum separate Files?
+### Why Separate Files?
 
-Warum nicht einfach ein einziges `STATUS.md`?
+Why not just use a single `STATUS.md`?
 
-**Problem mit einer Datei:** Wenn zwei Claude Code Sessions gleichzeitig dieselbe Datei editieren, überschreibt eine die Änderungen der anderen. Claude Code hat kein Locking — wer zuletzt schreibt, gewinnt.
+**Problem with one file:** When two Claude Code sessions edit the same file simultaneously, one overwrites the other's changes. Claude Code has no file locking — last write wins.
 
-**Lösung mit separaten Files:**
-- Jeder schreibt nur in sein eigenes Status-File → **keine Write-Konflikte**
-- `board.md` wird nur vom Orchestrator editiert → **ein Schreiber**
-- `nachrichten.md` wird nur appended (Zeilen hinzugefügt) → **minimales Konfliktrisiko**
+**Solution with separate files:**
+- Everyone writes only to their own status file → **no write conflicts**
+- `board.md` is only edited by the orchestrator → **single writer**
+- `nachrichten.md` is append-only → **minimal conflict risk**
 
-> Das ist wie bei einem echten Team: Jeder hat seinen eigenen Schreibtisch (Status-File), es gibt ein Whiteboard (board.md) das nur der Chef beschriftet, und einen Briefkasten (nachrichten.md) wo alle Zettel reinwerfen können.
-
----
-
-### Timeout-Regel
-
-**15 Minuten ohne Aktivität = offline.**
-
-Wenn ein Team-Mitglied sein Status-File 15 Minuten lang nicht aktualisiert hat (kein neuer Timestamp bei "Letzte Aktivität"), gilt es als offline. Seine Dateien sind dann frei für andere.
-
-**Warum?** Claude Code Sessions können abstürzen, der User kann das Terminal schliessen, oder die Session läuft in ein Context-Limit. Ohne Timeout-Regel wären Dateien endlos blockiert.
-
-**Praxis:** Der Orchestrator prüft regelmässig die Timestamps in den Status-Files und markiert inaktive Sessions als offline.
+> Think of it like a real team: Everyone has their own desk (status file), there's a whiteboard (board.md) that only the lead writes on, and a mailbox (nachrichten.md) where everyone can drop notes.
 
 ---
 
-### Commit-Regel
+### Timeout Rule
 
-**Nur der Orchestrator committed und pusht.** Ausnahmen nur, wenn der Orchestrator es explizit delegiert.
+**15 minutes without activity = offline.**
 
-**Warum?**
-- Vermeidet Merge-Konflikte bei gleichzeitigen Commits
-- Der Orchestrator kann Änderungen prüfen bevor sie ins Repo gehen
-- Ein zentraler Commit-Log bleibt sauber und nachvollziehbar
+If a team member hasn't updated their status file for 15 minutes (no new timestamp on "Last activity"), they're considered offline. Their files are then free for others.
 
-**Workflow:**
-1. Developer meldet: *"Feature X ist fertig"* (via `nachrichten.md`)
-2. Orchestrator prüft die Änderungen
-3. Orchestrator committed mit beschreibender Message
-4. Orchestrator deployt bei Bedarf
+**Why?** Claude Code sessions can crash, the user can close the terminal, or the session hits a context limit. Without a timeout rule, files would be blocked indefinitely.
+
+**In practice:** The orchestrator regularly checks timestamps in status files and marks inactive sessions as offline.
 
 ---
 
-### MEMORY.md — Session-übergreifendes Wissen
+### Commit Rules
 
-Claude Code hat eine **Auto-Memory**-Funktion: Wichtige Erkenntnisse werden in `MEMORY.md` (im `.claude/`-Ordner) gespeichert und bei jeder neuen Session automatisch geladen.
+There are two models — choose what fits your team:
 
-**Was gehört in MEMORY.md:**
-- Tech-Stack und Architektur-Entscheide
-- Wichtige Dateipfade und Patterns
-- Bekannte Gotchas und deren Lösungen
-- User-Präferenzen (z.B. Sprache, Code-Style)
+**Model A — Centralized (recommended for beginners):**
+Only the orchestrator commits and pushes. Developers report completion, the orchestrator reviews and commits.
 
-**Was gehört NICHT rein:**
-- Session-spezifische Aufgaben (dafür ist `status/board.md`)
-- Temporärer State
-- Duplikate von CLAUDE.md-Inhalten
+**Model B — Distributed (recommended for experienced teams):**
+Every agent commits and pushes themselves. Format: `feat:` or `fix:` + short description. After pushing, send a message to the orchestrator.
 
-> **Tipp:** Wenn das Team etwas Wichtiges herausfindet (z.B. "Prisma muss in dependencies statt devDependencies"), sollte der Orchestrator es in MEMORY.md festhalten — dann wissen es alle zukünftigen Sessions automatisch.
+**Why Model A?**
+- Avoids merge conflicts from simultaneous commits
+- Orchestrator can review changes before they enter the repo
+- Clean, traceable commit log
+
+**Why Model B?**
+- Faster — no bottleneck at the orchestrator
+- Agents are more autonomous
+- Works well when tasks have clear file separation
 
 ---
 
-### Beispiel-Workflow
+### MEMORY.md — Cross-Session Knowledge
 
-So sieht ein typischer Ablauf mit drei Sessions aus:
+Claude Code has an **auto-memory** feature: Important findings are stored in `MEMORY.md` (in the `.claude/` folder) and automatically loaded at every new session start.
 
-**1. Orchestrator (Anton) startet und plant**
+**What belongs in MEMORY.md:**
+- Tech stack and architecture decisions
+- Important file paths and patterns
+- Known gotchas and their solutions
+- User preferences (e.g., language, code style)
+
+**What does NOT belong:**
+- Session-specific tasks (use `status/board.md` for that)
+- Temporary state
+- Duplicates of CLAUDE.md content
+
+> **Tip:** When the team discovers something important (e.g., "Prisma must be in dependencies, not devDependencies"), the orchestrator should save it in MEMORY.md — then all future sessions know it automatically.
+
+---
+
+### Example Workflow
+
+Here's a typical flow with three sessions:
+
+**1. Orchestrator (Anton) starts and plans**
 
 ```
 Terminal 1:
 > claude --dangerously-skip-permissions
-> "Du bist Anton, Orchestrator. Lies status/board.md und verteile die offenen Aufträge."
+> "You are Anton, the Orchestrator. Read status/board.md and distribute the open tasks."
 ```
 
-Anton liest die Auftragsliste, prüft welche Developer online sind, und verteilt Aufgaben via `nachrichten.md`:
+Anton reads the task list, checks which developers are online, and distributes tasks via `nachrichten.md`:
 
 ```markdown
-| Anton | Benno | Bitte Responsive Bugfixes machen. Details in board.md. | ⬜ |
-| Anton | Chasperli | Bitte i18n Framework einrichten. Details in board.md. | ⬜ |
+| Anton | Benno | Please do the responsive bugfixes. Details in board.md. | ⬜ |
+| Anton | Chasperli | Please set up the i18n framework. Details in board.md. | ⬜ |
 ```
 
-**2. Developer (Benno) meldet sich an und arbeitet**
+**2. Developer (Benno) checks in and works**
 
 ```
 Terminal 2:
 > claude --dangerously-skip-permissions
-> "Du bist Benno, Developer. Lies status/board.md und nachrichten.md."
+> "You are Benno, Developer. Read status/board.md and nachrichten.md."
 ```
 
-Benno sieht seinen Auftrag, trägt seine Aufgabe in `status/benno.md` ein, und beginnt zu arbeiten. Er pollt regelmässig `nachrichten.md` für neue Anweisungen.
+Benno sees his task, updates `status/benno.md`, and starts working. He polls `nachrichten.md` regularly for new instructions.
 
-**3. Developer (Chasperli) arbeitet parallel**
+**3. Developer (Chasperli) works in parallel**
 
 ```
 Terminal 3:
 > claude --dangerously-skip-permissions
-> "Du bist Chasperli, Developer. Lies status/board.md und nachrichten.md."
+> "You are Chasperli, Developer. Read status/board.md and nachrichten.md."
 ```
 
-Chasperli arbeitet gleichzeitig an einem anderen Feature — kein Konflikt, weil beide an verschiedenen Dateien arbeiten (steht in den Status-Files).
+Chasperli works on a different feature at the same time — no conflict because they work on different files (listed in status files).
 
-**4. Benno ist fertig**
+**4. Benno finishes**
 
-Benno schreibt in `nachrichten.md`:
+Benno writes in `nachrichten.md`:
 
 ```markdown
-| Benno | Anton | Responsive Bugfixes fertig! Geänderte Dateien: src/index.css, SupplierDetail.tsx. Bitte committen. | ⬜ |
+| Benno | Anton | Responsive bugfixes done! Changed files: src/index.css, SupplierDetail.tsx. Please commit. | ⬜ |
 ```
 
-**5. Anton committed**
+**5. Anton commits**
 
-Anton liest die Nachricht, prüft die Änderungen, und committed:
+Anton reads the message, reviews the changes, and commits:
 
 ```
 Terminal 1:
-> "Bennos Responsive Bugfixes committen und deployen."
+> "Commit Benno's responsive bugfixes and deploy."
 ```
 
-Anton markiert die Nachricht als erledigt (✅) und den Auftrag in `board.md` als abgeschlossen.
+Anton marks the message as done (✅) and the task in `board.md` as completed.
 
-**6. Nächste Runde**
+**6. Next round**
 
-Anton verteilt den nächsten Auftrag, oder Benno fragt: *"Was haben wir noch?"*
+Anton distributes the next task, or Benno asks: *"What's next?"*
 
 ---
 
-### Schnellstart-Checkliste
+### Quick Start Checklist
 
-So richtest du den Team-Modus in deinem Projekt ein:
+Here's how to set up team mode in your project:
 
-1. **Ordner erstellen:**
+1. **Create the folder:**
    ```bash
    mkdir status
    ```
 
-2. **`status/board.md` anlegen** mit Auftrags-Template:
+2. **Create `status/board.md`** with a task template:
    ```markdown
-   # Aufträge & Regeln
+   # Tasks & Rules
 
-   > **Nur der Orchestrator editiert dieses File.**
+   > **Only the Orchestrator edits this file.**
 
    ## Team
-   | Name | Rolle |
-   |------|-------|
+   | Name | Role |
+   |------|------|
    | Anton | Orchestrator |
    | Benno | Developer |
    | Chasperli | Developer |
 
-   ## Offene Aufträge
-   (hier Aufträge einfügen)
+   ## Open Tasks
+   (add tasks here)
 
-   ## Regeln
-   - Anwesenheit: Jeder schreibt NUR in sein eigenes File
-   - Commits/Push: Nur über den Orchestrator
-   - Nachrichten: Briefkasten alle ~15 Sek pollen
-   - Timeout: 15 Min ohne Aktivität → offline
+   ## Rules
+   - Status: Everyone writes ONLY to their own file
+   - Commits/Push: Only through the orchestrator
+   - Messages: Poll the message board every ~15 sec
+   - Timeout: 15 min without activity → offline
    ```
 
-3. **`status/nachrichten.md` anlegen:**
+3. **Create `status/nachrichten.md`:**
    ```markdown
-   # Nachrichten
+   # Messages
 
-   > Jeder darf hier appenden. Neueste Nachricht zuunterst.
+   > Everyone can append here. Newest message at the bottom.
 
-   | Von | An | Nachricht | Erledigt |
-   |-----|-----|-----------|----------|
+   | From | To | Message | Done |
+   |------|-----|---------|------|
    ```
 
-4. **Erste Session starten** (Orchestrator):
+4. **Start the first session** (Orchestrator):
    ```bash
    claude --dangerously-skip-permissions
    ```
    ```
-   > Du bist Anton, Orchestrator. Erstelle dein Status-File unter status/anton.md
-   > und warte auf weitere Team-Mitglieder.
+   > You are Anton, the Orchestrator. Create your status file at status/anton.md
+   > and wait for team members.
    ```
 
-5. **Weitere Sessions starten** (Developer):
+5. **Start additional sessions** (Developers):
    ```bash
    claude --dangerously-skip-permissions
    ```
    ```
-   > Du bist Benno, Developer. Lies status/board.md und melde dich an.
+   > You are Benno, Developer. Read status/board.md and check in.
    ```
 
-6. **Aufträge verteilen** und loslegen!
+6. **Distribute tasks** and get going!
 
 ---
 
-### Tipps & Best Practices
+### Tips & Best Practices
 
-- **Dateien klar aufteilen:** Zwei Developer sollten nie gleichzeitig dieselbe Datei bearbeiten. Der Orchestrator achtet bei der Auftragsverteilung darauf.
-- **Betroffene Dateien immer eintragen:** Jeder Developer listet in seinem Status-File auf, welche Dateien er gerade bearbeitet. So können andere Konflikte vermeiden.
-- **Klein anfangen:** Starte mit 2 Sessions (Orchestrator + 1 Developer) und skaliere bei Bedarf.
-- **CLAUDE.md pflegen:** Je besser die Projekt-Instruktionen, desto weniger Fehler macht jede Session.
-- **`/compact` nutzen:** Lange Sessions verbrauchen Context. Regelmässig komprimieren.
-- **Kein Overengineering:** Die Sessions sollen nur tun, was im Auftrag steht — keine Eigeninitiative, keinen Scope erweitern.
+- **Separate files clearly:** Two developers should never edit the same file at the same time. The orchestrator ensures this when distributing tasks.
+- **Always list affected files:** Each developer lists which files they're working on in their status file. This lets others avoid conflicts.
+- **Start small:** Begin with 2 sessions (orchestrator + 1 developer) and scale as needed.
+- **Maintain CLAUDE.md:** The better the project instructions, the fewer mistakes each session makes.
+- **Use `/compact`:** Long sessions consume context. Compress regularly.
+- **No overengineering:** Sessions should only do what's in the task — no initiative, no scope creep.
+
+</div>
+
+<!-- ========== SUB-TAB: AUTONOMOUS ========== -->
+<div id="subtab-autonomous" class="sub-panel" markdown="1">
+
+### What is Autonomous Mode?
+
+In Classic mode, you manually open terminals and start each Claude Code session yourself. That works, but it means you're the bottleneck — you have to start each session, paste the prompt, and babysit the process.
+
+In **Autonomous Mode**, an orchestrator script watches the message board (`nachrichten.md`) and **automatically spawns Claude Code sessions** when new tasks appear. You write a task for an agent, the script detects it, and a new Claude Code session starts within seconds — without you touching a terminal.
+
+```
+You (or Anton) write a task in nachrichten.md
+        ↓
+Orchestrator script detects the new message
+        ↓
+Script spawns: claude -p --dangerously-skip-permissions
+        ↓
+Agent works autonomously (reads task, implements, commits, reports back)
+        ↓
+Agent writes result to nachrichten.md → goes offline
+```
 
 ---
 
-*v1.1 · March 4, 2026 · M. Suter, Switzerland · Built with Claude Code + Team-Modus.*
+### How it Differs from Classic
+
+| Aspect | Classic | Autonomous |
+|--------|---------|------------|
+| **Starting sessions** | You open terminals manually | Script spawns sessions automatically |
+| **Task distribution** | Copy-paste prompts | Write to nachrichten.md, script does the rest |
+| **Supervision** | You watch each terminal | Agents work in the background |
+| **Scaling** | Limited by your terminal tabs | Up to N concurrent agents (configurable) |
+| **Best for** | Learning, small teams, ad-hoc work | Larger projects, recurring tasks, batch processing |
+
+---
+
+### Prerequisites
+
+- **Node.js** installed (v18+)
+- **Claude Code** installed and authenticated (`claude --version`)
+- The `status/` folder set up as described in the Classic tab
+- The orchestrator script in your project (e.g., `scripts/orchestrator.cjs`)
+
+---
+
+### Architecture & Flow
+
+```
+┌─────────────────────────────────────────────┐
+│  nachrichten.md                             │
+│  ┌────────────────────────────────────────┐ │
+│  │ Anton │ Benno │ Fix the login bug │ ⬜ │ │
+│  └────────────────────────────────────────┘ │
+└──────────────────┬──────────────────────────┘
+                   │ Orchestrator detects new ⬜ message
+                   ▼
+┌──────────────────────────────────────────────┐
+│  orchestrator.cjs                            │
+│  - Parses nachrichten.md table               │
+│  - Matches: Anton → AgentName → ⬜           │
+│  - Checks: agent not already running         │
+│  - Checks: max concurrent limit              │
+│  - Spawns: claude -p --dangerously-skip-...  │
+│  - Sends prompt via stdin                    │
+└──────────────────┬───────────────────────────┘
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+   ┌─────────┐ ┌─────────┐ ┌─────────┐
+   │ Benno   │ │Chasperli│ │ Donald  │
+   │ (Dev 1) │ │ (Dev 2) │ │ (Dev 3) │
+   └────┬────┘ └────┬────┘ └────┬────┘
+        │           │           │
+        ▼           ▼           ▼
+   Implements   Implements   Implements
+   Commits      Commits      Commits
+   Reports ✅   Reports ✅   Reports ✅
+```
+
+---
+
+### The Orchestrator Script
+
+The orchestrator is a Node.js script that runs in the background. Here's how it works:
+
+#### Parsing Logic
+
+The script reads `nachrichten.md` and looks for lines matching this pattern:
+
+```
+| Anton | AgentName | Task description... | ⬜ |
+```
+
+It extracts the target agent name and the task description. Messages to "ALLE" (everyone) or already-processed messages are skipped.
+
+#### Agent Spawning
+
+When a new task is detected, the script spawns a Claude Code session:
+
+```javascript
+const proc = spawn('claude', ['-p', '--dangerously-skip-permissions', '--verbose'], {
+  cwd: PROJECT_ROOT,
+  stdio: ['pipe', 'pipe', 'pipe'],
+  shell: true,
+  env,  // with CLAUDECODE deleted!
+});
+
+// Send prompt via stdin (not as argument!)
+proc.stdin.write(prompt);
+proc.stdin.end();
+```
+
+**Key details:**
+
+1. **`--dangerously-skip-permissions`** — Required for headless operation. Without it, Claude would prompt for permission on every file edit and command, which doesn't work in an unattended process.
+
+2. **`-p` flag** — Runs Claude in "print mode" (non-interactive). Takes input, produces output, exits.
+
+3. **`--verbose`** — Shows detailed progress on stderr so you can follow what the agent is doing.
+
+#### Critical Learnings (from Production Use)
+
+These are hard-won lessons from running autonomous agents in a real project:
+
+**1. Delete the `CLAUDECODE` environment variable when spawning**
+
+```javascript
+const env = { ...process.env };
+delete env.CLAUDECODE;
+```
+
+If Claude Code detects it's running inside another Claude Code session (via this env var), it may block or behave unexpectedly. Always delete it before spawning child sessions.
+
+**2. Send the prompt via stdin, not as a CLI argument**
+
+```javascript
+// ✅ Correct — via stdin
+proc.stdin.write(prompt);
+proc.stdin.end();
+
+// ❌ Wrong — as argument
+spawn('claude', ['-p', '--dangerously-skip-permissions', prompt]);
+```
+
+Long prompts with special characters (`|`, `!`, `"`, newlines) break when passed as shell arguments. Stdin avoids all escaping issues.
+
+**3. Use `.cjs` extension in ESM projects**
+
+If your project uses `"type": "module"` in `package.json`, Node.js treats all `.js` files as ES modules. The orchestrator uses `require()` (CommonJS), so it must have a `.cjs` extension:
+
+```
+scripts/orchestrator.cjs  ← works
+scripts/orchestrator.js   ← fails with "require is not defined"
+```
+
+**4. Agents must update their status files regularly**
+
+Every agent should update `status/<name>.md` after each major step — not just at the beginning and end. This lets the orchestrator (and monitoring dashboard) track progress in real-time. Include a timestamp on every update.
+
+**5. Monitoring Dashboard on Port 3002**
+
+A companion script (`scripts/dashboard.cjs`) runs an Express server on port 3002 that reads the `status/` folder and displays a live dashboard: who's online, what they're working on, recent messages. Auto-refreshes every 5 seconds.
+
+```bash
+node scripts/dashboard.cjs
+# Open http://localhost:3002
+```
+
+---
+
+#### Role-Specific Prompts
+
+The orchestrator sends different instructions based on the agent's role:
+
+| Role | Instructions |
+|------|-------------|
+| **Planner** | Read board.md, analyze affected files, create implementation plan, do NOT change code |
+| **Developer** | Read board.md, implement the task, commit + push, report to orchestrator |
+| **QC** | Run `tsc --noEmit` + `vite build`, review recent commits, check responsive design, report findings |
+| **Security** | OWASP Top 10 check, `npm audit`, secrets scan, input validation review, report with severity levels |
+
+Each prompt also includes the standard operating procedure: update status file on start, execute task, update status file after each step, report result, set status to offline.
+
+---
+
+#### Configuration
+
+The orchestrator has a few configurable constants:
+
+```javascript
+const MAX_CONCURRENT = 4;        // Max parallel agent sessions
+const POLL_INTERVAL = 10_000;    // Check for new messages every 10 seconds
+```
+
+In addition to polling, the script uses a **file watcher** on `nachrichten.md` for faster reaction times (~500ms instead of waiting for the next poll cycle).
+
+---
+
+### Running the Orchestrator
+
+```bash
+# Start the orchestrator
+node scripts/orchestrator.cjs
+```
+
+You'll see a startup banner:
+
+```
+╔═══════════════════════════════════════════════════════════╗
+║   🤖 Multi-Session Orchestrator                          ║
+║   Polling: every 10s                                     ║
+║   Max parallel: 4                                        ║
+║   B: Benno (Planner)    C: Chasperli (Dev)               ║
+║   D: Donald (Dev)       E: Egon (Dev)                    ║
+║   F: Fridolin (QC)      G: Guschti (Security)            ║
+╚═══════════════════════════════════════════════════════════╝
+
+Waiting for tasks in status/nachrichten.md...
+```
+
+The script runs indefinitely. It marks existing messages as "already processed" on startup (so it doesn't re-run old tasks). New messages trigger agent spawning.
+
+Stop it with `Ctrl+C` — it will gracefully terminate all running agents.
+
+---
+
+### Writing Tasks
+
+To assign a task, add a line to `nachrichten.md`:
+
+```markdown
+| Anton | Benno | Analyze the SupplierDetail page and plan the edit feature. Details in board.md. | ⬜ |
+```
+
+The orchestrator picks this up within seconds and spawns a Benno session. The `⬜` marker indicates an unprocessed message.
+
+**Format:**
+
+```
+| From | To | Task description | ⬜ |
+```
+
+- **From** must be `Anton` (the orchestrator only reacts to messages from Anton)
+- **To** must be an agent name from the roster (Benno, Chasperli, Donald, Egon, Fridolin, Guschti)
+- **Task** should be clear and self-contained — the agent sees only this plus board.md
+
+---
+
+### Agent Lifecycle
+
+Each spawned agent follows this lifecycle:
+
+```
+1. START      → Read status/board.md + nachrichten.md
+2. CHECK IN   → Update status/<name>.md (Status: online, Current task, Timestamp)
+3. EXECUTE    → Work on the task, updating status file after each step
+4. COMMIT     → git add + git commit + git push (if code was changed)
+5. REPORT     → Append result to nachrichten.md: "<name> | Anton | Done! | ⬜ |"
+6. CHECK OUT  → Set status/<name>.md to offline
+7. EXIT       → Process terminates
+```
+
+The orchestrator shows live stdout/stderr from each agent, prefixed with the agent name:
+
+```
+🚀 Benno startet: Analyze the SupplierDetail page...
+   [Benno] Reading status/board.md...
+   [Benno] Analyzing SupplierDetail.tsx...
+   [Benno] Writing implementation plan...
+✅ Benno fertig (exit 0)
+```
+
+---
+
+### Optional: Monitoring Dashboard
+
+For a visual overview, run the monitoring dashboard alongside the orchestrator:
+
+```bash
+# In a separate terminal
+node scripts/dashboard.cjs
+```
+
+Open `http://localhost:3002` to see:
+- **Agent cards** — Name, role, online/offline status, current task, last activity
+- **Recent messages** — Latest entries from nachrichten.md
+- **Chat interface** — Send messages directly to Anton from the browser
+
+The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page reload).
+
+---
+
+### Classic vs. Autonomous — When to Use What
+
+| Scenario | Recommended Mode |
+|----------|-----------------|
+| First time trying team mode | **Classic** — learn the coordination patterns |
+| 2-3 sessions, ad-hoc tasks | **Classic** — manual control is fine |
+| 4+ parallel agents | **Autonomous** — manual terminal management gets unwieldy |
+| Recurring task patterns | **Autonomous** — standardized prompts work great |
+| Batch processing (e.g., 10 bug fixes) | **Autonomous** — write all tasks, let agents process them |
+| Exploring / prototyping | **Classic** — you want interactive control |
+| CI/CD integration | **Autonomous** — script can be triggered by CI events |
+
+---
+
+### Quick Start: Autonomous Mode
+
+1. **Set up the `status/` folder** as described in the Classic tab (board.md, nachrichten.md)
+
+2. **Create the orchestrator script** at `scripts/orchestrator.cjs`:
+   ```bash
+   # Copy from a reference project or write your own
+   # Key: parse nachrichten.md, spawn claude -p, pipe prompt via stdin
+   ```
+
+3. **Start the orchestrator:**
+   ```bash
+   node scripts/orchestrator.cjs
+   ```
+
+4. **Start the interactive Anton session** (in a separate terminal):
+   ```bash
+   claude --dangerously-skip-permissions
+   ```
+   ```
+   > You are Anton, the Orchestrator. Write tasks to nachrichten.md
+   > for the agents. The orchestrator script will spawn them automatically.
+   ```
+
+5. **Write a task** in nachrichten.md (or ask Anton to do it):
+   ```markdown
+   | Anton | Chasperli | Fix the responsive layout on the login page. Details in board.md. | ⬜ |
+   ```
+
+6. **Watch the orchestrator** spawn Chasperli and process the task.
+
+7. **Optionally start the dashboard** for monitoring:
+   ```bash
+   node scripts/dashboard.cjs
+   # Open http://localhost:3002
+   ```
+
+</div>
+
+---
+
+*v1.2 · March 5, 2026 · M. Suter, Switzerland · Built with Claude Code + Multi-Session Team Mode.*
 
 </div>
