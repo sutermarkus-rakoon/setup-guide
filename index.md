@@ -16,29 +16,24 @@ layout: default
 
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
-### What Does It Cost? (Complete Picture)
-
-| Component | | Path A: Railway | Path B: Azure |
-|-----------|---|----------------|---------------|
-| **Claude Pro** | AI assistant (Claude.ai + Claude Code) | $20/month | $20/month |
-| **GitHub** | Code storage & versioning | Free | Free |
-| **Hosting + Database** | Server + PostgreSQL | ~$5/month | ~$42/month |
-| **Domain** | yourapp.com (optional) | ~$1/month | ~$1/month |
-| | | | |
-| | **Total** | **~$25/month** | **~$62/month** |
-
-> Claude Pro ($20/month) is required for Claude Code. For heavy usage, Claude Max ($100–200/month) gives higher limits. Free Claude accounts can only use Claude.ai in the browser — not Claude Code.
-
-This guide covers two paths to get your project live:
+This guide covers two paths. Both use **Claude Code + GitHub** — they only differ in where your app is hosted:
 
 | | Path A: Railway | Path B: Azure |
 |---|---|---|
-| **Complexity** | Simple, fast | More setup, more control |
+| **What is it?** | Modern, simple cloud platform | Microsoft enterprise cloud |
 | **Best for** | Side projects, startups, MVPs | Business apps, compliance, enterprise |
+| **Complexity** | Easy — connect GitHub, done | More setup, more control |
 | **Deploy time** | ~10 minutes | ~45 minutes |
 | **Auto-deploy** | Yes (on git push) | Yes (via GitHub Actions) |
+| **EU data residency** | Limited (US servers) | Yes (`westeurope`, `switzerlandnorth`) |
+| **Compliance (GDPR, SOC2)** | Limited | Full |
+| | | |
+| **Claude Pro** (required) | $20/month | $20/month |
+| **GitHub** | Free | Free |
+| **Hosting + Database** | ~$5/month | ~$42/month |
+| **Total** | **~$25/month** | **~$62/month** |
 
-Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud at the end.
+> Claude Pro ($20/month) is required for Claude Code. For heavy usage, Claude Max ($100–200/month) gives higher limits. Free Claude accounts can only use Claude.ai in the browser — not Claude Code.
 
 > **Don't want to read all this?** Download the [Setup Assistant](claude-setup-assistant.md) file, upload it to [Claude.ai](https://claude.ai), and it will walk you through the entire setup step by step — like a personal tutor. No reading required.
 
