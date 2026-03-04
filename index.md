@@ -6,6 +6,12 @@ layout: default
 
 > **From zero to deployed** — everything you need to start building with Claude Code, GitHub, and Cloud Infrastructure. No prior experience required.
 
+<p align="center" style="margin: 1.5em 0;">
+  <a href="claude-setup-assistant.md" style="display: inline-block; background: #f97316; color: white; padding: 14px 28px; border-radius: 10px; font-size: 18px; font-weight: 700; text-decoration: none;">Download Setup Assistant for Claude.ai</a>
+  <br>
+  <em style="font-size: 14px; color: #64748b;">Upload this file to <a href="https://claude.ai">Claude.ai</a> and it will walk you through the entire setup — no reading required.</em>
+</p>
+
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
 This guide covers two paths to get your project live:
