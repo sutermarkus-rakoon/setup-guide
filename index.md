@@ -265,6 +265,26 @@ Claude Code has three permission modes that control how much autonomy it has:
 
 Toggle with `Shift+Tab` during a session.
 
+### 3.7.1 YOLO Mode: `--dangerously-skip-permissions`
+
+> ⚠️ **USE WITH CAUTION** — This flag is extremely efficient but skips ALL safety checks. Claude will execute any action (edit files, run commands, delete things) without asking you first. Only use this if you know what you're doing and trust your instructions.
+
+```bash
+claude --dangerously-skip-permissions
+```
+
+**Why it's powerful**: No more clicking "approve" on every file edit or command. Claude just does everything — fast, autonomous, no interruptions. Great for repetitive tasks, large refactors, or when you have a solid CLAUDE.md guiding it.
+
+**Why it's dangerous**: Claude can and will run destructive commands if it thinks that's the right solution. There's no "are you sure?" — it just does it. One wrong instruction and files are gone, databases are wiped, or code is pushed.
+
+**Rules of thumb:**
+- ✅ Use it on throwaway branches or projects you can restore
+- ✅ Use it when your CLAUDE.md is well-defined and tested
+- ✅ Use it for read-heavy tasks (analysis, code review)
+- ❌ Never use it on production databases or critical infrastructure
+- ❌ Never use it if you're unsure what Claude might do
+- ❌ Never use it without version control (git) as a safety net
+
 ### 3.8 CLAUDE.md — Project Instructions
 
 `CLAUDE.md` is a special file in your project root that tells Claude about your project. It's loaded automatically every session.
