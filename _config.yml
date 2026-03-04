@@ -1,0 +1,5 @@
+remote_theme: pages-themes/cayman@v0.2.0
+title: Developer Setup Guide
+description: "How to set up Claude Code, GitHub, and Cloud Infrastructure — from zero to deployed."
+plugins:
+  - jekyll-remote-theme
