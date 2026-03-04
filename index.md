@@ -6,6 +6,8 @@ layout: default
 
 > **From zero to deployed** — everything you need to start building with Claude Code, GitHub, and Cloud Infrastructure. No prior experience required.
 
+![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
+
 This guide covers two paths to get your project live:
 
 | | Path A: Railway | Path B: Azure |
@@ -17,8 +19,6 @@ This guide covers two paths to get your project live:
 | **Auto-deploy** | Yes (on git push) | Yes (via GitHub Actions) |
 
 Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud at the end.
-
-![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
 ---
 
