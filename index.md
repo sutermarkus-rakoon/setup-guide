@@ -126,6 +126,22 @@ Claude: Great idea! Here's a suggested architecture:
 
 The output of this phase is a **clear project description** that you'll use in the next phase.
 
+> **Critical: Document as you go!** Claude.ai chats have a context limit. After long conversations, Claude starts forgetting earlier details. To avoid this:
+>
+> 1. **Ask Claude to create markdown summaries** at every milestone: *"Summarize everything we've decided so far as a markdown document"*
+> 2. **Save these markdowns locally** (copy-paste into a `.md` file on your computer)
+> 3. **Start new chats for new topics** — don't cram everything into one endless conversation
+> 4. **Upload your summary markdown** at the start of each new chat so Claude has the full context
+>
+> Think of it like saving your game. If you don't save, you might lose progress. A well-written markdown is your save file.
+>
+> **Example flow:**
+> ```
+> Chat 1: Brainstorm idea → save concept.md
+> Chat 2: Upload concept.md → design database → save database-schema.md
+> Chat 3: Upload concept.md + database-schema.md → plan API → save api-spec.md
+> ```
+
 ### Phase 2: Build → Claude Code (Terminal)
 
 Now you build it. Open your terminal, navigate to your project folder, and type `claude`. Paste your concept from Phase 1, and Claude Code writes the actual code:
@@ -138,6 +154,18 @@ claude
 ```
 
 Claude Code reads, writes, and runs code on your machine. You describe what you want in plain English, and it builds it.
+
+> **Critical: Set up Claude Code properly!** Claude Code is only as good as the instructions you give it. Do this from day one:
+>
+> 1. **Run `/init`** — Claude analyzes your project and creates a `CLAUDE.md` file. This file is loaded at every session start and tells Claude what your project is, which commands to use, and how your code is structured. A good `CLAUDE.md` = fewer mistakes.
+>
+> 2. **Keep `CLAUDE.md` updated** — When your project evolves (new tech, new commands, new conventions), update the file. Ask Claude: *"update CLAUDE.md with our current setup"*
+>
+> 3. **Use `/compact` in long sessions** — Claude Code also has a context limit. When a session gets long, type `/compact` to summarize the conversation and free up space. Do this before Claude starts making mistakes or forgetting earlier changes.
+>
+> 4. **Start new sessions for new tasks** — Don't build your entire app in one session. Finish a feature, commit, exit (`Ctrl+C`), then start fresh with `claude`. Each new session reads your `CLAUDE.md` and starts clean.
+>
+> 5. **Commit before risky changes** — Before asking Claude to do something big (refactor, delete, restructure), commit your current work: *"commit everything"*. If Claude messes up, you can undo with `git checkout .`
 
 ### Phase 3: Version Control → GitHub
 
