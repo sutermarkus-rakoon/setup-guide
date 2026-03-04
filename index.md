@@ -20,10 +20,13 @@ This guide covers two paths to get your project live:
 
 Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud at the end.
 
+> **Don't want to read all this?** Download the [Setup Assistant](claude-setup-assistant.md) file, upload it to [Claude.ai](https://claude.ai), and it will walk you through the entire setup step by step — like a personal tutor. No reading required.
+
 ---
 
 ## Table of Contents
 
+0. [The Workflow](#0-the-workflow)
 1. [Prerequisites](#1-prerequisites)
 2. [Git & GitHub](#2-git--github)
 3. [Claude Code](#3-claude-code)
@@ -31,6 +34,65 @@ Both paths share the same foundation: **Claude Code + GitHub**. Pick your cloud 
 5. [Path A: Deploy to Railway](#5-path-a-deploy-to-railway)
 6. [Path B: Deploy to Azure](#6-path-b-deploy-to-azure)
 7. [Comparison & FAQ](#7-comparison--faq)
+
+---
+
+## 0. The Workflow
+
+Building a project involves four phases. Here's what you use at each stage:
+
+### Phase 1: Concept & Design → Claude.ai (Browser)
+
+Before writing any code, you start with an idea. Open [claude.ai](https://claude.ai) in your browser and describe your project. Claude helps you:
+
+- **Brainstorm** features and user flows
+- **Create mockups** — describe what your app should look like, and Claude generates text-based wireframes
+- **Plan architecture** — what tech stack, what database, how should it work?
+- **Write specs** — Claude turns your vague idea into a clear project description
+
+**Example conversation with Claude.ai:**
+
+```
+You: I want to build an app where bands can find venues to play at.
+     It should show venues on a map, with ratings and contact info.
+
+Claude: Great idea! Here's a suggested architecture:
+        - Frontend: Next.js with TypeScript
+        - Database: PostgreSQL for venues, ratings, and user data
+        - Map: Leaflet.js with OpenStreetMap
+        - Here's a mockup of the main screen...
+```
+
+The output of this phase is a **clear project description** that you'll use in the next phase.
+
+### Phase 2: Build → Claude Code (Terminal)
+
+Now you build it. Open your terminal, navigate to your project folder, and type `claude`. Paste your concept from Phase 1, and Claude Code writes the actual code:
+
+```bash
+cd my-project
+claude
+> Here's my project concept: [paste from Claude.ai]
+> Build this step by step.
+```
+
+Claude Code reads, writes, and runs code on your machine. You describe what you want in plain English, and it builds it.
+
+### Phase 3: Version Control → GitHub
+
+Every time you reach a milestone, save your progress:
+
+```
+> commit my changes and push to GitHub
+```
+
+GitHub stores every version of your code. If something breaks, you can always go back.
+
+### Phase 4: Deploy → Railway or Azure
+
+Once your code is on GitHub, your cloud provider automatically deploys it. Every `git push` triggers a new deployment. Your app is live within minutes.
+
+**That's the loop:** *Concept → Build → Push → Live. Repeat.*
 
 ---
 
