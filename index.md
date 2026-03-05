@@ -1130,15 +1130,60 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
 
 ### The Team — 7 Agents
 
-| # | Name | Role | Responsibilities |
-|---|------|------|-----------------|
-| A | **Anton** | Orchestrator | Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits `board.md`. |
-| B | **Benno** | Planner | Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code. |
-| C | **Chasperli** | Developer 1 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| D | **Donald** | Developer 2 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| E | **Egon** | Developer 3 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| F | **Fridolin** | Quality Control | TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code. |
-| G | **Guschti** | Planner & Security | Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code. |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left; width:30px;">#</th>
+      <th style="padding:10px 14px; text-align:left;">Name</th>
+      <th style="padding:10px 14px; text-align:left;">Role</th>
+      <th style="padding:10px 14px; text-align:left;">Responsibilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">A</td>
+      <td style="padding:8px 14px;"><strong>Anton</strong></td>
+      <td style="padding:8px 14px;">Orchestrator</td>
+      <td style="padding:8px 14px;">Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits <code>board.md</code>.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">B</td>
+      <td style="padding:8px 14px;"><strong>Benno</strong></td>
+      <td style="padding:8px 14px;">Planner</td>
+      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">C</td>
+      <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
+      <td style="padding:8px 14px;">Developer 1</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">D</td>
+      <td style="padding:8px 14px;"><strong>Donald</strong></td>
+      <td style="padding:8px 14px;">Developer 2</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">E</td>
+      <td style="padding:8px 14px;"><strong>Egon</strong></td>
+      <td style="padding:8px 14px;">Developer 3</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">F</td>
+      <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
+      <td style="padding:8px 14px;">Quality Control</td>
+      <td style="padding:8px 14px;">TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">G</td>
+      <td style="padding:8px 14px;"><strong>Guschti</strong></td>
+      <td style="padding:8px 14px;">Planner &amp; Security</td>
+      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code.</td>
+    </tr>
+  </tbody>
+</table>
 
 **Important:** Roles are strictly separated. A developer only implements what is assigned. The orchestrator reviews and commits.
 
@@ -1199,15 +1244,52 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
 
 Team members get fixed names in alphabetical order:
 
-| Order | Name | Default Role |
-|-------|------|-------------|
-| 1st session | **Anton** | Orchestrator |
-| 2nd session | **Benno** | Planner |
-| 3rd session | **Chasperli** | Developer 1 |
-| 4th session | **Donald** | Developer 2 |
-| 5th session | **Egon** | Developer 3 |
-| 6th session | **Fridolin** | Quality Control |
-| 7th session | **Guschti** | Planner & Security |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left;">Order</th>
+      <th style="padding:10px 14px; text-align:left;">Name</th>
+      <th style="padding:10px 14px; text-align:left;">Default Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">1st session</td>
+      <td style="padding:8px 14px;"><strong>Anton</strong></td>
+      <td style="padding:8px 14px;">Orchestrator</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">2nd session</td>
+      <td style="padding:8px 14px;"><strong>Benno</strong></td>
+      <td style="padding:8px 14px;">Planner</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">3rd session</td>
+      <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
+      <td style="padding:8px 14px;">Developer 1</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">4th session</td>
+      <td style="padding:8px 14px;"><strong>Donald</strong></td>
+      <td style="padding:8px 14px;">Developer 2</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">5th session</td>
+      <td style="padding:8px 14px;"><strong>Egon</strong></td>
+      <td style="padding:8px 14px;">Developer 3</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">6th session</td>
+      <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
+      <td style="padding:8px 14px;">Quality Control</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">7th session</td>
+      <td style="padding:8px 14px;"><strong>Guschti</strong></td>
+      <td style="padding:8px 14px;">Planner &amp; Security</td>
+    </tr>
+  </tbody>
+</table>
 
 When you open a new session, take the next available name. The first session is always the orchestrator.
 
@@ -1624,13 +1706,42 @@ Agent writes result to nachrichten.md → goes offline
 
 ### How it Differs from Classic
 
-| Aspect | Classic | Autonomous |
-|--------|---------|------------|
-| **Starting sessions** | You open terminals manually | Script spawns sessions automatically |
-| **Task distribution** | Copy-paste prompts | Write to nachrichten.md, script does the rest |
-| **Supervision** | You watch each terminal | Agents work in the background |
-| **Scaling** | Limited by your terminal tabs | Up to N concurrent agents (configurable) |
-| **Best for** | Learning, small teams, ad-hoc work | Larger projects, recurring tasks, batch processing |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left;">Aspect</th>
+      <th style="padding:10px 14px; text-align:left;">Classic</th>
+      <th style="padding:10px 14px; text-align:left;">Autonomous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Starting sessions</strong></td>
+      <td style="padding:8px 14px;">You open terminals manually</td>
+      <td style="padding:8px 14px;">Script spawns sessions automatically</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Task distribution</strong></td>
+      <td style="padding:8px 14px;">Copy-paste prompts</td>
+      <td style="padding:8px 14px;">Write to nachrichten.md, script does the rest</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Supervision</strong></td>
+      <td style="padding:8px 14px;">You watch each terminal</td>
+      <td style="padding:8px 14px;">Agents work in the background</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Scaling</strong></td>
+      <td style="padding:8px 14px;">Limited by your terminal tabs</td>
+      <td style="padding:8px 14px;">Up to N concurrent agents (configurable)</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Best for</strong></td>
+      <td style="padding:8px 14px;">Learning, small teams, ad-hoc work</td>
+      <td style="padding:8px 14px;">Larger projects, recurring tasks, batch processing</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -1647,15 +1758,60 @@ Agent writes result to nachrichten.md → goes offline
 
 The same team structure applies in both Classic and Autonomous modes:
 
-| # | Name | Role | Responsibilities |
-|---|------|------|-----------------|
-| A | **Anton** | Orchestrator | Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits `board.md`. |
-| B | **Benno** | Planner | Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code. |
-| C | **Chasperli** | Developer 1 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| D | **Donald** | Developer 2 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| E | **Egon** | Developer 3 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
-| F | **Fridolin** | Quality Control | TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code. |
-| G | **Guschti** | Planner & Security | Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code. |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left; width:30px;">#</th>
+      <th style="padding:10px 14px; text-align:left;">Name</th>
+      <th style="padding:10px 14px; text-align:left;">Role</th>
+      <th style="padding:10px 14px; text-align:left;">Responsibilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">A</td>
+      <td style="padding:8px 14px;"><strong>Anton</strong></td>
+      <td style="padding:8px 14px;">Orchestrator</td>
+      <td style="padding:8px 14px;">Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits <code>board.md</code>.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">B</td>
+      <td style="padding:8px 14px;"><strong>Benno</strong></td>
+      <td style="padding:8px 14px;">Planner</td>
+      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">C</td>
+      <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
+      <td style="padding:8px 14px;">Developer 1</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">D</td>
+      <td style="padding:8px 14px;"><strong>Donald</strong></td>
+      <td style="padding:8px 14px;">Developer 2</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">E</td>
+      <td style="padding:8px 14px;"><strong>Egon</strong></td>
+      <td style="padding:8px 14px;">Developer 3</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">F</td>
+      <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
+      <td style="padding:8px 14px;">Quality Control</td>
+      <td style="padding:8px 14px;">TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code.</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">G</td>
+      <td style="padding:8px 14px;"><strong>Guschti</strong></td>
+      <td style="padding:8px 14px;">Planner &amp; Security</td>
+      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -1792,12 +1948,32 @@ node scripts/dashboard.cjs
 
 The orchestrator sends different instructions based on the agent's role:
 
-| Role | Instructions |
-|------|-------------|
-| **Planner** | Read board.md, analyze affected files, create implementation plan, do NOT change code |
-| **Developer** | Read board.md, implement the task, commit + push, report to orchestrator |
-| **Quality Control** | Run `tsc --noEmit` + `vite build`, review recent commits, check responsive design, report findings |
-| **Planner & Security** | Flex role: planning (analyze requirements, design plans) or security (OWASP Top 10, `npm audit`, secrets scan, input validation). Report findings |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left;">Role</th>
+      <th style="padding:10px 14px; text-align:left;">Instructions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Planner</strong></td>
+      <td style="padding:8px 14px;">Read board.md, analyze affected files, create implementation plan, do NOT change code</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Developer</strong></td>
+      <td style="padding:8px 14px;">Read board.md, implement the task, commit + push, report to orchestrator</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;"><strong>Quality Control</strong></td>
+      <td style="padding:8px 14px;">Run <code>tsc --noEmit</code> + <code>vite build</code>, review recent commits, check responsive design, report findings</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;"><strong>Planner &amp; Security</strong></td>
+      <td style="padding:8px 14px;">Flex role: planning (analyze requirements, design plans) or security (OWASP Top 10, <code>npm audit</code>, secrets scan, input validation). Report findings</td>
+    </tr>
+  </tbody>
+</table>
 
 Each prompt also includes the standard operating procedure: update status file on start, execute task, update status file after each step, report result, set status to offline.
 
@@ -1938,15 +2114,44 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
 
 ### Classic vs. Autonomous — When to Use What
 
-| Scenario | Recommended Mode |
-|----------|-----------------|
-| First time trying team mode | **Classic** — learn the coordination patterns |
-| 2-3 sessions, ad-hoc tasks | **Classic** — manual control is fine |
-| 4+ parallel agents | **Autonomous** — manual terminal management gets unwieldy |
-| Recurring task patterns | **Autonomous** — standardized prompts work great |
-| Batch processing (e.g., 10 bug fixes) | **Autonomous** — write all tasks, let agents process them |
-| Exploring / prototyping | **Classic** — you want interactive control |
-| Continuous Integration (CI/CD) | **Autonomous** — script can be triggered by CI events |
+<table style="width:100%; border-collapse:collapse; font-size:15px;">
+  <thead>
+    <tr style="background:#1e293b; color:white;">
+      <th style="padding:10px 14px; text-align:left;">Scenario</th>
+      <th style="padding:10px 14px; text-align:left;">Recommended Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">First time trying team mode</td>
+      <td style="padding:8px 14px;"><strong>Classic</strong> — learn the coordination patterns</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">2-3 sessions, ad-hoc tasks</td>
+      <td style="padding:8px 14px;"><strong>Classic</strong> — manual control is fine</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">4+ parallel agents</td>
+      <td style="padding:8px 14px;"><strong>Autonomous</strong> — manual terminal management gets unwieldy</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">Recurring task patterns</td>
+      <td style="padding:8px 14px;"><strong>Autonomous</strong> — standardized prompts work great</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">Batch processing (e.g., 10 bug fixes)</td>
+      <td style="padding:8px 14px;"><strong>Autonomous</strong> — write all tasks, let agents process them</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">Exploring / prototyping</td>
+      <td style="padding:8px 14px;"><strong>Classic</strong> — you want interactive control</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:8px 14px;">Continuous Integration</td>
+      <td style="padding:8px 14px;"><strong>Autonomous</strong> — script can be triggered by CI events</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
