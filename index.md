@@ -1136,7 +1136,7 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
 | D | **Donald** | Developer 2 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
 | E | **Egon** | Developer 3 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
 | F | **Fridolin** | Quality Control | TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code. |
-| G | **Guschti** | Security | OWASP Top 10 checks, dependency audits, secrets scanning, input validation review. Reports findings with severity levels — does NOT change code. |
+| G | **Guschti** | Planner & Security | Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code. |
 
 **Important:** Roles are strictly separated. A developer only implements what is assigned. The orchestrator reviews and commits.
 
@@ -1159,7 +1159,7 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
           ▼           ▼        ▼        ▼           ▼
    ┌────────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
    │   Benno    │ │Chasper-│ │ Donald │ │Fridolin│ │Guschti │
-   │  Planner   │ │  li    │ │ Dev 2  │ │   QC   │ │Security│
+   │  Planner   │ │  li    │ │ Dev 2  │ │   QC   │ │Plan+Sec│
    │            │ │ Dev 1  │ │        │ │        │ │        │
    └────────────┘ └────────┘ └────────┘ └────────┘ └────────┘
                        │         │
@@ -1190,7 +1190,7 @@ Team members get fixed names in alphabetical order:
 | 4th session | **Donald** | Developer 2 |
 | 5th session | **Egon** | Developer 3 |
 | 6th session | **Fridolin** | Quality Control |
-| 7th session | **Guschti** | Security |
+| 7th session | **Guschti** | Planner & Security |
 
 When you open a new session, take the next available name. The first session is always the orchestrator.
 
@@ -1410,8 +1410,8 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 │  ⑦ Fridolin → Anton                                      │     │
 │     QC report (OK or issues)                              │     │
 │                    │                                       │     │
-│  ⑧ Anton → Guschti (if security-relevant)                │     │
-│     Security audit                                        │     │
+│  ⑧ Anton → Guschti (planning or security audit)           │     │
+│     Flex: analysis/planning or security review            │     │
 │                    │                                       │     │
 │  ⑨ Anton deploys to production ◀──────────────────────────┘     │
 │                                                                 │
@@ -1736,7 +1736,7 @@ The orchestrator sends different instructions based on the agent's role:
 | **Planner** | Read board.md, analyze affected files, create implementation plan, do NOT change code |
 | **Developer** | Read board.md, implement the task, commit + push, report to orchestrator |
 | **QC** | Run `tsc --noEmit` + `vite build`, review recent commits, check responsive design, report findings |
-| **Security** | OWASP Top 10 check, `npm audit`, secrets scan, input validation review, report with severity levels |
+| **Planner & Security** | Flex role: planning (analyze requirements, design plans) or security (OWASP Top 10, `npm audit`, secrets scan, input validation). Report findings |
 
 Each prompt also includes the standard operating procedure: update status file on start, execute task, update status file after each step, report result, set status to offline.
 
@@ -1771,7 +1771,7 @@ You'll see a startup banner:
 ║   Max parallel: 4                                        ║
 ║   B: Benno (Planner)    C: Chasperli (Dev)               ║
 ║   D: Donald (Dev)       E: Egon (Dev)                    ║
-║   F: Fridolin (QC)      G: Guschti (Security)            ║
+║   F: Fridolin (QC)      G: Guschti (Planner & Security)   ║
 ╚═══════════════════════════════════════════════════════════╝
 
 Waiting for tasks in status/nachrichten.md...
