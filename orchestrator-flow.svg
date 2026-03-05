@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" font-family="'Segoe UI','Open Sans',sans-serif">
+  <defs>
+    <linearGradient id="of-watch" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#334155"/></linearGradient>
+    <linearGradient id="of-parse" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0091DC"/><stop offset="100%" stop-color="#0077b6"/></linearGradient>
+    <linearGradient id="of-spawn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="of-exec" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="of-report" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+    <filter id="of-shadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="760" height="200" rx="14" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="380" y="28" text-anchor="middle" fill="#1e293b" font-weight="700" font-size="14">Orchestrator Pipeline</text>
+
+  <!-- Step 1: Watch -->
+  <rect x="20" y="50" width="120" height="70" rx="10" fill="url(#of-watch)" filter="url(#of-shadow)"/>
+  <text x="80" y="76" text-anchor="middle" fill="white" font-weight="700" font-size="13">1. Watch</text>
+  <text x="80" y="96" text-anchor="middle" fill="white" font-size="10" opacity="0.8">nachrichten.md</text>
+  <text x="80" y="110" text-anchor="middle" fill="white" font-size="9" opacity="0.6">Poll every 10s</text>
+
+  <!-- Arrow 1→2 -->
+  <polygon points="148,85 164,78 164,92" fill="#0091DC"/>
+  <line x1="140" y1="85" x2="158" y2="85" stroke="#0091DC" stroke-width="3"/>
+
+  <!-- Step 2: Parse -->
+  <rect x="168" y="50" width="120" height="70" rx="10" fill="url(#of-parse)" filter="url(#of-shadow)"/>
+  <text x="228" y="76" text-anchor="middle" fill="white" font-weight="700" font-size="13">2. Parse</text>
+  <text x="228" y="96" text-anchor="middle" fill="white" font-size="10" opacity="0.8">Match Anton→Agent</text>
+  <text x="228" y="110" text-anchor="middle" fill="white" font-size="9" opacity="0.6">Check ⬜ status</text>
+
+  <!-- Arrow 2→3 -->
+  <polygon points="296,85 312,78 312,92" fill="#0091DC"/>
+  <line x1="288" y1="85" x2="306" y2="85" stroke="#0091DC" stroke-width="3"/>
+
+  <!-- Step 3: Spawn -->
+  <rect x="316" y="50" width="120" height="70" rx="10" fill="url(#of-spawn)" filter="url(#of-shadow)"/>
+  <text x="376" y="76" text-anchor="middle" fill="white" font-weight="700" font-size="13">3. Spawn</text>
+  <text x="376" y="96" text-anchor="middle" fill="white" font-size="10" opacity="0.8">claude -p</text>
+  <text x="376" y="110" text-anchor="middle" fill="white" font-size="9" opacity="0.6">Prompt via stdin</text>
+
+  <!-- Arrow 3→4 -->
+  <polygon points="444,85 460,78 460,92" fill="#10b981"/>
+  <line x1="436" y1="85" x2="454" y2="85" stroke="#10b981" stroke-width="3"/>
+
+  <!-- Step 4: Execute -->
+  <rect x="464" y="50" width="120" height="70" rx="10" fill="url(#of-exec)" filter="url(#of-shadow)"/>
+  <text x="524" y="76" text-anchor="middle" fill="white" font-weight="700" font-size="13">4. Execute</text>
+  <text x="524" y="96" text-anchor="middle" fill="white" font-size="10" opacity="0.8">Agent works</text>
+  <text x="524" y="110" text-anchor="middle" fill="white" font-size="9" opacity="0.6">Commit + push</text>
+
+  <!-- Arrow 4→5 -->
+  <polygon points="592,85 608,78 608,92" fill="#f59e0b"/>
+  <line x1="584" y1="85" x2="602" y2="85" stroke="#f59e0b" stroke-width="3"/>
+
+  <!-- Step 5: Report -->
+  <rect x="612" y="50" width="120" height="70" rx="10" fill="url(#of-report)" filter="url(#of-shadow)"/>
+  <text x="672" y="76" text-anchor="middle" fill="white" font-weight="700" font-size="13">5. Report</text>
+  <text x="672" y="96" text-anchor="middle" fill="white" font-size="10" opacity="0.8">Result to Anton</text>
+  <text x="672" y="110" text-anchor="middle" fill="white" font-size="9" opacity="0.6">Status → offline</text>
+
+  <!-- Caption -->
+  <text x="380" y="155" text-anchor="middle" fill="#64748b" font-size="11" font-style="italic">
+    From task detection to completion — fully automated agent lifecycle
+  </text>
+  <text x="380" y="180" text-anchor="middle" fill="#94a3b8" font-size="10">Orchestrator Architecture — Autonomous Mode</text>
+</svg>

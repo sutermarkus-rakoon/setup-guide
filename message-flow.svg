@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" font-family="'Segoe UI','Open Sans',sans-serif">
+  <defs>
+    <linearGradient id="mf-hub" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#334155"/></linearGradient>
+    <linearGradient id="mf-benno" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="mf-chasperli" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+    <linearGradient id="mf-donald" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="mf-egon" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#dc2626"/></linearGradient>
+    <linearGradient id="mf-anton" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0091DC"/><stop offset="100%" stop-color="#0077b6"/></linearGradient>
+    <linearGradient id="mf-fridolin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
+    <linearGradient id="mf-guschti" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="#ea580c"/></linearGradient>
+    <filter id="mf-shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.15"/></filter>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#0091DC"/></marker>
+    <marker id="arrowL" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="#0091DC"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="360" rx="16" fill="#f8fafc"/>
+
+  <!-- Central Hub -->
+  <rect x="250" y="60" width="200" height="180" rx="14" fill="url(#mf-hub)" filter="url(#mf-shadow)"/>
+  <text x="350" y="110" text-anchor="middle" fill="white" font-weight="700" font-size="16">nachrichten.md</text>
+  <text x="350" y="132" text-anchor="middle" fill="white" font-size="12" opacity="0.8">Central Message Board</text>
+  <line x1="280" y1="152" x2="420" y2="152" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="350" y="174" text-anchor="middle" fill="white" font-size="11" opacity="0.7">All agents read &amp; write</text>
+  <text x="350" y="192" text-anchor="middle" fill="white" font-size="11" opacity="0.7">Poll every ~15 seconds</text>
+  <text x="350" y="224" text-anchor="middle" fill="white" font-size="10" opacity="0.5">Append-only · No direct comms</text>
+
+  <!-- Left agents -->
+  <!-- Benno -->
+  <rect x="20" y="62" width="100" height="42" rx="8" fill="url(#mf-benno)" filter="url(#mf-shadow)"/>
+  <text x="70" y="80" text-anchor="middle" fill="white" font-weight="600" font-size="12">Benno</text>
+  <text x="70" y="95" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Planner</text>
+  <line x1="120" y1="83" x2="250" y2="100" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Chasperli -->
+  <rect x="20" y="117" width="100" height="42" rx="8" fill="url(#mf-chasperli)" filter="url(#mf-shadow)"/>
+  <text x="70" y="135" text-anchor="middle" fill="white" font-weight="600" font-size="12">Chasperli</text>
+  <text x="70" y="150" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Developer 1</text>
+  <line x1="120" y1="138" x2="250" y2="140" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Donald -->
+  <rect x="20" y="172" width="100" height="42" rx="8" fill="url(#mf-donald)" filter="url(#mf-shadow)"/>
+  <text x="70" y="190" text-anchor="middle" fill="white" font-weight="600" font-size="12">Donald</text>
+  <text x="70" y="205" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Developer 2</text>
+  <line x1="120" y1="193" x2="250" y2="180" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Egon -->
+  <rect x="20" y="227" width="100" height="42" rx="8" fill="url(#mf-egon)" filter="url(#mf-shadow)"/>
+  <text x="70" y="245" text-anchor="middle" fill="white" font-weight="600" font-size="12">Egon</text>
+  <text x="70" y="260" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Developer 3</text>
+  <line x1="120" y1="248" x2="250" y2="220" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Right agents -->
+  <!-- Anton -->
+  <rect x="580" y="75" width="100" height="42" rx="8" fill="url(#mf-anton)" filter="url(#mf-shadow)"/>
+  <text x="630" y="93" text-anchor="middle" fill="white" font-weight="600" font-size="12">Anton</text>
+  <text x="630" y="108" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Orchestrator</text>
+  <line x1="450" y1="110" x2="580" y2="96" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Fridolin -->
+  <rect x="580" y="140" width="100" height="42" rx="8" fill="url(#mf-fridolin)" filter="url(#mf-shadow)"/>
+  <text x="630" y="158" text-anchor="middle" fill="white" font-weight="600" font-size="12">Fridolin</text>
+  <text x="630" y="173" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Quality Control</text>
+  <line x1="450" y1="155" x2="580" y2="161" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Guschti -->
+  <rect x="580" y="205" width="100" height="42" rx="8" fill="url(#mf-guschti)" filter="url(#mf-shadow)"/>
+  <text x="630" y="223" text-anchor="middle" fill="white" font-weight="600" font-size="12">Guschti</text>
+  <text x="630" y="238" text-anchor="middle" fill="white" font-size="10" opacity="0.85">Plan &amp; Security</text>
+  <line x1="450" y1="200" x2="580" y2="226" stroke="#0091DC" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Caption -->
+  <text x="350" y="305" text-anchor="middle" fill="#64748b" font-size="11" font-style="italic">
+    Agents never communicate directly — all messages go through nachrichten.md
+  </text>
+  <text x="350" y="340" text-anchor="middle" fill="#94a3b8" font-size="10">Message Flow — Multi-Session Team Mode</text>
+</svg>

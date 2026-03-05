@@ -1098,7 +1098,7 @@ claude                    # Start Claude Code
 
 ## Multi-Session Team Mode
 
-> **Run multiple Claude Code sessions as a team** — an orchestrator coordinates, multiple developers work in parallel, and a QC agent checks quality. Get done in one hour what would normally take a full day.
+> **Run multiple Claude Code sessions as a team** — an orchestrator coordinates, multiple developers work in parallel, and a quality control agent checks code quality. Get done in one hour what would normally take a full day.
 
 <div class="sub-tabs">
   <button class="sub-tab active" onclick="switchSubTab('classic', this)">Classic</button>
@@ -1110,16 +1110,18 @@ claude                    # Start Claude Code
 
 ### What is Team Mode?
 
-In Basic mode, you work with **one** Claude Code session. That works fine for small tasks. But what about larger projects — e.g., adding i18n, fixing responsive bugs, and writing tests all at the same time?
+In Basic mode, you work with **one** Claude Code session. That works fine for small tasks. But what about larger projects — e.g., adding multilingual support, fixing responsive bugs, and writing tests all at the same time?
 
 In **Team Mode**, you open multiple terminals, start a separate Claude Code session in each one, and assign each session a **role** and a **name**. The sessions coordinate through files in the project — just like a real development team.
 
 ```
-Terminal 1: Anton (Orchestrator)   — coordinates, commits, deploys
-Terminal 2: Benno (Developer)      — works on Feature A
-Terminal 3: Chasperli (Developer)  — works on Feature B
-Terminal 4: Donald (Developer)     — works on Feature C
-Terminal 5: Egon (Quality Control) — checks code quality, tests
+Terminal 1: Anton (Orchestrator)        — coordinates, distributes tasks, deploys
+Terminal 2: Benno (Planner)             — analyzes requirements, creates plans
+Terminal 3: Chasperli (Developer 1)     — works on Feature A
+Terminal 4: Donald (Developer 2)        — works on Feature B
+Terminal 5: Egon (Developer 3)          — works on Feature C
+Terminal 6: Fridolin (Quality Control)  — checks code quality, tests
+Terminal 7: Guschti (Planner & Security) — security audits, planning
 ```
 
 **Prerequisite:** All sessions run in the same project folder and use the same Git repo.
@@ -1142,6 +1144,9 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
 
 #### Team Overview
 
+![Team Organigramm — Markus (Product Owner) at the top, Anton (Orchestrator) below, 6 Agents on the same level: Benno, Chasperli, Donald, Egon, Fridolin, Guschti](team-organigramm.svg)
+
+<details><summary>Inline fallback (if SVG doesn't render)</summary>
 <div style="max-width:700px; margin:1.5rem auto; font-family:'Open Sans',sans-serif;">
   <div style="text-align:center;">
     <div style="display:inline-block; background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; box-shadow:0 4px 15px rgba(99,102,241,0.3);">
@@ -1186,6 +1191,7 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
     Anton distributes tasks to all agents &middot; Benno plans, Developers implement &middot; Fridolin + Guschti review
   </div>
 </div>
+</details>
 
 ---
 
@@ -1240,7 +1246,7 @@ All tasks live here. **Only the orchestrator edits this file.** Contains:
 
 ## Open Tasks
 
-### Feature: i18n (DE/EN)
+### Feature: Multilingual Support (DE/EN)
 **Description:** All UI text should be available in German and English.
 **Affected files:** src/i18n.tsx, src/locales/, all pages
 **Assigned to:** Chasperli + Benno
@@ -1257,13 +1263,16 @@ Team members communicate here. **Everyone can append** (add new lines), but nobo
 |------|-----|---------|------|
 | Benno | Anton | Feature X done! Please commit. | ⬜ |
 | Anton | Benno | ✅ Committed + deployed. | ✅ |
-| Chasperli | Benno | Can you help with i18n? | ⬜ |
+| Chasperli | Benno | Can you help with the multilingual setup? | ⬜ |
 ```
 
 **Important rule:** Each session polls the message board regularly (~15 seconds) and responds to messages addressed to it.
 
 #### Message Flow Between Agents
 
+![Message Flow — All agents communicate through nachrichten.md as the central message board](message-flow.svg)
+
+<details><summary>Inline fallback (if SVG doesn't render)</summary>
 <div style="max-width:680px;margin:1.5rem auto;font-family:'Open Sans',sans-serif;">
   <div style="display:flex;align-items:stretch;gap:0;">
     <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:100px;">
@@ -1315,6 +1324,7 @@ Team members communicate here. **Everyone can append** (add new lines), but nobo
     Agents never communicate directly &mdash; all messages go through nachrichten.md
   </div>
 </div>
+</details>
 
 #### `<name>.md` — Personal Status Files
 
@@ -1436,10 +1446,10 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 │     implement + commit + push                             │     │
 │                    │         │         │                   │     │
 │  ⑥ Anton → Fridolin ◀───────┴─────────┘                  │     │
-│     "QC check please"                                     │     │
+│     "Quality check please"                                     │     │
 │                    │                                       │     │
 │  ⑦ Fridolin → Anton                                      │     │
-│     QC report (OK or issues)                              │     │
+│     Quality report (OK or issues)                              │     │
 │                    │                                       │     │
 │  ⑧ Anton → Guschti (planning or security audit)           │     │
 │     Flex: analysis/planning or security review            │     │
@@ -1448,7 +1458,7 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 
-Shortcut (small tasks): Anton → Developer → Commit → Done (no Planner/QC)
+Shortcut (small tasks): Anton → Developer → Commit → Done (no Planner/Quality Control)
 ```
 
 ### Example Workflow
@@ -1467,7 +1477,7 @@ Anton reads the task list, checks which developers are online, and distributes t
 
 ```markdown
 | Anton | Benno | Please do the responsive bugfixes. Details in board.md. | ⬜ |
-| Anton | Chasperli | Please set up the i18n framework. Details in board.md. | ⬜ |
+| Anton | Chasperli | Please set up the multilingual framework. Details in board.md. | ⬜ |
 ```
 
 **2. Developer (Benno) checks in and works**
@@ -1651,6 +1661,9 @@ The same team structure applies in both Classic and Autonomous modes:
 
 ### Architecture & Flow
 
+![Orchestrator Pipeline — Watch, Parse, Spawn, Execute, Report — fully automated agent lifecycle](orchestrator-flow.svg)
+
+<details><summary>Inline fallback (if SVG doesn't render)</summary>
 <div style="max-width:720px;margin:1.5rem auto;font-family:'Open Sans',sans-serif;overflow-x:auto;">
   <div style="display:flex;align-items:center;gap:0;min-width:580px;">
     <div style="flex:1;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(30,41,59,0.3);">
@@ -1682,6 +1695,7 @@ The same team structure applies in both Classic and Autonomous modes:
     Orchestrator pipeline: from task detection to completion
   </div>
 </div>
+</details>
 
 ---
 
@@ -1750,7 +1764,7 @@ spawn('claude', ['-p', '--dangerously-skip-permissions', prompt]);
 
 Long prompts with special characters (`|`, `!`, `"`, newlines) break when passed as shell arguments. Stdin avoids all escaping issues.
 
-**3. Use `.cjs` extension in ESM projects**
+**3. Use `.cjs` extension in ES Module projects**
 
 If your project uses `"type": "module"` in `package.json`, Node.js treats all `.js` files as ES modules. The orchestrator uses `require()` (CommonJS), so it must have a `.cjs` extension:
 
@@ -1782,7 +1796,7 @@ The orchestrator sends different instructions based on the agent's role:
 |------|-------------|
 | **Planner** | Read board.md, analyze affected files, create implementation plan, do NOT change code |
 | **Developer** | Read board.md, implement the task, commit + push, report to orchestrator |
-| **QC** | Run `tsc --noEmit` + `vite build`, review recent commits, check responsive design, report findings |
+| **Quality Control** | Run `tsc --noEmit` + `vite build`, review recent commits, check responsive design, report findings |
 | **Planner & Security** | Flex role: planning (analyze requirements, design plans) or security (OWASP Top 10, `npm audit`, secrets scan, input validation). Report findings |
 
 Each prompt also includes the standard operating procedure: update status file on start, execute task, update status file after each step, report result, set status to offline.
@@ -1818,7 +1832,7 @@ You'll see a startup banner:
 ║   Max parallel: 4                                        ║
 ║   B: Benno (Planner)    C: Chasperli (Dev)               ║
 ║   D: Donald (Dev)       E: Egon (Dev)                    ║
-║   F: Fridolin (QC)      G: Guschti (Planner & Security)   ║
+║   F: Fridolin (Quality)  G: Guschti (Plan & Security)     ║
 ╚═══════════════════════════════════════════════════════════╝
 
 Waiting for tasks in status/nachrichten.md...
@@ -1932,7 +1946,7 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
 | Recurring task patterns | **Autonomous** — standardized prompts work great |
 | Batch processing (e.g., 10 bug fixes) | **Autonomous** — write all tasks, let agents process them |
 | Exploring / prototyping | **Classic** — you want interactive control |
-| CI/CD integration | **Autonomous** — script can be triggered by CI events |
+| Continuous Integration (CI/CD) | **Autonomous** — script can be triggered by CI events |
 
 ---
 
