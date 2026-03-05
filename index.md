@@ -8,12 +8,6 @@ layout: default
 
 > **From zero to deployed** — everything you need to start building with Claude Code, GitHub, and Cloud Infrastructure. No prior experience required.
 
-<p align="center" style="margin: 1.5em 0;">
-  <a href="claude-setup-assistant.txt" download="claude-setup-assistant.md" style="display: inline-block; background: #f97316; color: white; padding: 14px 28px; border-radius: 10px; font-size: 18px; font-weight: 700; text-decoration: none; cursor: pointer;">Download Setup Assistant for Claude.ai</a>
-  <br>
-  <em style="font-size: 14px; color: #64748b;">Save the file, then upload it to <a href="https://claude.ai">Claude.ai</a> — it will walk you through the entire setup step by step.</em>
-</p>
-
 <!-- ==================== OVERVIEW TAB ==================== -->
 <div id="tab-overview" class="tab-panel active" markdown="1">
 
@@ -156,6 +150,12 @@ layout: default
 
 <!-- ==================== BASIC TAB ==================== -->
 <div id="tab-basic" class="tab-panel" markdown="1">
+
+<p align="center" style="margin: 1.5em 0;">
+  <a href="claude-setup-assistant.txt" download="claude-setup-assistant.md" style="display: inline-block; background: #f97316; color: white; padding: 14px 28px; border-radius: 10px; font-size: 18px; font-weight: 700; text-decoration: none; cursor: pointer;">Download Setup Assistant for Claude.ai</a>
+  <br>
+  <em style="font-size: 14px; color: #64748b;">Save the file, then upload it to <a href="https://claude.ai">Claude.ai</a> — it will walk you through the entire setup step by step.</em>
+</p>
 
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 
@@ -2297,6 +2297,44 @@ The dashboard auto-refreshes every 5 seconds by fetching new data and updating t
    ```
 
 </div>
+
+---
+
+### Lessons Learned
+
+Real-world experience from running a 7-agent team on a production project. These are patterns and pitfalls we discovered the hard way.
+
+#### 1. Spawn agents via nachrichten.md, not board.md
+
+The orchestrator script watches `nachrichten.md` for new messages from Anton to an agent name (marked with ⬜). It does **not** watch `board.md`. If you write a task only in `board.md`, no agent will be spawned. The correct workflow:
+1. Write the task description in `board.md` (for tracking)
+2. Write a message in `nachrichten.md` addressed to an agent name (this triggers the spawn)
+
+#### 2. Assign tasks by role, not by name
+
+Agents are short-lived — a "Chasperli" session that finishes its task goes offline, and the next available session gets a new name. Don't address tasks to "Chasperli" specifically. Instead, write the task for the **role** (e.g., "first available Developer") and let the orchestrator assign it to whoever comes online next.
+
+#### 3. Clean up board.md before adding new tasks
+
+Move completed tasks to the "Erledigte Aufträge" (completed) section before writing new ones. A cluttered board with old tasks causes confusion — agents may pick up already-finished work or duplicates. Keep the "Offene Aufträge" section small and current.
+
+#### 4. Short-lived agents need real-time monitoring
+
+Some agents finish their task in under 2 minutes. If your monitoring dashboard only refreshes every 5 seconds, you might miss them entirely. Solutions:
+- Add a "recently active" state (e.g., amber highlight for agents active within the last 5 minutes)
+- Sort agents: online → recently active → offline
+- Keep a history of completed sessions visible
+
+#### 5. Token measurement requires `--output-format json`
+
+The `claude -p` CLI outputs token usage only when you pass `--output-format json`. Without this flag, `parseTokenUsage()` in the orchestrator falls back to estimating tokens from output length — which gives wildly wrong numbers (e.g., 58 tokens instead of 50,000+). Always spawn with:
+```bash
+claude -p --dangerously-skip-permissions --output-format json
+```
+
+#### 6. useBlocker requires a Data Router
+
+React Router's `useBlocker()` hook internally calls `useDataRouterContext()`, which requires a **Data Router** (`createBrowserRouter` + `RouterProvider`). If your app uses the classic `<BrowserRouter>`, `useBlocker` will crash with: *"useBlocker must be used within a data router"*. Workaround: use `window.confirm()` in a navigation wrapper and rely on `beforeunload` for browser refresh protection.
 
 ---
 
