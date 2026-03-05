@@ -1142,39 +1142,50 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
 
 #### Team Overview
 
-```
-                        ┌──────────────┐
-                        │    Markus    │
-                        │ (Product    │
-                        │  Owner)     │
-                        └──────┬───────┘
-                               │ defines requirements
-                               ▼
-                        ┌──────────────┐
-                  ┌─────│    Anton     │─────┐
-                  │     │ Orchestrator │     │
-                  │     └──┬───┬───┬───┘     │
-                  │        │   │   │         │
-          ┌───────┘   ┌────┘   │   └────┐   └───────┐
-          ▼           ▼        ▼        ▼           ▼
-   ┌────────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
-   │   Benno    │ │Chasper-│ │ Donald │ │Fridolin│ │Guschti │
-   │  Planner   │ │  li    │ │ Dev 2  │ │   QC   │ │Plan+Sec│
-   │            │ │ Dev 1  │ │        │ │        │ │        │
-   └────────────┘ └────────┘ └────────┘ └────────┘ └────────┘
-                       │         │
-                       │  ┌──────┘
-                       ▼  ▼
-                  ┌────────────┐
-                  │   Egon     │
-                  │   Dev 3    │
-                  └────────────┘
-
-  Legend:
-  ─────  Anton distributes tasks to all agents
-  Benno  plans first, then developers implement
-  Fridolin + Guschti review after implementation
-```
+<div style="max-width:700px; margin:1.5rem auto; font-family:'Open Sans',sans-serif;">
+  <div style="text-align:center;">
+    <div style="display:inline-block; background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; box-shadow:0 4px 15px rgba(99,102,241,0.3);">
+      Markus<br><span style="font-weight:400;font-size:12px;opacity:0.85;">Product Owner</span>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <div style="width:3px;height:28px;background:#94a3b8;margin:0 auto;"></div>
+    <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #94a3b8;margin:0 auto;"></div>
+  </div>
+  <div style="text-align:center;margin-top:4px;">
+    <div style="display:inline-block; background:linear-gradient(135deg,#0091DC,#0077b6); color:#fff; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; box-shadow:0 4px 15px rgba(0,145,220,0.3);">
+      Anton<br><span style="font-weight:400;font-size:12px;opacity:0.85;">Orchestrator</span>
+    </div>
+  </div>
+  <div style="text-align:center;">
+    <div style="width:3px;height:28px;background:#94a3b8;margin:0 auto;"></div>
+    <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #94a3b8;margin:0 auto;"></div>
+  </div>
+  <div style="height:3px;background:#94a3b8;margin:0 40px;"></div>
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:10px;">
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(139,92,246,0.25);">
+      Benno<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Planner</span>
+    </div>
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(16,185,129,0.25);">
+      Chasperli<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 1</span>
+    </div>
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(245,158,11,0.25);">
+      Donald<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 2</span>
+    </div>
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(239,68,68,0.25);">
+      Egon<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 3</span>
+    </div>
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(6,182,212,0.25);">
+      Fridolin<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Quality Control</span>
+    </div>
+    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(249,115,22,0.25);">
+      Guschti<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Planner &amp; Security</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:14px;font-size:12px;color:#64748b;font-style:italic;">
+    Anton distributes tasks to all agents &middot; Benno plans, Developers implement &middot; Fridolin + Guschti review
+  </div>
+</div>
 
 ---
 
@@ -1253,37 +1264,57 @@ Team members communicate here. **Everyone can append** (add new lines), but nobo
 
 #### Message Flow Between Agents
 
-```
-  ┌─────────┐                    ┌──────────────┐                    ┌─────────┐
-  │  Benno  │                    │nachrichten.md│                    │  Anton  │
-  │ Planner │                    │ (Message     │                    │  Orch.  │
-  └────┬────┘                    │  Board)      │                    └────┬────┘
-       │                         └──────┬───────┘                         │
-       │  1. "Plan ready!"              │                                 │
-       │───────────────────────────────▶│                                 │
-       │                                │   2. Anton reads (polls 15s)    │
-       │                                │────────────────────────────────▶│
-       │                                │                                 │
-       │                                │   3. "Chasperli: implement X"   │
-       │                                │◀────────────────────────────────│
-       │                                │                                 │
-       │         ┌──────────┐           │                                 │
-       │         │Chasperli │           │   4. Chasperli reads            │
-       │         │  Dev 1   │◀──────────│                                 │
-       │         └────┬─────┘           │                                 │
-       │              │                 │                                 │
-       │              │  5. "Done!"     │                                 │
-       │              │────────────────▶│                                 │
-       │              │                 │   6. Anton reads → commits      │
-       │              │                 │────────────────────────────────▶│
-       │              │                 │                                 │
-       │              │                 │   7. "Fridolin: QC check"       │
-       │              │                 │◀────────────────────────────────│
-       │              │                 │                                 │
-
-  All communication goes through nachrichten.md — agents never talk directly.
-  Each agent polls every ~15 seconds for new messages addressed to them.
-```
+<div style="max-width:680px;margin:1.5rem auto;font-family:'Open Sans',sans-serif;">
+  <div style="display:flex;align-items:stretch;gap:0;">
+    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:100px;">
+      <div style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
+        Benno<br><span style="font-size:10px;font-weight:400;">Planner</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
+        Chasperli<br><span style="font-size:10px;font-weight:400;">Developer 1</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
+        Donald<br><span style="font-size:10px;font-weight:400;">Developer 2</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
+        Egon<br><span style="font-size:10px;font-weight:400;">Developer 3</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;padding:0 6px;">
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+    </div>
+    <div style="flex:1;background:linear-gradient(180deg,#1e293b,#334155);color:#fff;padding:18px 14px;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;box-shadow:0 4px 18px rgba(30,41,59,0.35);margin:0 6px;">
+      <div style="font-weight:700;font-size:15px;margin-bottom:4px;">nachrichten.md</div>
+      <div style="font-size:12px;opacity:0.8;">Central Message Board</div>
+      <div style="margin-top:10px;font-size:11px;opacity:0.7;border-top:1px solid rgba(255,255,255,0.15);padding-top:10px;">
+        All agents read &amp; write<br>Poll every ~15 seconds
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;padding:0 6px;">
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:100px;">
+      <div style="background:linear-gradient(135deg,#0091DC,#0077b6);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
+        Anton<br><span style="font-size:10px;font-weight:400;">Orchestrator</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
+        Fridolin<br><span style="font-size:10px;font-weight:400;">Quality Control</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
+        Guschti<br><span style="font-size:10px;font-weight:400;">Planner &amp; Security</span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:12px;font-size:12px;color:#64748b;font-style:italic;">
+    Agents never communicate directly &mdash; all messages go through nachrichten.md
+  </div>
+</div>
 
 #### `<name>.md` — Personal Status Files
 
@@ -1602,39 +1633,55 @@ Agent writes result to nachrichten.md → goes offline
 
 ---
 
+### The Team — 7 Agents
+
+The same team structure applies in both Classic and Autonomous modes:
+
+| # | Name | Role | Responsibilities |
+|---|------|------|-----------------|
+| A | **Anton** | Orchestrator | Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits `board.md`. |
+| B | **Benno** | Planner | Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code. |
+| C | **Chasperli** | Developer 1 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| D | **Donald** | Developer 2 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| E | **Egon** | Developer 3 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| F | **Fridolin** | Quality Control | TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code. |
+| G | **Guschti** | Planner & Security | Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code. |
+
+---
+
 ### Architecture & Flow
 
-```
-┌─────────────────────────────────────────────┐
-│  nachrichten.md                             │
-│  ┌────────────────────────────────────────┐ │
-│  │ Anton │ Benno │ Fix the login bug │ ⬜ │ │
-│  └────────────────────────────────────────┘ │
-└──────────────────┬──────────────────────────┘
-                   │ Orchestrator detects new ⬜ message
-                   ▼
-┌──────────────────────────────────────────────┐
-│  orchestrator.cjs                            │
-│  - Parses nachrichten.md table               │
-│  - Matches: Anton → AgentName → ⬜           │
-│  - Checks: agent not already running         │
-│  - Checks: max concurrent limit              │
-│  - Spawns: claude -p --dangerously-skip-...  │
-│  - Sends prompt via stdin                    │
-└──────────────────┬───────────────────────────┘
-                   │
-        ┌──────────┼──────────┐
-        ▼          ▼          ▼
-   ┌─────────┐ ┌─────────┐ ┌─────────┐
-   │ Benno   │ │Chasperli│ │ Donald  │
-   │ (Dev 1) │ │ (Dev 2) │ │ (Dev 3) │
-   └────┬────┘ └────┬────┘ └────┬────┘
-        │           │           │
-        ▼           ▼           ▼
-   Implements   Implements   Implements
-   Commits      Commits      Commits
-   Reports ✅   Reports ✅   Reports ✅
-```
+<div style="max-width:720px;margin:1.5rem auto;font-family:'Open Sans',sans-serif;overflow-x:auto;">
+  <div style="display:flex;align-items:center;gap:0;min-width:580px;">
+    <div style="flex:1;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(30,41,59,0.3);">
+      <div style="font-weight:700;font-size:14px;">Watch</div>
+      <div style="font-size:11px;opacity:0.8;margin-top:4px;">nachrichten.md</div>
+    </div>
+    <div style="font-size:24px;color:#0091DC;padding:0 6px;font-weight:700;">&#x25B6;&#xFE0E;</div>
+    <div style="flex:1;background:linear-gradient(135deg,#0091DC,#0077b6);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(0,145,220,0.3);">
+      <div style="font-weight:700;font-size:14px;">Parse</div>
+      <div style="font-size:11px;opacity:0.8;margin-top:4px;">Match Anton&#x2192;Agent</div>
+    </div>
+    <div style="font-size:24px;color:#0091DC;padding:0 6px;font-weight:700;">&#x25B6;&#xFE0E;</div>
+    <div style="flex:1;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(16,185,129,0.25);">
+      <div style="font-weight:700;font-size:14px;">Spawn</div>
+      <div style="font-size:11px;opacity:0.8;margin-top:4px;">claude -p</div>
+    </div>
+    <div style="font-size:24px;color:#10b981;padding:0 6px;font-weight:700;">&#x25B6;&#xFE0E;</div>
+    <div style="flex:1;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(245,158,11,0.25);">
+      <div style="font-weight:700;font-size:14px;">Execute</div>
+      <div style="font-size:11px;opacity:0.8;margin-top:4px;">Agent works</div>
+    </div>
+    <div style="font-size:24px;color:#f59e0b;padding:0 6px;font-weight:700;">&#x25B6;&#xFE0E;</div>
+    <div style="flex:1;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:16px 10px;border-radius:12px;text-align:center;box-shadow:0 3px 12px rgba(139,92,246,0.25);">
+      <div style="font-weight:700;font-size:14px;">Report</div>
+      <div style="font-size:11px;opacity:0.8;margin-top:4px;">Result to Anton</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:12px;font-size:12px;color:#64748b;font-style:italic;">
+    Orchestrator pipeline: from task detection to completion
+  </div>
+</div>
 
 ---
 
