@@ -1100,14 +1100,6 @@ claude                    # Start Claude Code
 
 > **Run multiple Claude Code sessions as a team** — an orchestrator coordinates, multiple developers work in parallel, and a quality control agent checks code quality. Get done in one hour what would normally take a full day.
 
-<div class="sub-tabs">
-  <button class="sub-tab active" onclick="switchSubTab('classic', this)">Classic</button>
-  <button class="sub-tab" onclick="switchSubTab('autonomous', this)">Autonomous</button>
-</div>
-
-<!-- ========== SUB-TAB: CLASSIC ========== -->
-<div id="subtab-classic" class="sub-panel active" markdown="1">
-
 ### What is Team Mode?
 
 In Basic mode, you work with **one** Claude Code session. That works fine for small tasks. But what about larger projects — e.g., adding multilingual support, fixing responsive bugs, and writing tests all at the same time?
@@ -1150,7 +1142,7 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
       <td style="padding:8px 14px;">B</td>
       <td style="padding:8px 14px;"><strong>Benno</strong></td>
       <td style="padding:8px 14px;">Planner</td>
-      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code.</td>
+      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines interface specifications (how the frontend communicates with the backend). Does NOT change code.</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">C</td>
@@ -1174,13 +1166,13 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
       <td style="padding:8px 14px;">F</td>
       <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
       <td style="padding:8px 14px;">Quality Control</td>
-      <td style="padding:8px 14px;">TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code.</td>
+      <td style="padding:8px 14px;">TypeScript type checks, responsive testing (does the layout work on mobile?), code review, functional testing. Reports issues — does NOT change code.</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">G</td>
       <td style="padding:8px 14px;"><strong>Guschti</strong></td>
       <td style="padding:8px 14px;">Planner &amp; Security</td>
-      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code.</td>
+      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits — checks for the 10 most critical web security risks (OWASP Top 10), scans third-party packages for known vulnerabilities, searches for accidentally exposed passwords or keys, and verifies that user input is properly validated. Reports findings — does NOT change code.</td>
     </tr>
   </tbody>
 </table>
@@ -1330,7 +1322,7 @@ All tasks live here. **Only the orchestrator edits this file.** Contains:
 
 ### Feature: Multilingual Support (DE/EN)
 **Description:** All UI text should be available in German and English.
-**Affected files:** src/i18n.tsx, src/locales/, all pages
+**Affected files:** src/i18n.tsx (multilingual framework), src/locales/, all pages
 **Assigned to:** Chasperli + Benno
 ```
 
@@ -1542,6 +1534,20 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 
 Shortcut (small tasks): Anton → Developer → Commit → Done (no Planner/Quality Control)
 ```
+<div class="sub-tabs">
+  <button class="sub-tab active" onclick="switchSubTab('classic', this)">Classic</button>
+  <button class="sub-tab" onclick="switchSubTab('autonomous', this)">Autonomous</button>
+</div>
+
+<!-- ========== SUB-TAB: CLASSIC ========== -->
+<div id="subtab-classic" class="sub-panel active" markdown="1">
+
+### Classic Mode
+
+In Classic mode, you manually open each terminal, start each Claude Code session, and paste in the role prompt yourself. This gives you full control over which sessions run and when. It's the simplest way to get started with team mode.
+
+---
+
 
 ### Example Workflow
 
@@ -1737,7 +1743,7 @@ Agent writes result to nachrichten.md → goes offline
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;"><strong>Best for</strong></td>
-      <td style="padding:8px 14px;">Learning, small teams, ad-hoc work</td>
+      <td style="padding:8px 14px;">Learning, small teams, one-off tasks</td>
       <td style="padding:8px 14px;">Larger projects, recurring tasks, batch processing</td>
     </tr>
   </tbody>
@@ -1749,71 +1755,12 @@ Agent writes result to nachrichten.md → goes offline
 
 - **Node.js** installed (v18+)
 - **Claude Code** installed and authenticated (`claude --version`)
-- The `status/` folder set up as described in the Classic tab
+- The `status/` folder set up as described above
 - The orchestrator script in your project (e.g., `scripts/orchestrator.cjs`)
 
----
-
-### The Team — 7 Agents
-
-The same team structure applies in both Classic and Autonomous modes:
-
-<table style="width:100%; border-collapse:collapse; font-size:15px;">
-  <thead>
-    <tr style="background:#1e293b; color:white;">
-      <th style="padding:10px 14px; text-align:left; width:30px;">#</th>
-      <th style="padding:10px 14px; text-align:left;">Name</th>
-      <th style="padding:10px 14px; text-align:left;">Role</th>
-      <th style="padding:10px 14px; text-align:left;">Responsibilities</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="background:#f8fafc;">
-      <td style="padding:8px 14px;">A</td>
-      <td style="padding:8px 14px;"><strong>Anton</strong></td>
-      <td style="padding:8px 14px;">Orchestrator</td>
-      <td style="padding:8px 14px;">Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits <code>board.md</code>.</td>
-    </tr>
-    <tr style="background:#f1f5f9;">
-      <td style="padding:8px 14px;">B</td>
-      <td style="padding:8px 14px;"><strong>Benno</strong></td>
-      <td style="padding:8px 14px;">Planner</td>
-      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code.</td>
-    </tr>
-    <tr style="background:#f8fafc;">
-      <td style="padding:8px 14px;">C</td>
-      <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
-      <td style="padding:8px 14px;">Developer 1</td>
-      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
-    </tr>
-    <tr style="background:#f1f5f9;">
-      <td style="padding:8px 14px;">D</td>
-      <td style="padding:8px 14px;"><strong>Donald</strong></td>
-      <td style="padding:8px 14px;">Developer 2</td>
-      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
-    </tr>
-    <tr style="background:#f8fafc;">
-      <td style="padding:8px 14px;">E</td>
-      <td style="padding:8px 14px;"><strong>Egon</strong></td>
-      <td style="padding:8px 14px;">Developer 3</td>
-      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
-    </tr>
-    <tr style="background:#f1f5f9;">
-      <td style="padding:8px 14px;">F</td>
-      <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
-      <td style="padding:8px 14px;">Quality Control</td>
-      <td style="padding:8px 14px;">TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code.</td>
-    </tr>
-    <tr style="background:#f8fafc;">
-      <td style="padding:8px 14px;">G</td>
-      <td style="padding:8px 14px;"><strong>Guschti</strong></td>
-      <td style="padding:8px 14px;">Planner &amp; Security</td>
-      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits (OWASP Top 10, dependency audits, secrets scanning, input validation). Reports findings — does NOT change code.</td>
-    </tr>
-  </tbody>
-</table>
 
 ---
+
 
 ### Architecture & Flow
 
@@ -1875,13 +1822,13 @@ When a new task is detected, the script spawns a Claude Code session:
 
 ```javascript
 const proc = spawn('claude', ['-p', '--dangerously-skip-permissions', '--verbose'], {
-  cwd: PROJECT_ROOT,
+  cwd: PROJECT_ROOT,   // cwd = current working directory
   stdio: ['pipe', 'pipe', 'pipe'],
   shell: true,
-  env,  // with CLAUDECODE deleted!
+  env,  // with CLAUDECODE environment variable deleted!
 });
 
-// Send prompt via stdin (not as argument!)
+// Send prompt via standard input (not as a command-line argument!)
 proc.stdin.write(prompt);
 proc.stdin.end();
 ```
@@ -1892,7 +1839,7 @@ proc.stdin.end();
 
 2. **`-p` flag** — Runs Claude in "print mode" (non-interactive). Takes input, produces output, exits.
 
-3. **`--verbose`** — Shows detailed progress on stderr so you can follow what the agent is doing.
+3. **`--verbose`** — Shows detailed progress in the error output stream so you can follow what the agent is doing.
 
 #### Critical Learnings (from Production Use)
 
@@ -1905,24 +1852,24 @@ const env = { ...process.env };
 delete env.CLAUDECODE;
 ```
 
-If Claude Code detects it's running inside another Claude Code session (via this env var), it may block or behave unexpectedly. Always delete it before spawning child sessions.
+If Claude Code detects it's running inside another Claude Code session (via this environment variable), it may block or behave unexpectedly. Always delete it before spawning child sessions.
 
-**2. Send the prompt via stdin, not as a CLI argument**
+**2. Send the prompt via standard input, not as a command-line argument**
 
 ```javascript
-// ✅ Correct — via stdin
+// ✅ Correct — via standard input
 proc.stdin.write(prompt);
 proc.stdin.end();
 
-// ❌ Wrong — as argument
+// ❌ Wrong — as command-line argument
 spawn('claude', ['-p', '--dangerously-skip-permissions', prompt]);
 ```
 
-Long prompts with special characters (`|`, `!`, `"`, newlines) break when passed as shell arguments. Stdin avoids all escaping issues.
+Long prompts with special characters (`|`, `!`, `"`, newlines) break when passed as shell arguments. Sending via standard input avoids all escaping issues.
 
 **3. Use `.cjs` extension in ES Module projects**
 
-If your project uses `"type": "module"` in `package.json`, Node.js treats all `.js` files as ES modules. The orchestrator uses `require()` (CommonJS), so it must have a `.cjs` extension:
+If your project uses `"type": "module"` in `package.json`, Node.js treats all `.js` files as ES Modules (the modern JavaScript module system using `import`/`export`). The orchestrator uses `require()` (the older CommonJS module system), so it must have a `.cjs` extension to tell Node.js it uses the older format:
 
 ```
 scripts/orchestrator.cjs  ← works
@@ -1966,11 +1913,11 @@ The orchestrator sends different instructions based on the agent's role:
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;"><strong>Quality Control</strong></td>
-      <td style="padding:8px 14px;">Run <code>tsc --noEmit</code> + <code>vite build</code>, review recent commits, check responsive design, report findings</td>
+      <td style="padding:8px 14px;">Run TypeScript type checker (<code>tsc --noEmit</code>) and production build (<code>vite build</code>), review recent commits, check responsive design (mobile/tablet layout), report findings</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;"><strong>Planner &amp; Security</strong></td>
-      <td style="padding:8px 14px;">Flex role: planning (analyze requirements, design plans) or security (OWASP Top 10, <code>npm audit</code>, secrets scan, input validation). Report findings</td>
+      <td style="padding:8px 14px;">Flex role: planning (analyze requirements, design plans) or security (check for the 10 most critical web security risks, run <code>npm audit</code> to find vulnerable packages, scan for exposed secrets, verify user input validation). Report findings</td>
     </tr>
   </tbody>
 </table>
@@ -2082,14 +2029,14 @@ Each spawned agent follows this lifecycle:
   └───────────────────────────────────────────────────────────┘
 ```
 
-The orchestrator shows live stdout/stderr from each agent, prefixed with the agent name:
+The orchestrator shows live output (both regular output and error messages) from each agent, prefixed with the agent name:
 
 ```
 🚀 Benno startet: Analyze the SupplierDetail page...
    [Benno] Reading status/board.md...
    [Benno] Analyzing SupplierDetail.tsx...
    [Benno] Writing implementation plan...
-✅ Benno fertig (exit 0)
+✅ Benno fertig (completed successfully)
 ```
 
 ---
@@ -2108,7 +2055,7 @@ Open `http://localhost:3002` to see:
 - **Recent messages** — Latest entries from nachrichten.md
 - **Chat interface** — Send messages directly to Anton from the browser
 
-The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page reload).
+The dashboard auto-refreshes every 5 seconds by fetching new data and updating the page content directly (no full page reload).
 
 ---
 
@@ -2127,7 +2074,7 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
       <td style="padding:8px 14px;"><strong>Classic</strong> — learn the coordination patterns</td>
     </tr>
     <tr style="background:#f1f5f9;">
-      <td style="padding:8px 14px;">2-3 sessions, ad-hoc tasks</td>
+      <td style="padding:8px 14px;">2-3 sessions, one-off tasks</td>
       <td style="padding:8px 14px;"><strong>Classic</strong> — manual control is fine</td>
     </tr>
     <tr style="background:#f8fafc;">
@@ -2148,7 +2095,7 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">Continuous Integration</td>
-      <td style="padding:8px 14px;"><strong>Autonomous</strong> — script can be triggered by CI events</td>
+      <td style="padding:8px 14px;"><strong>Autonomous</strong> — script can be triggered by automated build/test pipelines (Continuous Integration)</td>
     </tr>
   </tbody>
 </table>
@@ -2174,7 +2121,7 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
 └────────────────────┴────────────────────┴──────────────────────┘
 ```
 
-1. **Set up the `status/` folder** as described in the Classic tab (board.md, nachrichten.md)
+1. **Set up the `status/` folder** as described above (board.md, nachrichten.md)
 
 2. **Create the orchestrator script** at `scripts/orchestrator.cjs`:
    ```bash
