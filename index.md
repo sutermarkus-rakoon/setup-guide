@@ -14,8 +14,148 @@ layout: default
   <em style="font-size: 14px; color: #64748b;">Save the file, then upload it to <a href="https://claude.ai">Claude.ai</a> — it will walk you through the entire setup step by step.</em>
 </p>
 
+<!-- ==================== OVERVIEW TAB ==================== -->
+<div id="tab-overview" class="tab-panel active" markdown="1">
+
+<div class="autonomy-intro">
+  Just as <strong>autonomous driving</strong> has defined levels from driver-assisted to fully self-driving,
+  <strong>AI-assisted development</strong> follows a similar progression — from simple chatbots to fully autonomous coding teams.
+  <br><br>
+  This guide helps you climb that ladder. Here's where each level stands:
+</div>
+
+<div class="progress-container">
+  <div style="position: relative;">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill"></div>
+      <div class="progress-marker"></div>
+    </div>
+  </div>
+  <div class="progress-labels">
+    <span>L1</span>
+    <span>L2</span>
+    <span>L3</span>
+    <span class="active-label">L4 &#x25C0; You are here</span>
+    <span>L5</span>
+  </div>
+</div>
+
+<div class="autonomy-levels">
+
+  <!-- L1 -->
+  <div class="autonomy-level">
+    <div class="level-indicator">
+      <div class="level-dot dot-l1">L1</div>
+      <div class="level-line"></div>
+    </div>
+    <div class="level-card">
+      <h3>AI Chatbot</h3>
+      <p>You write code in your IDE. When you get stuck, you switch to a browser, describe your problem to an AI chatbot, and <strong>copy-paste</strong> the answer back. The AI has no access to your project — you are the middleman.</p>
+      <div class="level-tools">
+        <span class="level-tool">ChatGPT</span>
+        <span class="level-tool">Claude.ai</span>
+        <span class="level-tool">Gemini</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 -->
+  <div class="autonomy-level">
+    <div class="level-indicator">
+      <div class="level-dot dot-l2">L2</div>
+      <div class="level-line"></div>
+    </div>
+    <div class="level-card">
+      <h3>Embedded AI</h3>
+      <p>AI lives <strong>inside your editor</strong>. It sees your open file and suggests completions as you type. You accept or reject each suggestion — the AI assists, but <strong>you drive</strong>.</p>
+      <div class="level-tools">
+        <span class="level-tool">GitHub Copilot</span>
+        <span class="level-tool">Cursor</span>
+        <span class="level-tool">Windsurf</span>
+        <span class="level-tool">Cline</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 -->
+  <div class="autonomy-level">
+    <div class="level-indicator">
+      <div class="level-dot dot-l3">L3</div>
+      <div class="level-line"></div>
+    </div>
+    <div class="level-card">
+      <h3>
+        AI Agent
+        <span class="level-badge badge-basic">BASIC TAB</span>
+      </h3>
+      <p>The AI becomes an <strong>autonomous agent</strong>. It reads your entire project, writes code across multiple files, runs commands, and commits to Git — all from a single instruction. One agent, one project.</p>
+      <div class="level-tools">
+        <span class="level-tool">Claude Code CLI</span>
+        <span class="level-tool">Codex CLI</span>
+      </div>
+      <a href="#" onclick="switchGuideTab('basic', document.querySelectorAll('.header-tab')[1]); return false;" class="level-link link-basic">Read the Basic Guide &rarr;</a>
+    </div>
+  </div>
+
+  <!-- L4 -->
+  <div class="autonomy-level">
+    <div class="level-indicator">
+      <div class="level-dot dot-l4">L4</div>
+      <div class="level-line"></div>
+    </div>
+    <div class="level-card card-current">
+      <h3>
+        Multi-Agent Team
+        <span class="level-badge badge-current">WE ARE HERE</span>
+        <span class="level-badge badge-advanced">ADVANCED TAB</span>
+      </h3>
+      <p>Multiple AI agents work <strong>in parallel</strong>, coordinated through a shared filesystem. Each agent has a role — Orchestrator, Planner, Developer, QC, Security — like a real dev team. They assign tasks, communicate via a message board, and commit independently.</p>
+      <div class="level-tools">
+        <span class="level-tool">Claude Code CLI &times; 7</span>
+        <span class="level-tool">Orchestrator Script</span>
+        <span class="level-tool">Status Board</span>
+        <span class="level-tool">Message System</span>
+      </div>
+      <a href="#" onclick="switchGuideTab('advanced', document.querySelectorAll('.header-tab')[2]); return false;" class="level-link link-advanced">Read the Advanced Guide &rarr;</a>
+    </div>
+  </div>
+
+  <!-- L5 -->
+  <div class="autonomy-level">
+    <div class="level-indicator">
+      <div class="level-dot dot-l5">L5</div>
+      <div class="level-line"></div>
+    </div>
+    <div class="level-card" style="border-style: dashed; background: #fafafa;">
+      <h3>
+        Fully Autonomous
+        <span class="level-badge badge-future">FUTURE</span>
+      </h3>
+      <p>The AI team plans, implements, tests, and <strong>deploys without human intervention</strong>. Token budget management, automatic error recovery, night-mode execution, and cross-project orchestration. We're building toward this.</p>
+      <div class="level-tools">
+        <span class="level-tool">Night Mode</span>
+        <span class="level-tool">Token Budget Mgmt</span>
+        <span class="level-tool">Auto-Resume</span>
+        <span class="level-tool">Multi-Project Platform</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="text-align: center; margin: 2rem 0; padding: 1.5rem; background: #f8fafc; border-radius: 10px; border: 1px solid #e2e8f0;">
+  <p style="margin: 0 0 0.5rem 0; font-size: 16px; color: #1e293b; font-weight: 600;">Ready to get started?</p>
+  <p style="margin: 0 0 1rem 0; font-size: 14px; color: #64748b;">Choose your level. The <strong>Basic</strong> tab gets you to L3 (single agent). The <strong>Advanced</strong> tab takes you to L4 (multi-agent team).</p>
+  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <a href="#" onclick="switchGuideTab('basic', document.querySelectorAll('.header-tab')[1]); return false;" class="level-link link-basic" style="font-size: 15px; padding: 8px 24px;">Basic Guide (L3)</a>
+    <a href="#" onclick="switchGuideTab('advanced', document.querySelectorAll('.header-tab')[2]); return false;" class="level-link link-advanced" style="font-size: 15px; padding: 8px 24px;">Advanced Guide (L4)</a>
+  </div>
+</div>
+
+</div>
+
 <!-- ==================== BASIC TAB ==================== -->
-<div id="tab-basic" class="tab-panel active" markdown="1">
+<div id="tab-basic" class="tab-panel" markdown="1">
 
 ![Architecture Overview — How Coding, Versioning, and Hosting fit together](architecture.svg)
 

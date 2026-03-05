@@ -95,6 +95,236 @@
       .sub-panel.active {
         display: block;
       }
+
+      /* Autonomy Levels */
+      .autonomy-intro {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 2rem auto;
+        font-size: 16px;
+        color: #475569;
+        line-height: 1.7;
+      }
+      .autonomy-intro strong {
+        color: #1e293b;
+      }
+      .autonomy-levels {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        max-width: 800px;
+        margin: 0 auto 2.5rem auto;
+        position: relative;
+      }
+      .autonomy-level {
+        display: flex;
+        align-items: stretch;
+        position: relative;
+      }
+      .level-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 72px;
+        min-width: 72px;
+        position: relative;
+        z-index: 1;
+      }
+      .level-dot {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 14px;
+        color: white;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        position: relative;
+        z-index: 2;
+      }
+      .level-line {
+        width: 3px;
+        flex-grow: 1;
+        background: #cbd5e1;
+      }
+      .autonomy-level:last-child .level-line {
+        display: none;
+      }
+      .level-card {
+        flex: 1;
+        margin: 0 0 0 16px;
+        padding: 16px 20px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+      }
+      .level-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .level-card h3 {
+        margin: 0 0 6px 0;
+        font-size: 17px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .level-card p {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.6;
+      }
+      .level-tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .level-tool {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #e2e8f0;
+      }
+      .level-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .badge-current {
+        background: #059669;
+        color: white;
+      }
+      .badge-basic {
+        background: #3b82f6;
+        color: white;
+      }
+      .badge-advanced {
+        background: #8b5cf6;
+        color: white;
+      }
+      .badge-future {
+        background: #94a3b8;
+        color: white;
+      }
+      .level-link {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 14px;
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .link-basic {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+      }
+      .link-basic:hover {
+        background: #dbeafe;
+      }
+      .link-advanced {
+        background: #f5f3ff;
+        color: #7c3aed;
+        border: 1px solid #c4b5fd;
+      }
+      .link-advanced:hover {
+        background: #ede9fe;
+      }
+
+      /* Colors per level */
+      .dot-l1 { background: #94a3b8; }
+      .dot-l2 { background: #3b82f6; }
+      .dot-l3 { background: #0ea5e9; }
+      .dot-l4 { background: #059669; }
+      .dot-l5 { background: #7c3aed; }
+
+      .card-current {
+        border-color: #059669;
+        border-width: 2px;
+        background: #f0fdf4;
+      }
+
+      /* Progress bar */
+      .progress-container {
+        max-width: 700px;
+        margin: 0 auto 2rem auto;
+        text-align: center;
+      }
+      .progress-bar-track {
+        width: 100%;
+        height: 10px;
+        background: #e2e8f0;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        width: 80%;
+        border-radius: 5px;
+        background: linear-gradient(90deg, #94a3b8 0%, #3b82f6 25%, #0ea5e9 50%, #059669 75%, #7c3aed 100%);
+        position: relative;
+      }
+      .progress-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        font-size: 12px;
+        color: #64748b;
+        font-weight: 600;
+      }
+      .progress-labels span.active-label {
+        color: #059669;
+        font-weight: 800;
+      }
+      .progress-marker {
+        position: absolute;
+        top: -4px;
+        left: 80%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 18px;
+        background: #059669;
+        border: 3px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .level-indicator {
+          width: 48px;
+          min-width: 48px;
+        }
+        .level-dot {
+          width: 36px;
+          height: 36px;
+          font-size: 12px;
+        }
+        .level-card {
+          padding: 12px 14px;
+          margin-left: 10px;
+        }
+        .level-card h3 {
+          font-size: 15px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -111,7 +341,8 @@
         <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
       {% endif %}
       <div class="header-tabs">
-        <button class="header-tab active" onclick="switchGuideTab('basic', this)">Basic</button>
+        <button class="header-tab active" onclick="switchGuideTab('overview', this)">Overview</button>
+        <button class="header-tab" onclick="switchGuideTab('basic', this)">Basic</button>
         <button class="header-tab" onclick="switchGuideTab('advanced', this)">Advanced</button>
       </div>
     </header>
