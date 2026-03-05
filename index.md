@@ -1126,17 +1126,55 @@ Terminal 5: Egon (Quality Control) — checks code quality, tests
 
 ---
 
-### Roles
+### The Team — 7 Agents
 
-| Role | Responsibilities | Rules |
-|------|-----------------|-------|
-| **Orchestrator** | Distributes tasks, coordinates, commits, pushes, deploys | Only he edits the task list. Only he commits/pushes. |
-| **Planner** | Analyzes requirements, designs implementation plans, defines API contracts | Does NOT change code — only reads, analyzes, and plans. |
-| **Developer** | Builds features, fixes bugs, implements tasks | Only works on assigned tasks. No scope creep. |
-| **Quality Control** | Tests, reviews code, checks quality | Reports issues to the orchestrator. Does NOT change code. |
-| **Security** | OWASP checks, dependency audits, secrets scanning | Reports findings with severity levels. Does NOT change code. |
+| # | Name | Role | Responsibilities |
+|---|------|------|-----------------|
+| A | **Anton** | Orchestrator | Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits `board.md`. |
+| B | **Benno** | Planner | Analyzes requirements, reads affected files, designs implementation plans, defines API contracts. Does NOT change code. |
+| C | **Chasperli** | Developer 1 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| D | **Donald** | Developer 2 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| E | **Egon** | Developer 3 | Implements features, fixes bugs, commits + pushes. Only works on assigned tasks. |
+| F | **Fridolin** | Quality Control | TypeScript build checks, responsive testing, code review, functional testing. Reports issues — does NOT change code. |
+| G | **Guschti** | Security | OWASP Top 10 checks, dependency audits, secrets scanning, input validation review. Reports findings with severity levels — does NOT change code. |
 
 **Important:** Roles are strictly separated. A developer only implements what is assigned. The orchestrator reviews and commits.
+
+#### Team Overview
+
+```
+                        ┌──────────────┐
+                        │    Markus    │
+                        │ (Product    │
+                        │  Owner)     │
+                        └──────┬───────┘
+                               │ defines requirements
+                               ▼
+                        ┌──────────────┐
+                  ┌─────│    Anton     │─────┐
+                  │     │ Orchestrator │     │
+                  │     └──┬───┬───┬───┘     │
+                  │        │   │   │         │
+          ┌───────┘   ┌────┘   │   └────┐   └───────┐
+          ▼           ▼        ▼        ▼           ▼
+   ┌────────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐
+   │   Benno    │ │Chasper-│ │ Donald │ │Fridolin│ │Guschti │
+   │  Planner   │ │  li    │ │ Dev 2  │ │   QC   │ │Security│
+   │            │ │ Dev 1  │ │        │ │        │ │        │
+   └────────────┘ └────────┘ └────────┘ └────────┘ └────────┘
+                       │         │
+                       │  ┌──────┘
+                       ▼  ▼
+                  ┌────────────┐
+                  │   Egon     │
+                  │   Dev 3    │
+                  └────────────┘
+
+  Legend:
+  ─────  Anton distributes tasks to all agents
+  Benno  plans first, then developers implement
+  Fridolin + Guschti review after implementation
+```
 
 ---
 
@@ -1212,6 +1250,40 @@ Team members communicate here. **Everyone can append** (add new lines), but nobo
 ```
 
 **Important rule:** Each session polls the message board regularly (~15 seconds) and responds to messages addressed to it.
+
+#### Message Flow Between Agents
+
+```
+  ┌─────────┐                    ┌──────────────┐                    ┌─────────┐
+  │  Benno  │                    │nachrichten.md│                    │  Anton  │
+  │ Planner │                    │ (Message     │                    │  Orch.  │
+  └────┬────┘                    │  Board)      │                    └────┬────┘
+       │                         └──────┬───────┘                         │
+       │  1. "Plan ready!"              │                                 │
+       │───────────────────────────────▶│                                 │
+       │                                │   2. Anton reads (polls 15s)    │
+       │                                │────────────────────────────────▶│
+       │                                │                                 │
+       │                                │   3. "Chasperli: implement X"   │
+       │                                │◀────────────────────────────────│
+       │                                │                                 │
+       │         ┌──────────┐           │                                 │
+       │         │Chasperli │           │   4. Chasperli reads            │
+       │         │  Dev 1   │◀──────────│                                 │
+       │         └────┬─────┘           │                                 │
+       │              │                 │                                 │
+       │              │  5. "Done!"     │                                 │
+       │              │────────────────▶│                                 │
+       │              │                 │   6. Anton reads → commits      │
+       │              │                 │────────────────────────────────▶│
+       │              │                 │                                 │
+       │              │                 │   7. "Fridolin: QC check"       │
+       │              │                 │◀────────────────────────────────│
+       │              │                 │                                 │
+
+  All communication goes through nachrichten.md — agents never talk directly.
+  Each agent polls every ~15 seconds for new messages addressed to them.
+```
 
 #### `<name>.md` — Personal Status Files
 
@@ -1307,6 +1379,46 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 > **Tip:** When the team discovers something important (e.g., "Prisma must be in dependencies, not devDependencies"), the orchestrator should save it in MEMORY.md — then all future sessions know it automatically.
 
 ---
+
+### Standard Workflow — Visual Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Standard Team Workflow                        │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ① Markus + Anton                                              │
+│     Define requirements ──────────────────────────────────┐     │
+│                                                           │     │
+│  ② Anton → Benno                                          │     │
+│     "Plan feature X" ─────────┐                           │     │
+│                                ▼                           │     │
+│  ③ Benno → Anton              │                           │     │
+│     Detailed plan ◀───────────┘                           │     │
+│                                                           │     │
+│  ④ Anton creates tasks in board.md                        │     │
+│     ├── Task A → Chasperli                                │     │
+│     ├── Task B → Donald                                   │     │
+│     └── Task C → Egon                                     │     │
+│                    │         │         │                   │     │
+│  ⑤ Developers     ▼         ▼         ▼    (parallel!)   │     │
+│     implement + commit + push                             │     │
+│                    │         │         │                   │     │
+│  ⑥ Anton → Fridolin ◀───────┴─────────┘                  │     │
+│     "QC check please"                                     │     │
+│                    │                                       │     │
+│  ⑦ Fridolin → Anton                                      │     │
+│     QC report (OK or issues)                              │     │
+│                    │                                       │     │
+│  ⑧ Anton → Guschti (if security-relevant)                │     │
+│     Security audit                                        │     │
+│                    │                                       │     │
+│  ⑨ Anton deploys to production ◀──────────────────────────┘     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+Shortcut (small tasks): Anton → Developer → Commit → Done (no Planner/QC)
+```
 
 ### Example Workflow
 
@@ -1698,13 +1810,39 @@ The orchestrator picks this up within seconds and spawns a Benno session. The `�
 Each spawned agent follows this lifecycle:
 
 ```
-1. START      → Read status/board.md + nachrichten.md
-2. CHECK IN   → Update status/<name>.md (Status: online, Current task, Timestamp)
-3. EXECUTE    → Work on the task, updating status file after each step
-4. COMMIT     → git add + git commit + git push (if code was changed)
-5. REPORT     → Append result to nachrichten.md: "<name> | Anton | Done! | ⬜ |"
-6. CHECK OUT  → Set status/<name>.md to offline
-7. EXIT       → Process terminates
+  ┌───────────────────────────────────────────────────────────┐
+  │                  Agent Lifecycle                           │
+  ├───────────────────────────────────────────────────────────┤
+  │                                                           │
+  │   ┌─────────┐    Read board.md     ┌──────────┐          │
+  │   │  START   │───────────────────▶│ CHECK IN  │          │
+  │   └─────────┘    + nachrichten.md  │ (online)  │          │
+  │                                    └─────┬─────┘          │
+  │                                          │                │
+  │                                          ▼                │
+  │                                    ┌──────────┐           │
+  │                              ┌────▶│ EXECUTE  │──────┐    │
+  │                              │     │  task     │     │    │
+  │                              │     └─────┬─────┘     │    │
+  │                              │           │           │    │
+  │                              │     update status     │    │
+  │                              │     file (timestamp)  │    │
+  │                              │           │           │    │
+  │                              │     more steps?       │    │
+  │                              └─── yes ◀──┘     no ───┘    │
+  │                                                │          │
+  │                                                ▼          │
+  │                                          ┌──────────┐     │
+  │                                          │  COMMIT   │     │
+  │                                          │ + PUSH    │     │
+  │                                          └─────┬─────┘     │
+  │                                                │          │
+  │                                                ▼          │
+  │   ┌─────────┐    Set status       ┌──────────┐           │
+  │   │  EXIT   │◀──  to offline  ◀───│  REPORT  │           │
+  │   └─────────┘                     │ to Anton  │           │
+  │                                    └──────────┘           │
+  └───────────────────────────────────────────────────────────┘
 ```
 
 The orchestrator shows live stdout/stderr from each agent, prefixed with the agent name:
@@ -1752,6 +1890,23 @@ The dashboard auto-refreshes every 5 seconds using fetch + DOM updates (no page 
 ---
 
 ### Quick Start: Autonomous Mode
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│  Your Setup — 3 Terminals                                      │
+├────────────────────┬────────────────────┬──────────────────────┤
+│  Terminal 1        │  Terminal 2        │  Terminal 3          │
+│                    │                    │  (optional)          │
+│  claude            │  node scripts/    │  node scripts/       │
+│  (Anton -          │  orchestrator.cjs │  dashboard.cjs       │
+│   interactive)     │  (auto-spawns     │  (monitoring on      │
+│                    │   agents)         │   port 3002)         │
+│  You talk to       │  Watches          │  Shows who's         │
+│  Anton, he writes  │  nachrichten.md   │  online, current     │
+│  tasks to          │  and spawns new   │  tasks, messages     │
+│  nachrichten.md    │  claude sessions  │                      │
+└────────────────────┴────────────────────┴──────────────────────┘
+```
 
 1. **Set up the `status/` folder** as described in the Classic tab (board.md, nachrichten.md)
 
