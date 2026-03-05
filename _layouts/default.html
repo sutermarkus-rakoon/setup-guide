@@ -15,6 +15,7 @@
       .header-tabs {
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 8px;
         margin-top: 1.5rem;
       }
@@ -306,6 +307,117 @@
         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       }
 
+      /* PDF Download Button */
+      .pdf-download-btn {
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 2px solid rgba(255,255,255,0.6);
+        border-radius: 6px;
+        background: transparent;
+        color: rgba(255,255,255,0.85);
+        transition: all 0.2s ease;
+        font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        letter-spacing: 0.3px;
+        margin-left: 16px;
+      }
+      .pdf-download-btn:hover {
+        background: rgba(255,255,255,0.15);
+        color: #fff;
+        border-color: rgba(255,255,255,0.9);
+      }
+      .pdf-download-btn svg {
+        vertical-align: middle;
+        margin-right: 6px;
+      }
+
+      /* Print styles for PDF export */
+      @media print {
+        /* Hide non-content elements */
+        .page-header,
+        .site-footer,
+        .header-tabs,
+        .pdf-download-btn,
+        .sub-tabs,
+        #skip-to-content,
+        .btn {
+          display: none !important;
+        }
+
+        /* Show all tab panels */
+        .tab-panel,
+        .sub-panel {
+          display: block !important;
+        }
+
+        /* Reset main content for print */
+        .main-content {
+          max-width: 100% !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        /* Clean typography */
+        body {
+          font-size: 11pt !important;
+          color: #000 !important;
+          background: #fff !important;
+        }
+
+        h1 { font-size: 22pt !important; }
+        h2 { font-size: 16pt !important; page-break-after: avoid; }
+        h3 { font-size: 13pt !important; page-break-after: avoid; }
+
+        /* Page breaks */
+        pre, blockquote, table {
+          page-break-inside: avoid;
+        }
+
+        /* Code blocks */
+        pre {
+          border: 1px solid #ccc !important;
+          background: #f5f5f5 !important;
+          padding: 8px !important;
+          font-size: 9pt !important;
+          white-space: pre-wrap !important;
+          word-wrap: break-word !important;
+        }
+
+        /* Links: show URL */
+        a[href^="http"]::after {
+          content: " (" attr(href) ")";
+          font-size: 9pt;
+          color: #666;
+        }
+
+        /* Autonomy levels layout fix */
+        .autonomy-levels {
+          max-width: 100% !important;
+        }
+        .level-card {
+          border: 1px solid #ccc !important;
+          box-shadow: none !important;
+          page-break-inside: avoid;
+        }
+
+        /* Download button in content */
+        p[align="center"] {
+          display: none !important;
+        }
+
+        /* Add title at top of print */
+        body::before {
+          content: "Developer Setup Guide";
+          display: block;
+          font-size: 24pt;
+          font-weight: 700;
+          text-align: center;
+          margin-bottom: 12pt;
+          color: #155799;
+        }
+      }
+
       /* Responsive */
       @media (max-width: 600px) {
         .level-indicator {
@@ -323,6 +435,11 @@
         }
         .level-card h3 {
           font-size: 15px;
+        }
+        .pdf-download-btn {
+          padding: 6px 14px;
+          font-size: 12px;
+          margin-left: 8px;
         }
       }
     </style>
@@ -344,6 +461,9 @@
         <button class="header-tab active" onclick="switchGuideTab('overview', this)">Overview</button>
         <button class="header-tab" onclick="switchGuideTab('basic', this)">Basic</button>
         <button class="header-tab" onclick="switchGuideTab('advanced', this)">Advanced</button>
+        <button class="pdf-download-btn" onclick="window.print()" title="Save as PDF">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF
+        </button>
       </div>
     </header>
 
