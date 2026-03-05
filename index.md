@@ -1247,20 +1247,21 @@ In Basic mode, you work with **one** Claude Code session. That works fine for sm
 In **Team Mode**, you open multiple terminals, start a separate Claude Code session in each one, and assign each session a **role** and a **name**. The sessions coordinate through files in the project — just like a real development team.
 
 ```
-Terminal 1: Anton (Orchestrator)        — coordinates, distributes tasks, deploys
-Terminal 2: Benno (Planner)             — analyzes requirements, creates plans
-Terminal 3: Chasperli (Developer 1)     — works on Feature A
-Terminal 4: Donald (Developer 2)        — works on Feature B
-Terminal 5: Egon (Developer 3)          — works on Feature C
-Terminal 6: Fridolin (Quality Control)  — checks code quality, tests
-Terminal 7: Guschti (Planner & Security) — security audits, planning
+Terminal 1: Anton (Orchestrator)          — coordinates, distributes tasks, deploys
+Terminal 2: Benno (Planner)               — analyzes requirements, creates plans
+Terminal 3: Chasperli (Planner & Security) — security audits, planning
+Terminal 4: Donald (Developer 1)          — works on Feature A
+Terminal 5: Egon (Developer 2)            — works on Feature B
+Terminal 6: Fridolin (Developer 3)        — works on Feature C
+Terminal 7: Guschti (Quality Control)     — checks code quality, tests
+Terminal 8: Wilma (Expert)                — domain-specific expert consultations
 ```
 
 **Prerequisite:** All sessions run in the same project folder and use the same Git repo.
 
 ---
 
-### The Team — 7 Agents
+### The Team — 8 Agents
 
 <table style="width:100%; border-collapse:collapse; font-size:15px;">
   <thead>
@@ -1276,43 +1277,49 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
       <td style="padding:8px 14px;">A</td>
       <td style="padding:8px 14px;"><strong>Anton</strong></td>
       <td style="padding:8px 14px;">Orchestrator</td>
-      <td style="padding:8px 14px;">Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits <code>board.md</code>.</td>
+      <td style="padding:8px 14px;">Coordinates the team, distributes tasks, resolves file conflicts, deploys to production. Only he edits <code>boards/&lt;project&gt;.md</code>.</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;">B</td>
       <td style="padding:8px 14px;"><strong>Benno</strong></td>
       <td style="padding:8px 14px;">Planner</td>
-      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines interface specifications (how the frontend communicates with the backend). Does NOT change code.</td>
+      <td style="padding:8px 14px;">Analyzes requirements, reads affected files, designs implementation plans, defines interface specifications. Does NOT change code.</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">C</td>
       <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
-      <td style="padding:8px 14px;">Developer 1</td>
-      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
+      <td style="padding:8px 14px;">Planner &amp; Security</td>
+      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits — checks OWASP Top 10 risks, scans third-party packages for vulnerabilities, searches for exposed secrets, verifies input validation. Reports findings — does NOT change code.</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;">D</td>
       <td style="padding:8px 14px;"><strong>Donald</strong></td>
-      <td style="padding:8px 14px;">Developer 2</td>
+      <td style="padding:8px 14px;">Developer 1</td>
       <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">E</td>
       <td style="padding:8px 14px;"><strong>Egon</strong></td>
-      <td style="padding:8px 14px;">Developer 3</td>
+      <td style="padding:8px 14px;">Developer 2</td>
       <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;">F</td>
       <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
-      <td style="padding:8px 14px;">Quality Control</td>
-      <td style="padding:8px 14px;">TypeScript type checks, responsive testing (does the layout work on mobile?), code review, functional testing. Reports issues — does NOT change code.</td>
+      <td style="padding:8px 14px;">Developer 3</td>
+      <td style="padding:8px 14px;">Implements features, fixes bugs, commits + pushes. Only works on assigned tasks.</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">G</td>
       <td style="padding:8px 14px;"><strong>Guschti</strong></td>
-      <td style="padding:8px 14px;">Planner &amp; Security</td>
-      <td style="padding:8px 14px;">Flex role: either planning (like Benno) or security audits — checks for the 10 most critical web security risks (OWASP Top 10), scans third-party packages for known vulnerabilities, searches for accidentally exposed passwords or keys, and verifies that user input is properly validated. Reports findings — does NOT change code.</td>
+      <td style="padding:8px 14px;">Quality Control</td>
+      <td style="padding:8px 14px;">TypeScript type checks, responsive testing, code review, functional testing. Reports issues — does NOT change code.</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">H</td>
+      <td style="padding:8px 14px;"><strong>Wilma</strong></td>
+      <td style="padding:8px 14px;">Expert</td>
+      <td style="padding:8px 14px;">Domain-specific expert consultations (legal, security, architecture, etc.). Activated via <code>Expert:DOMAIN</code> pattern. Produces written assessments in <code>experts/outputs/</code>. Does NOT change code.</td>
     </tr>
   </tbody>
 </table>
@@ -1321,10 +1328,10 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
 
 #### Team Overview
 
-![Team Organigramm — Markus (Product Owner) at the top, Anton (Orchestrator) below, 6 Agents on the same level: Benno, Chasperli, Donald, Egon, Fridolin, Guschti](team-organigramm.svg)
+![Team Organigramm — Markus (Product Owner) at the top, Anton (Orchestrator) below, 7 Agents on the same level: Benno, Chasperli, Donald, Egon, Fridolin, Guschti, Wilma](team-organigramm.svg)
 
 <details><summary>Inline fallback (if SVG doesn't render)</summary>
-<div style="max-width:700px; margin:1.5rem auto; font-family:'Open Sans',sans-serif;">
+<div style="max-width:780px; margin:1.5rem auto; font-family:'Open Sans',sans-serif;">
   <div style="text-align:center;">
     <div style="display:inline-block; background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; box-shadow:0 4px 15px rgba(99,102,241,0.3);">
       Markus<br><span style="font-weight:400;font-size:12px;opacity:0.85;">Product Owner</span>
@@ -1343,29 +1350,32 @@ Terminal 7: Guschti (Planner & Security) — security audits, planning
     <div style="width:3px;height:28px;background:#94a3b8;margin:0 auto;"></div>
     <div style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid #94a3b8;margin:0 auto;"></div>
   </div>
-  <div style="height:3px;background:#94a3b8;margin:0 40px;"></div>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:10px;">
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(139,92,246,0.25);">
-      Benno<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Planner</span>
+  <div style="height:3px;background:#94a3b8;margin:0 20px;"></div>
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:10px;">
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(139,92,246,0.25);">
+      Benno<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Planner</span>
     </div>
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(16,185,129,0.25);">
-      Chasperli<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 1</span>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(16,185,129,0.25);">
+      Chasperli<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Planner &amp; Sec</span>
     </div>
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(245,158,11,0.25);">
-      Donald<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 2</span>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(245,158,11,0.25);">
+      Donald<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Developer 1</span>
     </div>
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(239,68,68,0.25);">
-      Egon<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Developer 3</span>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(239,68,68,0.25);">
+      Egon<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Developer 2</span>
     </div>
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(6,182,212,0.25);">
-      Fridolin<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Quality Control</span>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(6,182,212,0.25);">
+      Fridolin<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Developer 3</span>
     </div>
-    <div style="flex:1;min-width:90px;max-width:115px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 3px 10px rgba(249,115,22,0.25);">
-      Guschti<br><span style="font-weight:400;font-size:11px;opacity:0.85;">Planner &amp; Security</span>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(249,115,22,0.25);">
+      Guschti<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Quality Control</span>
+    </div>
+    <div style="flex:1;min-width:80px;max-width:100px;background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;padding:10px 6px;border-radius:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 3px 10px rgba(236,72,153,0.25);">
+      Wilma<br><span style="font-weight:400;font-size:10px;opacity:0.85;">Expert</span>
     </div>
   </div>
   <div style="text-align:center;margin-top:14px;font-size:12px;color:#64748b;font-style:italic;">
-    Anton distributes tasks to all agents &middot; Benno plans, Developers implement &middot; Fridolin + Guschti review
+    Anton distributes tasks to all agents &middot; Benno + Chasperli plan &middot; Donald/Egon/Fridolin implement &middot; Guschti reviews &middot; Wilma consults
   </div>
 </div>
 </details>
@@ -1398,87 +1408,116 @@ Team members get fixed names in alphabetical order:
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">3rd session</td>
       <td style="padding:8px 14px;"><strong>Chasperli</strong></td>
-      <td style="padding:8px 14px;">Developer 1</td>
+      <td style="padding:8px 14px;">Planner &amp; Security</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;">4th session</td>
       <td style="padding:8px 14px;"><strong>Donald</strong></td>
-      <td style="padding:8px 14px;">Developer 2</td>
+      <td style="padding:8px 14px;">Developer 1</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">5th session</td>
       <td style="padding:8px 14px;"><strong>Egon</strong></td>
-      <td style="padding:8px 14px;">Developer 3</td>
+      <td style="padding:8px 14px;">Developer 2</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;">6th session</td>
       <td style="padding:8px 14px;"><strong>Fridolin</strong></td>
-      <td style="padding:8px 14px;">Quality Control</td>
+      <td style="padding:8px 14px;">Developer 3</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;">7th session</td>
       <td style="padding:8px 14px;"><strong>Guschti</strong></td>
-      <td style="padding:8px 14px;">Planner &amp; Security</td>
+      <td style="padding:8px 14px;">Quality Control</td>
+    </tr>
+    <tr style="background:#f1f5f9;">
+      <td style="padding:8px 14px;">8th session</td>
+      <td style="padding:8px 14px;"><strong>Wilma</strong></td>
+      <td style="padding:8px 14px;">Expert</td>
     </tr>
   </tbody>
 </table>
 
 When you open a new session, take the next available name. The first session is always the orchestrator.
 
-> **Tip:** When starting a session, just tell Claude: *"You are Benno, Developer on the team. Read status/board.md and check in."* — Claude understands this and behaves accordingly.
+> **Tip:** When starting a session, just tell Claude: *"You are Benno, Planner on the team. Read the board and check in."* — Claude understands this and behaves accordingly.
 
 ---
 
-### Coordination: The `status/` Folder
+### Coordination: The `status/` and `boards/` Folders
 
-The heart of team mode is a `status/` folder in the project root. It contains three types of files:
+The heart of team mode is centralized in the **agent-hub** repository. Status files and boards live there — not in individual project repos:
 
 ```
-project/
+agent-hub/
 ├── status/
-│   ├── board.md           ← Tasks (only orchestrator edits)
 │   ├── nachrichten.md     ← Message board (everyone can append)
 │   ├── anton.md           ← Anton's status file
 │   ├── benno.md           ← Benno's status file
 │   ├── chasperli.md       ← Chasperli's status file
 │   └── ...
+├── boards/
+│   ├── setup-guide.md     ← Tasks for setup-guide project
+│   ├── agent-hub.md       ← Tasks for agent-hub project
+│   ├── supplieronboarding.md
+│   └── ...                ← One board per project
 ```
 
-#### `board.md` — The Task List
+#### `boards/<project>.md` — The Kanban Board
 
-All tasks live here. **Only the orchestrator edits this file.** Contains:
-- Completed tasks (strikethrough)
-- Open tasks with description, scope, and affected files
-- Team rules
+Each project has its own board file in the `boards/` folder. **Only the orchestrator edits board files.** Tasks flow through 5 stages:
 
-**Example:**
+```
+Idea → Analysis → Implementation → QC → Done
+```
+
+Features use **project-prefix IDs** (e.g., `SG-F-001` for setup-guide, `SO-F-001` for supplieronboarding). Tasks within a feature use an arrow prefix (`→`).
+
+**Example (`boards/setup-guide.md`):**
 
 ```markdown
-## Completed Tasks
-- ~~Login screen role display~~ ✅
-- ~~Toast system, loading states, CSV export~~ ✅
+# Kanban — Setup Guide (SG)
 
-## Open Tasks
+### Idea
+| ID | Feature | Prio | Beschreibung |
+|----|---------|------|--------------|
+| SG-F-003 | Dark Mode | P3 | Dark mode toggle for the guide |
 
-### Feature: Multilingual Support (DE/EN)
-**Description:** All UI text should be available in German and English.
-**Affected files:** src/i18n.tsx (multilingual framework), src/locales/, all pages
-**Assigned to:** Chasperli + Benno
+### Analysis
+| ID | Feature | Prio | Zugewiesen | Beschreibung |
+|----|---------|------|------------|--------------|
+
+### Implementation
+| ID | Feature/Task | Prio | Zugewiesen | Status |
+|----|--------------|------|------------|--------|
+| SG-F-001 | Advanced Tab Update | P1 | Chasperli | |
+| → | Shared Section: Team 8 Agents | | ⬜ | |
+| → | Neue Abschnitte: CLAUDE.md, Expert Agents | | ⬜ | |
+
+### Quality Control
+| ID | Feature/Task | Zugewiesen | Status |
+|----|--------------|------------|--------|
+
+### Done
+| ID | Feature/Task | Abgeschlossen | Beschreibung |
+|----|--------------|---------------|--------------|
 ```
 
 #### `nachrichten.md` — The Message Board
 
-Team members communicate here. **Everyone can append** (add new lines), but nobody deletes other people's messages.
+Team members communicate here. **Everyone can append** (add new lines), but nobody deletes other people's messages. Uses a **5-column format** to support multi-project communication:
 
 **Example:**
 
 ```markdown
-| From | To | Message | Done |
-|------|-----|---------|------|
-| Benno | Anton | Feature X done! Please commit. | ⬜ |
-| Anton | Benno | ✅ Committed + deployed. | ✅ |
-| Chasperli | Benno | Can you help with the multilingual setup? | ⬜ |
+| From | To | Project | Message | Done |
+|------|-----|---------|---------|------|
+| Benno | Anton | setup-guide | Feature X done! Please commit. | ⬜ |
+| Anton | Benno | supplieronboarding | ✅ Committed + deployed. | ✅ |
+| Chasperli | Anton | setup-guide | Advanced Tab Update done. Committed + pushed. | ⬜ |
 ```
+
+The **Project** column identifies which project the message relates to. This is essential in a multi-project setup where agents work across different repositories.
 
 **Important rule:** Each session polls the message board regularly (~15 seconds) and responds to messages addressed to it.
 
@@ -1489,48 +1528,51 @@ Team members communicate here. **Everyone can append** (add new lines), but nobo
 <details><summary>Inline fallback (if SVG doesn't render)</summary>
 <div style="max-width:680px;margin:1.5rem auto;font-family:'Open Sans',sans-serif;">
   <div style="display:flex;align-items:stretch;gap:0;">
-    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:100px;">
-      <div style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
-        Benno<br><span style="font-size:10px;font-weight:400;">Planner</span>
+    <div style="display:flex;flex-direction:column;gap:6px;justify-content:center;min-width:95px;">
+      <div style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;padding:8px 10px;border-radius:10px 0 0 10px;font-size:11px;font-weight:600;text-align:center;">
+        Benno<br><span style="font-size:9px;font-weight:400;">Planner</span>
       </div>
-      <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
-        Chasperli<br><span style="font-size:10px;font-weight:400;">Developer 1</span>
+      <div style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;padding:8px 10px;border-radius:10px 0 0 10px;font-size:11px;font-weight:600;text-align:center;">
+        Chasperli<br><span style="font-size:9px;font-weight:400;">Planner &amp; Sec</span>
       </div>
-      <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
-        Donald<br><span style="font-size:10px;font-weight:400;">Developer 2</span>
+      <div style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:8px 10px;border-radius:10px 0 0 10px;font-size:11px;font-weight:600;text-align:center;">
+        Donald<br><span style="font-size:9px;font-weight:400;">Developer 1</span>
       </div>
-      <div style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:10px 12px;border-radius:10px 0 0 10px;font-size:12px;font-weight:600;text-align:center;">
-        Egon<br><span style="font-size:10px;font-weight:400;">Developer 3</span>
+      <div style="background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;padding:8px 10px;border-radius:10px 0 0 10px;font-size:11px;font-weight:600;text-align:center;">
+        Egon<br><span style="font-size:9px;font-weight:400;">Developer 2</span>
+      </div>
+      <div style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:8px 10px;border-radius:10px 0 0 10px;font-size:11px;font-weight:600;text-align:center;">
+        Fridolin<br><span style="font-size:9px;font-weight:400;">Developer 3</span>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;padding:0 6px;">
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+    <div style="display:flex;flex-direction:column;gap:6px;justify-content:center;padding:0 4px;">
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
     </div>
     <div style="flex:1;background:linear-gradient(180deg,#1e293b,#334155);color:#fff;padding:18px 14px;border-radius:14px;text-align:center;display:flex;flex-direction:column;justify-content:center;box-shadow:0 4px 18px rgba(30,41,59,0.35);margin:0 6px;">
       <div style="font-weight:700;font-size:15px;margin-bottom:4px;">nachrichten.md</div>
       <div style="font-size:12px;opacity:0.8;">Central Message Board</div>
       <div style="margin-top:10px;font-size:11px;opacity:0.7;border-top:1px solid rgba(255,255,255,0.15);padding-top:10px;">
-        All agents read &amp; write<br>Poll every ~15 seconds
+        All agents read &amp; write<br>5-column format (Von/An/Projekt/Nachricht/Erledigt)
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;padding:0 6px;">
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
-      <div style="color:#0091DC;font-size:20px;line-height:40px;text-align:center;">&#x27A1;&#xFE0E;</div>
+    <div style="display:flex;flex-direction:column;gap:6px;justify-content:center;padding:0 4px;">
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
+      <div style="color:#0091DC;font-size:18px;line-height:33px;text-align:center;">&#x27A1;&#xFE0E;</div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:100px;">
-      <div style="background:linear-gradient(135deg,#0091DC,#0077b6);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
-        Anton<br><span style="font-size:10px;font-weight:400;">Orchestrator</span>
+    <div style="display:flex;flex-direction:column;gap:6px;justify-content:center;min-width:95px;">
+      <div style="background:linear-gradient(135deg,#0091DC,#0077b6);color:#fff;padding:8px 10px;border-radius:0 10px 10px 0;font-size:11px;font-weight:600;text-align:center;">
+        Anton<br><span style="font-size:9px;font-weight:400;">Orchestrator</span>
       </div>
-      <div style="background:linear-gradient(135deg,#06b6d4,#0891b2);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
-        Fridolin<br><span style="font-size:10px;font-weight:400;">Quality Control</span>
+      <div style="background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:8px 10px;border-radius:0 10px 10px 0;font-size:11px;font-weight:600;text-align:center;">
+        Guschti<br><span style="font-size:9px;font-weight:400;">Quality Control</span>
       </div>
-      <div style="background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:10px 12px;border-radius:0 10px 10px 0;font-size:12px;font-weight:600;text-align:center;">
-        Guschti<br><span style="font-size:10px;font-weight:400;">Planner &amp; Security</span>
+      <div style="background:linear-gradient(135deg,#ec4899,#db2777);color:#fff;padding:8px 10px;border-radius:0 10px 10px 0;font-size:11px;font-weight:600;text-align:center;">
+        Wilma<br><span style="font-size:9px;font-weight:400;">Expert</span>
       </div>
     </div>
   </div>
@@ -1575,10 +1617,10 @@ Why not just use a single `STATUS.md`?
 
 **Solution with separate files:**
 - Everyone writes only to their own status file → **no write conflicts**
-- `board.md` is only edited by the orchestrator → **single writer**
+- `boards/<project>.md` is only edited by the orchestrator → **single writer**
 - `nachrichten.md` is append-only → **minimal conflict risk**
 
-> Think of it like a real team: Everyone has their own desk (status file), there's a whiteboard (board.md) that only the lead writes on, and a mailbox (nachrichten.md) where everyone can drop notes.
+> Think of it like a real team: Everyone has their own desk (status file), there's a whiteboard (boards/) that only the lead writes on, and a mailbox (nachrichten.md) where everyone can drop notes.
 
 ---
 
@@ -1627,11 +1669,169 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 - User preferences (e.g., language, code style)
 
 **What does NOT belong:**
-- Session-specific tasks (use `status/board.md` for that)
+- Session-specific tasks (use `boards/<project>.md` for that)
 - Temporary state
 - Duplicates of CLAUDE.md content
 
 > **Tip:** When the team discovers something important (e.g., "Prisma must be in dependencies, not devDependencies"), the orchestrator should save it in MEMORY.md — then all future sessions know it automatically.
+
+---
+
+### CLAUDE.md — Project Instructions
+
+Every project gets its own `CLAUDE.md` file in the project root. Claude Code automatically loads this file at the start of every session — it's the project's instruction manual for agents.
+
+**What belongs in CLAUDE.md:**
+- Project description and purpose
+- Tech stack (frameworks, languages, build tools)
+- Important file paths and project structure
+- Team conventions (naming, commit format, language)
+- Build and test commands
+
+**Example (from a real project):**
+
+```markdown
+# CLAUDE.md — Setup Guide
+
+## Projekt
+Interactive Setup Guide for Multi-Agent Development with Claude Code.
+
+## Tech Stack
+- **Static Site:** Jekyll + Cayman Theme + GitHub Pages
+- **Content:** Markdown + inline HTML/CSS + SVG diagrams
+- **URL:** https://example.github.io/setup-guide/
+
+## Important Files
+index.md          — All content (tabs, sub-tabs, sections)
+_layouts/default.html — Layout template
+assets/           — Images (screenshots, diagrams)
+_config.yml       — Jekyll config
+
+## Conventions
+- **Language:** English
+- **Styling:** Inline HTML/CSS in Markdown
+- **Commits:** feat: / fix: + description
+```
+
+**CLAUDE.md vs MEMORY.md:**
+- `CLAUDE.md` = **project-level** instructions, checked into the repo, shared with all agents
+- `MEMORY.md` = **agent-level** auto-memory, stored in `.claude/`, personal learnings
+
+---
+
+### Expert Agents
+
+For specialized domain knowledge (legal, security, architecture, procurement), the team uses **Expert Agents**. Instead of a developer guessing about compliance rules or database architecture, an expert agent provides a structured assessment.
+
+#### How it Works
+
+1. Anton sends a message using the `Expert:DOMAIN` pattern:
+   ```markdown
+   | Anton | Wilma | setup-guide | Expert:security — Review the authentication flow for OWASP Top 10 compliance. | ⬜ |
+   ```
+2. The orchestrator detects the `Expert:` prefix and loads the matching template from `experts/security.md`
+3. Wilma (the Expert agent) analyzes the topic and writes a structured assessment
+4. The assessment is saved to `experts/outputs/` for the team to reference
+
+#### Expert Templates
+
+Templates live in the `experts/` folder with YAML frontmatter:
+
+```markdown
+---
+name: "Security Expert"
+domain: "security"
+keywords: ["owasp", "vulnerability", "authentication"]
+description: "Security audits and vulnerability assessments"
+max_budget_usd: 0.50
+---
+
+# Expert: Security
+
+## Role
+You are an experienced security expert. You are consulted for
+specific security questions and deliver a written assessment.
+
+## Knowledge Areas
+- OWASP Top 10
+- Authentication & Authorization
+- Input Validation & Sanitization
+
+## Response Rules
+1. Structured response with clear headings
+2. Practical recommendations, not theoretical essays
+3. Stay within your domain
+4. Reference provided context files
+5. Flag risks and compliance requirements
+6. Markdown format, no code changes — advisory only
+```
+
+Available expert domains include: `security`, `legal`, `react`, `sap`, `procurement`, `ui-ux`, `enterprise-architecture`, and `prisma`.
+
+---
+
+### Multi-Project Architecture
+
+The agent-hub is designed to manage **multiple projects** from a single hub. The orchestrator, status files, and boards all live in the `agent-hub` repository, while project code lives in separate repos.
+
+#### config.json — The Project Registry
+
+The `config.json` in agent-hub defines all managed projects:
+
+```json
+{
+  "projects": [
+    { "name": "agent-hub",           "short": "AH", "prefix": "AH", "path": "..." },
+    { "name": "supplieronboarding",  "short": "SO", "prefix": "SO", "path": "..." },
+    { "name": "setup-guide",         "short": "SG", "prefix": "SG", "path": "..." },
+    { "name": "react-ui-library",    "short": "RU", "prefix": "RU", "path": "..." },
+    { "name": "inafit",              "short": "IF", "prefix": "IF", "path": "..." },
+    { "name": "backline",            "short": "BL", "prefix": "BL", "path": "..." }
+  ],
+  "team": {
+    "Anton": "Orchestrator",
+    "Benno": "Planner",
+    "Chasperli": "Planner & Security",
+    "Donald": "Developer",
+    "Egon": "Developer",
+    "Fridolin": "Developer",
+    "Guschti": "Quality Control",
+    "Wilma": "Expert"
+  },
+  "experts": {
+    "dir": "experts",
+    "outputDir": "experts/outputs",
+    "defaultBudget": 0.50
+  }
+}
+```
+
+#### Hub-and-Spoke Model
+
+```
+                    ┌──────────────┐
+                    │  agent-hub   │
+                    │              │
+                    │  status/     │  ← Central coordination
+                    │  boards/     │  ← One board per project
+                    │  experts/    │  ← Expert templates
+                    │  config.json │  ← Project registry
+                    └──────┬───────┘
+                           │
+          ┌────────┬───────┼───────┬────────┬────────┐
+          ▼        ▼       ▼       ▼        ▼        ▼
+       ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
+       │ AH  │ │ SO  │ │ SG  │ │ RU  │ │ IF  │ │ BL  │
+       └─────┘ └─────┘ └─────┘ └─────┘ └─────┘ └─────┘
+       agent-  supplier setup-  react-  inafit  backline
+       hub     onboard. guide   ui-lib
+```
+
+**Key principles:**
+- **One board per project** — `boards/setup-guide.md`, `boards/agent-hub.md`, etc.
+- **Project-prefix IDs** — `SG-F-001`, `SO-F-002` to avoid collisions across projects
+- **Central status/** — All agent status files and nachrichten.md live in agent-hub
+- **Agents work across projects** — A developer can work on setup-guide in one task and supplieronboarding in the next
 
 ---
 
@@ -1651,21 +1851,21 @@ Claude Code has an **auto-memory** feature: Important findings are stored in `ME
 │  ③ Benno → Anton              │                           │     │
 │     Detailed plan ◀───────────┘                           │     │
 │                                                           │     │
-│  ④ Anton creates tasks in board.md                        │     │
-│     ├── Task A → Chasperli                                │     │
-│     ├── Task B → Donald                                   │     │
-│     └── Task C → Egon                                     │     │
+│  ④ Anton creates tasks in boards/<project>.md             │     │
+│     ├── Task A → Donald                                   │     │
+│     ├── Task B → Egon                                     │     │
+│     └── Task C → Fridolin                                 │     │
 │                    │         │         │                   │     │
 │  ⑤ Developers     ▼         ▼         ▼    (parallel!)   │     │
 │     implement + commit + push                             │     │
 │                    │         │         │                   │     │
-│  ⑥ Anton → Fridolin ◀───────┴─────────┘                  │     │
+│  ⑥ Anton → Guschti ◀────────┴─────────┘                  │     │
 │     "Quality check please"                                     │     │
 │                    │                                       │     │
-│  ⑦ Fridolin → Anton                                      │     │
+│  ⑦ Guschti → Anton                                       │     │
 │     Quality report (OK or issues)                              │     │
 │                    │                                       │     │
-│  ⑧ Anton → Guschti (planning or security audit)           │     │
+│  ⑧ Anton → Chasperli (planning or security audit)         │     │
 │     Flex: analysis/planning or security review            │     │
 │                    │                                       │     │
 │  ⑨ Anton deploys to production ◀──────────────────────────┘     │
@@ -1698,42 +1898,42 @@ Here's a typical flow with three sessions:
 ```
 Terminal 1:
 > claude --dangerously-skip-permissions
-> "You are Anton, the Orchestrator. Read status/board.md and distribute the open tasks."
+> "You are Anton, the Orchestrator. Read the board and distribute the open tasks."
 ```
 
 Anton reads the task list, checks which developers are online, and distributes tasks via `nachrichten.md`:
 
 ```markdown
-| Anton | Benno | Please do the responsive bugfixes. Details in board.md. | ⬜ |
-| Anton | Chasperli | Please set up the multilingual framework. Details in board.md. | ⬜ |
+| Anton | Donald | setup-guide | Please do the responsive bugfixes. | ⬜ |
+| Anton | Egon | setup-guide | Please set up the multilingual framework. | ⬜ |
 ```
 
-**2. Developer (Benno) checks in and works**
+**2. Developer (Donald) checks in and works**
 
 ```
 Terminal 2:
 > claude --dangerously-skip-permissions
-> "You are Benno, Developer. Read status/board.md and nachrichten.md."
+> "You are Donald, Developer. Read the board and nachrichten.md."
 ```
 
-Benno sees his task, updates `status/benno.md`, and starts working. He polls `nachrichten.md` regularly for new instructions.
+Donald sees his task, updates `status/donald.md`, and starts working. He polls `nachrichten.md` regularly for new instructions.
 
-**3. Developer (Chasperli) works in parallel**
+**3. Developer (Egon) works in parallel**
 
 ```
 Terminal 3:
 > claude --dangerously-skip-permissions
-> "You are Chasperli, Developer. Read status/board.md and nachrichten.md."
+> "You are Egon, Developer. Read the board and nachrichten.md."
 ```
 
-Chasperli works on a different feature at the same time — no conflict because they work on different files (listed in status files).
+Egon works on a different feature at the same time — no conflict because they work on different files (listed in status files).
 
-**4. Benno finishes**
+**4. Donald finishes**
 
-Benno writes in `nachrichten.md`:
+Donald writes in `nachrichten.md`:
 
 ```markdown
-| Benno | Anton | Responsive bugfixes done! Changed files: src/index.css, SupplierDetail.tsx. Please commit. | ⬜ |
+| Donald | Anton | setup-guide | Responsive bugfixes done! Changed files: src/index.css, SupplierDetail.tsx. Please commit. | ⬜ |
 ```
 
 **5. Anton commits**
@@ -1742,10 +1942,10 @@ Anton reads the message, reviews the changes, and commits:
 
 ```
 Terminal 1:
-> "Commit Benno's responsive bugfixes and deploy."
+> "Commit Donald's responsive bugfixes and deploy."
 ```
 
-Anton marks the message as done (✅) and the task in `board.md` as completed.
+Anton marks the message as done (✅) and the task in `boards/setup-guide.md` as completed.
 
 **6. Next round**
 
@@ -1755,34 +1955,36 @@ Anton distributes the next task, or Benno asks: *"What's next?"*
 
 ### Quick Start Checklist
 
-Here's how to set up team mode in your project:
+Here's how to set up team mode:
 
-1. **Create the folder:**
+1. **Create the folders** (in your agent-hub repo):
    ```bash
-   mkdir status
+   mkdir status boards
    ```
 
-2. **Create `status/board.md`** with a task template:
+2. **Create `boards/<project>.md`** with a Kanban template:
    ```markdown
-   # Tasks & Rules
+   # Kanban — My Project (MP)
 
-   > **Only the Orchestrator edits this file.**
+   ### Idea
+   | ID | Feature | Prio | Beschreibung |
+   |----|---------|------|--------------|
 
-   ## Team
-   | Name | Role |
-   |------|------|
-   | Anton | Orchestrator |
-   | Benno | Developer |
-   | Chasperli | Developer |
+   ### Analysis
+   | ID | Feature | Prio | Zugewiesen | Beschreibung |
+   |----|---------|------|------------|--------------|
 
-   ## Open Tasks
-   (add tasks here)
+   ### Implementation
+   | ID | Feature/Task | Prio | Zugewiesen | Status |
+   |----|--------------|------|------------|--------|
 
-   ## Rules
-   - Status: Everyone writes ONLY to their own file
-   - Commits/Push: Only through the orchestrator
-   - Messages: Poll the message board every ~15 sec
-   - Timeout: 15 min without activity → offline
+   ### Quality Control
+   | ID | Feature/Task | Zugewiesen | Status |
+   |----|--------------|------------|--------|
+
+   ### Done
+   | ID | Feature/Task | Abgeschlossen | Beschreibung |
+   |----|--------------|---------------|--------------|
    ```
 
 3. **Create `status/nachrichten.md`:**
@@ -1791,8 +1993,8 @@ Here's how to set up team mode in your project:
 
    > Everyone can append here. Newest message at the bottom.
 
-   | From | To | Message | Done |
-   |------|-----|---------|------|
+   | From | To | Project | Message | Done |
+   |------|-----|---------|---------|------|
    ```
 
 4. **Start the first session** (Orchestrator):
@@ -1809,7 +2011,7 @@ Here's how to set up team mode in your project:
    claude --dangerously-skip-permissions
    ```
    ```
-   > You are Benno, Developer. Read status/board.md and check in.
+   > You are Donald, Developer. Read the board and check in.
    ```
 
 6. **Distribute tasks** and get going!
@@ -1895,8 +2097,8 @@ Agent writes result to nachrichten.md → goes offline
 
 - **Node.js** installed (v18+)
 - **Claude Code** installed and authenticated (`claude --version`)
-- The `status/` folder set up as described above
-- The orchestrator script in your project (e.g., `scripts/orchestrator.cjs`)
+- The `status/` folder set up in **agent-hub** as described above
+- The orchestrator script (`orchestrator.cjs` in the agent-hub root)
 
 
 ---
@@ -2012,8 +2214,8 @@ Long prompts with special characters (`|`, `!`, `"`, newlines) break when passed
 If your project uses `"type": "module"` in `package.json`, Node.js treats all `.js` files as ES Modules (the modern JavaScript module system using `import`/`export`). The orchestrator uses `require()` (the older CommonJS module system), so it must have a `.cjs` extension to tell Node.js it uses the older format:
 
 ```
-scripts/orchestrator.cjs  ← works
-scripts/orchestrator.js   ← fails with "require is not defined"
+orchestrator.cjs  ← works (in agent-hub root)
+orchestrator.js   ← fails with "require is not defined"
 ```
 
 **4. Agents must update their status files regularly**
@@ -2022,10 +2224,10 @@ Every agent should update `status/<name>.md` after each major step — not just 
 
 **5. Monitoring Dashboard on Port 3002**
 
-A companion script (`scripts/dashboard.cjs`) runs an Express server on port 3002 that reads the `status/` folder and displays a live dashboard: who's online, what they're working on, recent messages. Auto-refreshes every 5 seconds.
+A companion script (`scripts/dashboard.cjs` in agent-hub) runs an Express server on port 3002 that reads the `status/` and `boards/` folders and displays a live dashboard: who's online, what they're working on, recent messages, and Kanban boards for all projects. Auto-refreshes every 5 seconds.
 
 ```bash
-node scripts/dashboard.cjs
+node scripts/dashboard.cjs   # run from agent-hub directory
 # Open http://localhost:3002
 ```
 
@@ -2045,11 +2247,11 @@ The orchestrator sends different instructions based on the agent's role:
   <tbody>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;"><strong>Planner</strong></td>
-      <td style="padding:8px 14px;">Read board.md, analyze affected files, create implementation plan, do NOT change code</td>
+      <td style="padding:8px 14px;">Read the project board, analyze affected files, create implementation plan, do NOT change code</td>
     </tr>
     <tr style="background:#f1f5f9;">
       <td style="padding:8px 14px;"><strong>Developer</strong></td>
-      <td style="padding:8px 14px;">Read board.md, implement the task, commit + push, report to orchestrator</td>
+      <td style="padding:8px 14px;">Read the project board, implement the task, commit + push, report to orchestrator</td>
     </tr>
     <tr style="background:#f8fafc;">
       <td style="padding:8px 14px;"><strong>Quality Control</strong></td>
@@ -2082,8 +2284,8 @@ In addition to polling, the script uses a **file watcher** on `nachrichten.md` f
 ### Running the Orchestrator
 
 ```bash
-# Start the orchestrator
-node scripts/orchestrator.cjs
+# Start the orchestrator (from agent-hub directory)
+node orchestrator.cjs
 ```
 
 You'll see a startup banner:
@@ -2098,7 +2300,7 @@ You'll see a startup banner:
 ║   F: Fridolin (Quality)  G: Guschti (Plan & Security)     ║
 ╚═══════════════════════════════════════════════════════════╝
 
-Waiting for tasks in status/nachrichten.md...
+Waiting for tasks in nachrichten.md...
 ```
 
 The script runs indefinitely. It marks existing messages as "already processed" on startup (so it doesn't re-run old tasks). New messages trigger agent spawning.
@@ -2112,7 +2314,7 @@ Stop it with `Ctrl+C` — it will gracefully terminate all running agents.
 To assign a task, add a line to `nachrichten.md`:
 
 ```markdown
-| Anton | Benno | Analyze the SupplierDetail page and plan the edit feature. Details in board.md. | ⬜ |
+| Anton | Benno | supplieronboarding | Analyze the SupplierDetail page and plan the edit feature. | ⬜ |
 ```
 
 The orchestrator picks this up within seconds and spawns a Benno session. The `⬜` marker indicates an unprocessed message.
@@ -2125,7 +2327,7 @@ The orchestrator picks this up within seconds and spawns a Benno session. The `�
 
 - **From** must be `Anton` (the orchestrator only reacts to messages from Anton)
 - **To** must be an agent name from the roster (Benno, Chasperli, Donald, Egon, Fridolin, Guschti)
-- **Task** should be clear and self-contained — the agent sees only this plus board.md
+- **Task** should be clear and self-contained — the agent sees only this plus the project board
 
 ---
 
@@ -2138,9 +2340,9 @@ Each spawned agent follows this lifecycle:
   │                  Agent Lifecycle                           │
   ├───────────────────────────────────────────────────────────┤
   │                                                           │
-  │   ┌─────────┐    Read board.md     ┌──────────┐          │
+  │   ┌─────────┐    Read board +       ┌──────────┐          │
   │   │  START   │───────────────────▶│ CHECK IN  │          │
-  │   └─────────┘    + nachrichten.md  │ (online)  │          │
+  │   └─────────┘    nachrichten.md    │ (online)  │          │
   │                                    └─────┬─────┘          │
   │                                          │                │
   │                                          ▼                │
@@ -2173,7 +2375,7 @@ The orchestrator shows live output (both regular output and error messages) from
 
 ```
 🚀 Benno startet: Analyze the SupplierDetail page...
-   [Benno] Reading status/board.md...
+   [Benno] Reading project board...
    [Benno] Analyzing SupplierDetail.tsx...
    [Benno] Writing implementation plan...
 ✅ Benno fertig (completed successfully)
@@ -2246,32 +2448,33 @@ The dashboard auto-refreshes every 5 seconds by fetching new data and updating t
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│  Your Setup — 3 Terminals                                      │
+│  Your Setup — 3 Terminals (all in agent-hub directory)         │
 ├────────────────────┬────────────────────┬──────────────────────┤
 │  Terminal 1        │  Terminal 2        │  Terminal 3          │
 │                    │                    │  (optional)          │
-│  claude            │  node scripts/    │  node scripts/       │
-│  (Anton -          │  orchestrator.cjs │  dashboard.cjs       │
+│  claude            │  node              │  node scripts/       │
+│  (Anton -          │  orchestrator.cjs  │  dashboard.cjs       │
 │   interactive)     │  (auto-spawns     │  (monitoring on      │
-│                    │   agents)         │   port 3002)         │
-│  You talk to       │  Watches          │  Shows who's         │
-│  Anton, he writes  │  nachrichten.md   │  online, current     │
-│  tasks to          │  and spawns new   │  tasks, messages     │
-│  nachrichten.md    │  claude sessions  │                      │
+│                    │   agents across   │   port 3002)         │
+│  You talk to       │   all projects)   │  Shows who's         │
+│  Anton, he writes  │  Watches          │  online, current     │
+│  tasks to          │  nachrichten.md   │  tasks, Kanban       │
+│  nachrichten.md    │  and spawns new   │  boards for all      │
+│                    │  claude sessions  │  projects             │
 └────────────────────┴────────────────────┴──────────────────────┘
 ```
 
-1. **Set up the `status/` folder** as described above (board.md, nachrichten.md)
+1. **Set up agent-hub** with `status/` folder (nachrichten.md, agent status files) and `boards/` folder (one board per project)
 
-2. **Create the orchestrator script** at `scripts/orchestrator.cjs`:
+2. **The orchestrator script** is `orchestrator.cjs` in the agent-hub root:
    ```bash
-   # Copy from a reference project or write your own
-   # Key: parse nachrichten.md, spawn claude -p, pipe prompt via stdin
+   # It parses nachrichten.md, spawns claude -p, pipes prompt via stdin
+   # Agents are spawned in the target project's directory (from config.json)
    ```
 
 3. **Start the orchestrator:**
    ```bash
-   node scripts/orchestrator.cjs
+   node orchestrator.cjs
    ```
 
 4. **Start the interactive Anton session** (in a separate terminal):
@@ -2285,10 +2488,10 @@ The dashboard auto-refreshes every 5 seconds by fetching new data and updating t
 
 5. **Write a task** in nachrichten.md (or ask Anton to do it):
    ```markdown
-   | Anton | Chasperli | Fix the responsive layout on the login page. Details in board.md. | ⬜ |
+   | Anton | Donald | setup-guide | Fix the responsive layout on the login page. | ⬜ |
    ```
 
-6. **Watch the orchestrator** spawn Chasperli and process the task.
+6. **Watch the orchestrator** spawn Donald in the setup-guide project directory and process the task.
 
 7. **Optionally start the dashboard** for monitoring:
    ```bash
@@ -2302,21 +2505,21 @@ The dashboard auto-refreshes every 5 seconds by fetching new data and updating t
 
 ### Lessons Learned
 
-Real-world experience from running a 7-agent team on a production project. These are patterns and pitfalls we discovered the hard way.
+Real-world experience from running an 8-agent team on multiple production projects. These are patterns and pitfalls we discovered the hard way.
 
-#### 1. Spawn agents via nachrichten.md, not board.md
+#### 1. Spawn agents via nachrichten.md, not boards/
 
-The orchestrator script watches `nachrichten.md` for new messages from Anton to an agent name (marked with ⬜). It does **not** watch `board.md`. If you write a task only in `board.md`, no agent will be spawned. The correct workflow:
-1. Write the task description in `board.md` (for tracking)
+The orchestrator script watches `nachrichten.md` for new messages from Anton to an agent name (marked with ⬜). It does **not** watch the board files. If you write a task only in `boards/<project>.md`, no agent will be spawned. The correct workflow:
+1. Write the task description in `boards/<project>.md` (for tracking)
 2. Write a message in `nachrichten.md` addressed to an agent name (this triggers the spawn)
 
 #### 2. Assign tasks by role, not by name
 
 Agents are short-lived — a "Chasperli" session that finishes its task goes offline, and the next available session gets a new name. Don't address tasks to "Chasperli" specifically. Instead, write the task for the **role** (e.g., "first available Developer") and let the orchestrator assign it to whoever comes online next.
 
-#### 3. Clean up board.md before adding new tasks
+#### 3. Clean up boards before adding new tasks
 
-Move completed tasks to the "Erledigte Aufträge" (completed) section before writing new ones. A cluttered board with old tasks causes confusion — agents may pick up already-finished work or duplicates. Keep the "Offene Aufträge" section small and current.
+Move completed features to the "Done" column before writing new ones. A cluttered board with old tasks causes confusion — agents may pick up already-finished work or duplicates. Keep the "Implementation" column small and current.
 
 #### 4. Short-lived agents need real-time monitoring
 
